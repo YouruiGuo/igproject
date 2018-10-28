@@ -1,0 +1,20 @@
+<!--
+This is your default homepage.
+For more information, see:
+• https://sailsjs.com/documentation/concepts/views
+• https://sailsjs.com/documentation/concepts/routes
+-->
+
+
+<div class="default-page">
+
+  <div class="main container clearfix">
+    <input id="files"
+       type="file"
+       name="files[]"
+       accept="audio/*"
+       multiple onchange="handleFilesSelect(this)" />
+    <form action="userAudio" method="get"></form>
+
+  </div>
+</div>

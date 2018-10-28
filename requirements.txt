@@ -1,0 +1,40 @@
+
+play track with name displayed 
+zone: first walk in to the zone, start playing
+ambient/drone: background sound, cross fade out the ambient sound, loop
+triggered: place to trigger 1/x^2, loop
+			certain distance 
+		time-> certain time of the day, no loop 
+			call to pray.
+				played daily, weekly, monthly, yearly
+
+localization: wifi, gps, orientation.
+
+try to mix tracks
+
+download the song from the browser??
+
+video-> outside of the song, pause the song.
+
+mute/solo: one track,
+		information of the track
+
+intro track for each valley: stop other song, stop options for seeing other things, show the image/info for that track.
+	not playing the valley again if you go back to the valley again.
+Mark the valley you're in 
+
+check the images in server.
+
+adapter: ffnpeg
+compress the media.
+
+UI Design: 
+
+
+check the images/info/songs in server, is it possible to download the songs from server to the browser, is it possible to mix tracks on server end without crashing it.
+
+
+
+
+
+
