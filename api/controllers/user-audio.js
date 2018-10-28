@@ -9,12 +9,17 @@ module.exports = {
   inputs: {
 
   },
+  exits: {
+    success: {
+      viewTemplatePath: 'pages/homepage'
+    }
+  },
 
   fn: async function (inputs, exits) {
 
 
-    var coords = await sails.helpers.getLocation();
-    sails.log(coords);
+    //var coords = await sails.helpers.getLocation();
+
     return exits.success();
   }
 

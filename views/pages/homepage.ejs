@@ -5,16 +5,22 @@ For more information, see:
 • https://sailsjs.com/documentation/concepts/routes
 -->
 
-
-<div class="default-page">
-
-  <div class="main container clearfix">
-    <input id="files"
-       type="file"
-       name="files[]"
-       accept="audio/*"
-       multiple onchange="handleFilesSelect(this)" />
-    <form action="userAudio" method="get"></form>
-
+  <div id="map">
   </div>
-</div>
+<!--  <div class="main container clearfix">
+    <input id="files"
+           type="file"
+           name="files[]"
+           accept="audio/*"
+           multiple onchange="handleFilesSelect(this)" />
+    <button id="button" type="submit" onclick="getLocation()"> OK </button>
+    <div id = "play"></div> -->
+
+<script src="js/getlocation.js"></script>
+<script src="js/fetchtracks.js"></script>
+<script src="js/mixtrack.js"></script>
+
+
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbWz128iTCfINrC_DIE2GxR9D6yChszaE&callback=initMap">
+    </script>
