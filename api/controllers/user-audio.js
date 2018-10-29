@@ -7,17 +7,17 @@ module.exports = {
   description: "play audio for user",
 
   inputs: {
-
+    valleypos: {
+      type: 'string'
+    }
   },
   exits: {
-    success: {
-      viewTemplatePath: 'pages/homepage'
-    }
+
   },
 
   fn: async function (inputs, exits) {
 
-
+    sails.log(inputs.valleypos);
     //var coords = await sails.helpers.getLocation();
 
     return exits.success();
