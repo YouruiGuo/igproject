@@ -1,8 +1,25 @@
 
 function handleFilesSelect(input) {
 
+  var getFileBlob = function (url, cb) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+    xhr.responseType = "blob";
+    xhr.addEventListener('load', function() {
+        cb(xhr.response);
+    });
+    xhr.send();
+  };
+
+
   //div.innerHTML = "loading audio tracks.. please wait";
-  var files = Array.from(input.files);
+  var files;
+  for (var i = 0; i < input.length; i++) {
+    getFileBlob(input[i], function (fileObject) {
+      console.log(fileObject);
+    });
+    //console.log(files);
+  }
   var chunks = [];
   var channels = [
     [0, 1],
@@ -22,8 +39,8 @@ function handleFilesSelect(input) {
   player.controls = "controls";
 
   function get(file) {
-    description += file.name.replace(/\..*|\s+/g, "");
-    console.log(description);
+    //description += file.name.replace(/\..*|\s+/g, "");
+    //console.log(description);
     return new Promise(function(resolve, reject) {
       var reader = new FileReader;
       reader.readAsArrayBuffer(file);
@@ -62,7 +79,7 @@ function handleFilesSelect(input) {
             node.start(0)
           });
 
-          div.innerHTML = "playing and recording tracks..";
+          //div.innerHTML = "playing and recording tracks..";
 
           stopMix(duration, ...audionodes, recorder);
 

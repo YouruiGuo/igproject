@@ -14,8 +14,12 @@ function track(valley_pos) {
   .catch(function (error) {
     console.log(' Request failed', error);
   });
-
+  var paths = [];
   p.then(data => {
+    for (var i = 0; i < data.length; i++) {
+      paths.push(data[i].filePath);
+      handleFilesSelect(paths);
+    }
     //console.log(data);
   });
 }
