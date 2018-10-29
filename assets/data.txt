@@ -1,0 +1,2 @@
+INSERT INTO ig (musicID, filePath, longitude, latitude)
+VALUES (value1, value2, value3, ...);
