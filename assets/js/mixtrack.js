@@ -1,25 +1,7 @@
-
-function handleFilesSelect(input) {
-
-  var getFileBlob = function (url, cb) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", url);
-    xhr.responseType = "blob";
-    xhr.addEventListener('load', function() {
-        cb(xhr.response);
-    });
-    xhr.send();
-  };
-
+function handleFilesSelect(input){
 
   //div.innerHTML = "loading audio tracks.. please wait";
   var files;
-  for (var i = 0; i < input.length; i++) {
-    getFileBlob(input[i], function (fileObject) {
-      console.log(fileObject);
-    });
-    //console.log(files);
-  }
   var chunks = [];
   var channels = [
     [0, 1],
@@ -38,17 +20,30 @@ function handleFilesSelect(input) {
 
   player.controls = "controls";
 
-  function get(file) {
-    //description += file.name.replace(/\..*|\s+/g, "");
-    //console.log(description);
-    return new Promise(function(resolve, reject) {
-      var reader = new FileReader;
-      reader.readAsArrayBuffer(file);
-      reader.onload = function() {
-        resolve(reader.result)
-      }
-    })
+  var getFileBlob = function (url, cb) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+    xhr.responseType = "blob";
+    xhr.addEventListener('load', function() {
+        cb(xhr.response);
+    });
+    xhr.send();
+  };
+
+  function get(input) {
+    console.log(input);
+      getFileBlob(input, function (fileObject) {
+        console.log(fileObject);
+        return new Promise(function(resolve, reject) {
+          var reader = new FileReader;
+          reader.readAsArrayBuffer(fileObject);
+          reader.onload = function() {
+            resolve(reader.result)
+          }
+        })
+      });
   }
+
 
   function stopMix(duration, ...media) {
     setTimeout(function(media) {
@@ -58,49 +53,48 @@ function handleFilesSelect(input) {
     }, duration, media)
   }
 
-  Promise.all(files.map(get)).then(function(data) {
-      return Promise.all(data.map(function(buffer, index) {
-          return audio.decodeAudioData(buffer)
-            .then(function(bufferSource) {
-              var channel = channels[index];
-              var source = audio.createBufferSource();
-              source.buffer = bufferSource;
-              source.connect(splitter);
-              splitter.connect(merger, channel[0], channel[1]);
-              return source
-            })
-        }))
-        .then(function(audionodes) {
-          merger.connect(mixedAudio);
-          merger.connect(audio.destination);
-          recorder = new MediaRecorder(mixedAudio.stream);
-          recorder.start(0);
-          audionodes.forEach(function(node, index) {
-            node.start(0)
-          });
-
-          //div.innerHTML = "playing and recording tracks..";
-
-          stopMix(duration, ...audionodes, recorder);
-
-          recorder.ondataavailable = function(event) {
-            chunks.push(event.data);
-          };
-
-          recorder.onstop = function(event) {
-            var blob = new Blob(chunks, {
-              "type": "audio/ogg; codecs=opus"
-            });
-            audioDownload = URL.createObjectURL(blob);
-            var a = document.createElement("a");
-            a.download = description + "." + blob.type.replace(/.+\/|;.+/g, "");
-            a.href = audioDownload;
-            a.innerHTML = a.download;
-            player.src = audioDownload;
-            document.body.appendChild(a);
-            document.body.appendChild(player);
-          };
+  Promise.all(input.map(get)).then(function(data) {
+    return Promise.all(data.map(function(buffer, index) {
+      return audio.decodeAudioData(buffer)
+        .then(function(bufferSource) {
+          var channel = channels[index];
+          var source = audio.createBufferSource();
+          source.buffer = bufferSource;
+          source.connect(splitter);
+          splitter.connect(merger, channel[0], channel[1]);
+          return source
         })
+      }))
+      .then(function(audionodes) {
+        merger.connect(mixedAudio);
+        merger.connect(audio.destination);
+        recorder = new MediaRecorder(mixedAudio.stream);
+        recorder.start(0);
+        audionodes.forEach(function(node, index) {
+          node.start(0)
+        });
+
+
+        stopMix(duration, ...audionodes, recorder);
+
+        recorder.ondataavailable = function(event) {
+          chunks.push(event.data);
+        };
+
+        recorder.onstop = function(event) {
+          var blob = new Blob(chunks, {
+            "type": "audio/ogg; codecs=opus"
+          });
+          audioDownload = URL.createObjectURL(blob);
+          var a = document.createElement("a");
+          a.download = description + "." + blob.type.replace(/.+\/|;.+/g, "");
+          a.href = audioDownload;
+          a.innerHTML = a.download;
+          player.src = audioDownload;
+          document.body.appendChild(a);
+          document.body.appendChild(player);
+        };
+      })
     })
     .catch(function(e) {
       console.log(e)

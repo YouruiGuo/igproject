@@ -115,7 +115,7 @@ function findValley (pos) {
 function initMap() {
   var map, infoWindow;
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
+    center: {lat: 53.527050, lng: -113.525744},
     zoom: 16
   });
 
@@ -130,7 +130,6 @@ function initMap() {
         lat: 53.527050,
         lng: -113.525744
       };
-
       infoWindow.setPosition(pos);
       infoWindow.open(map);
       map.setCenter(pos);
