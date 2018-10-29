@@ -17,9 +17,7 @@ module.exports = {
 
   fn: async function (inputs, exits) {
 
-
-    //var coords = await sails.helpers.getLocation();
-
+    
     return exits.success();
   }
 
