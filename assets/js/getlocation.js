@@ -106,13 +106,23 @@ function findValley (pos) {
   return val;
 }
 
+function initMap() {
+  navigator.permissions.query({name:'geolocation'}).then(function(result) {
+    if (result.state === 'granted') {
+      showMap();
+    } else if (result.state === 'prompt') {
+      
+    }
+    // Don't do anything if the permission was denied.
+  });
+}
 
 // Note: This example requires that you consent to location sharing when
 // prompted by your browser. If you see the error "The Geolocation service
 // failed.", it means you probably did not give permission for the browser to
 // locate you.
 
-function initMap() {
+function showMap() {
   var map, infoWindow;
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 53.527050, lng: -113.525744},
@@ -121,6 +131,7 @@ function initMap() {
 
   infoWindow = new google.maps.InfoWindow;
   var pos;
+
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
