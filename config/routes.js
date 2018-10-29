@@ -24,7 +24,10 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  'GET /': {
+  '/': {
+    view: 'pages/homepage'
+  },
+  'POST /audio': {
     action: 'user-audio'
   },
 

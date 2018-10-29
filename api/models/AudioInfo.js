@@ -16,7 +16,7 @@ module.exports = {
       type: 'string',
     },
 
-    longtitude: {
+    longitude: {
       type: 'number',
     },
 
