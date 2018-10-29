@@ -1,3 +1,28 @@
+var numValleys = 3;
+var coords = [
+ [
+   {lat: 53.527863, lng: -113.526269}, // top left
+   {lat: 53.527866, lng: -113.525153}, // top right
+   {lat: 53.526725, lng: -113.525073}, // timhortons
+   {lat: 53.526709, lng: -113.526262}, // athabasca
+   {lat: 53.527863, lng: -113.526269}, // top left
+ ],
+ [
+   {lat: 53.526709, lng: -113.526262}, // athabasca
+   {lat: 53.526725, lng: -113.525073}, // timhortons
+   {lat: 53.526201, lng: -113.524993}, // middle right
+   {lat: 53.526315, lng: -113.526254}, // middle left
+   {lat: 53.526709, lng: -113.526262}, // athabasca
+ ],
+ [
+   {lat: 53.526315, lng: -113.526254}, // middle left
+   {lat: 53.526201, lng: -113.524993}, // middle right
+   {lat: 53.525485, lng: -113.525020}, // bottom right
+   {lat: 53.525477, lng: -113.526248}, // bottom left
+   {lat: 53.526315, lng: -113.526254}, // middle left
+ ]
+];
+var user_position; // which valley the user is at.
 
 function CenterControl(controlDiv, map) {
 
@@ -31,6 +56,56 @@ function CenterControl(controlDiv, map) {
 
 }
 
+// get polygons according to coords.
+function drawPolygons() {
+  // Construct the polygon.
+  v = [];
+  for (var i = 0; i < numValleys; i++) {
+    v[i] = new google.maps.Polygon({
+      paths: coords[i],
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 3,
+      fillColor: '#FF0000',
+      fillOpacity: 0.35
+    });
+  }
+  return v;
+}
+
+// check if the point is inside polygon.
+// https://stackoverflow.com/questions/22521982/check-if-point-inside-a-polygon
+function inside(point, vs) {
+  // ray-casting algorithm based on
+  // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
+
+  var x = point.lat, y = point.lng;
+
+  var inside = false;
+  for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+    var xi = vs[i].lat, yi = vs[i].lng;
+    var xj = vs[j].lat, yj = vs[j].lng;
+
+    var intersect = ((yi > y) != (yj > y))
+        && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+    if (intersect) inside = !inside;
+  }
+  return inside;
+};
+
+function findValley (pos) {
+  val = -1;
+  for (var i = 0; i < numValleys; i++) {
+    vs = coords[i];
+    ret = inside(pos, vs);
+    if (ret) {
+      val = i;
+      break;
+    }
+  }
+  return val;
+}
+
 
 // Note: This example requires that you consent to location sharing when
 // prompted by your browser. If you see the error "The Geolocation service
@@ -58,18 +133,33 @@ function initMap() {
       infoWindow.open(map);
       map.setCenter(pos);
 
+      // Find out which valley user is at.
+      user_position = findValley(pos);
+      // fetch tracks from audio database.
+      // fetchtracks.js
+      track(user_position);
+
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
       var marker = new google.maps.Marker({
         map: map,
         position: pos
       });
+
     });
   } else {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
   }
 
+  // draw polygons.
+  var v = drawPolygons()
+  for (var i = 0; i < numValleys; i++) {
+    v[i].setMap(map);
+  }
+
+
+  // infoWindow = new google.maps.InfoWindow;
   // Create the DIV to hold the control and call the CenterControl()
   // constructor passing in this DIV.
   var centerControlDiv = document.createElement('div');
