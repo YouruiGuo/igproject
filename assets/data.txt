@@ -1,2 +1,17 @@
-INSERT INTO ig (musicID, filePath, longitude, latitude)
-VALUES (value1, value2, value3, ...);
+INSERT INTO audioinfo (musicID, filePath, valley, longitude, latitude)
+VALUES (1, '/Users/margaret/Documents/islamicGarden/igproject/assets/audio/valley1/03 Küidüm chok (I Burn, I Smoulder like Charcoal) (World).wav', '1', -113.525817, 53.525994);
+
+INSERT INTO audioinfo (musicID, filePath, valley, longitude, latitude)
+VALUES (2, '/Users/margaret/Documents/islamicGarden/igproject/assets/audio/valley1/05 Belek (Gift) (World).wav', '1', -113.525458, 53.525927);
+
+INSERT INTO audioinfo (musicID, filePath, valley, longitude, latitude)
+VALUES (3, '/Users/margaret/Documents/islamicGarden/igproject/assets/audio/valley2/03 Küidüm chok (I Burn, I Smoulder like Charcoal) (World).wav', '2', -113.526016, 53.526589);
+
+INSERT INTO audioinfo (musicID, filePath, valley, longitude, latitude)
+VALUES (4, '/Users/margaret/Documents/islamicGarden/igproject/assets/audio/valley2/06 Kara özgöy (Impudent One) (World).wav', '2', -113.525308, 53.526535);
+
+INSERT INTO audioinfo (musicID, filePath, valley, longitude, latitude)
+VALUES (5, '/Users/margaret/Documents/islamicGarden/igproject/assets/audio/valley3/05 Belek (Gift) (World).wav', '3', -113.525999, 53.527276);
+
+INSERT INTO audioinfo (musicID, filePath, valley, longitude, latitude)
+VALUES (6, '/Users/margaret/Documents/islamicGarden/igproject/assets/audio/valley3/06 Kara özgöy (Impudent One) (World).wav', '3', -113.525328, 53.527069);

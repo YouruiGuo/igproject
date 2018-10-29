@@ -16,6 +16,10 @@ module.exports = {
       type: 'string',
     },
 
+    valley: {
+      type: 'string',
+    },
+
     longitude: {
       type: 'number',
     },
