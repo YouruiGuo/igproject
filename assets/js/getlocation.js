@@ -67,7 +67,7 @@ function CenterControl(controlDiv, map) {
 // get polygons according to coords.
 function drawPolygons() {
   // Construct the polygon.
-  v = [];
+  var v = [];
   for (var i = 0; i < numValleys; i++) {
     v[i] = new google.maps.Polygon({
       paths: coords[i],
@@ -102,7 +102,7 @@ function inside(point, vs) {
 };
 
 function findValley (pos) {
-  val = -1;
+  var val = -1;
   for (var i = 0; i < numValleys; i++) {
     vs = coords[i];
     ret = inside(pos, vs);
