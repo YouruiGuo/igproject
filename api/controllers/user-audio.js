@@ -21,7 +21,7 @@ module.exports = {
     var fileinputs;
     datastore = sails.getDatastore();
     sql = "select * from audioinfo where valley = $1";
-    valuesToEscape = [inputs.valleypos];
+    valuesToEscape = [(parseInt(inputs.valleypos)+1).toString()];
     var v = await datastore.sendNativeQuery(sql, valuesToEscape);
     //sails.log(v.rows);
     if (v.rows != []) {
