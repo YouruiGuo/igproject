@@ -1,5 +1,4 @@
 function track(valley_pos) {
-
   //console.log(valley_pos);
   var data = {valleypos: valley_pos};
   var fileinputs;
