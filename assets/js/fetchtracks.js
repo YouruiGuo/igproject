@@ -13,12 +13,11 @@ function track(valley_pos) {
   .catch(function (error) {
     console.log(' Request failed', error);
   });
-  console.log(data);
   var paths = [];
   p.then(d => {
     if (valley_pos != -1) {
       for (var i = 0; i < d.length; i++) {
-        paths.push(data[i].filePath);
+        paths.push(d[i].filePath);
       }
       console.log(paths);
       if (paths != []) {

@@ -1,18 +1,21 @@
 function handleFilesSelect(input){
 
-  var description = "HiddenTribeAnthem";
+  var description = "mix";
+  var chunks = [];
+  var channels = [[0, 1], [1, 0]];
+  var audio = new AudioContext();
+  var player = new Audio();
+  var merger = audio.createChannelMerger(2);
+  var splitter = audio.createChannelSplitter(2);
+  var mixedAudio = audio.createMediaStreamDestination();
+  var duration = 60000;
   var context;
   var recorder;
-  var div = document.querySelector("div");
-  var duration = 60000;
-  var chunks = [];
-  var audio = new AudioContext();
-  var mixedAudio = audio.createMediaStreamDestination();
-  var player = new Audio();
+  var audioDownload;
+
   player.controls = "controls";
 
   function get(src) {
-    console.log("here");
     return fetch(src)
       .then(function(response) {
         return response.arrayBuffer()
@@ -28,62 +31,49 @@ function handleFilesSelect(input){
   }
 
   Promise.all(input.map(get)).then(function(data) {
-    var len = Math.max.apply(Math, data.map(function(buffer) {
-      return buffer.byteLength
-    }));
-    context = new OfflineAudioContext(2, len, 44100);
-    return Promise.all(data.map(function(buffer) {
-        return audio.decodeAudioData(buffer)
-          .then(function(bufferSource) {
-            var source = context.createBufferSource();
-            source.buffer = bufferSource;
-            source.connect(context.destination);
-            return source.start()
-          })
-      }))
-      .then(function() {
-        return context.startRendering()
-      })
-      .then(function(renderedBuffer) {
-        return new Promise(function(resolve) {
-          var mix = audio.createBufferSource();
-          mix.buffer = renderedBuffer;
-          mix.connect(audio.destination);
-          mix.connect(mixedAudio);
+      return Promise.all(data.map(function(buffer, index) {
+          return audio.decodeAudioData(buffer)
+            .then(function(bufferSource) {
+              var channel = channels[index];
+              var source = audio.createBufferSource();
+              source.buffer = bufferSource;
+              source.connect(splitter);
+              splitter.connect(merger, channel[0], channel[1]);
+              return source
+            })
+        }))
+        .then(function(audionodes) {
+          merger.connect(mixedAudio);
+          merger.connect(audio.destination);
           recorder = new MediaRecorder(mixedAudio.stream);
           recorder.start(0);
-          mix.start(0);
-          // stop playback and recorder in 60 seconds
-          stopMix(duration, mix, recorder)
+          audionodes.forEach(function(node) {
+            node.start(0)
+          });
+
+          stopMix(duration, ...audionodes, recorder);
 
           recorder.ondataavailable = function(event) {
             chunks.push(event.data);
           };
 
           recorder.onstop = function(event) {
-            var blob = new Blob(chunks,  {
+            var blob = new Blob(chunks, {
               "type": "audio/ogg; codecs=opus"
             });
-            console.log("recording complete");
-            resolve(blob)
+            audioDownload = URL.createObjectURL(blob);
+            var a = document.createElement("a");
+            a.download = description + "." + blob.type.replace(/.+\/|;.+/g, "");
+            a.href = audioDownload;
+            a.innerHTML = a.download;
+            player.src = audioDownload;
+            document.body.appendChild(a);
+            document.body.appendChild(player);
           };
         })
-      })
-      .then(function(blob) {
-        console.log(blob);
-        var audioDownload = URL.createObjectURL(blob);
-        var a = document.createElement("a");
-        a.download = description + "." + blob.type.replace(/.+\/|;.+/g, "");
-        a.href = audioDownload;
-        a.innerHTML = a.download;
-        document.body.appendChild(a);
-        a.insertAdjacentHTML("afterend", "<br>");
-        player.src = audioDownload;
-        document.body.appendChild(player);
-      })
-  })
-  .catch(function(e) {
-    console.log(e)
-  });
+    })
+    .catch(function(e) {
+      console.log(e)
+    });
 
 }

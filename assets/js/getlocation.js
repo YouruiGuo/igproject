@@ -148,8 +148,10 @@ function initMap() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
+        //lat: position.coords.latitude,
+        //lng: position.coords.longitude
+        lat: 53.527213,
+        lng: -113.524544
       };
       infoWindow.setPosition(pos);
       infoWindow.open(map);
