@@ -2,6 +2,7 @@ function handleFilesSelect(input){
 
   var description = "mix";
   var chunks = [];
+  var AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
   var channels = [[0, 1], [1, 0]];
   var audio = new AudioContext();
   var player = new Audio();
