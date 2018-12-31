@@ -33,7 +33,7 @@ function handleFilesSelect(input){
 
   Promise.all(input.map(get)).then(function(data) {
       return Promise.all(data.map(function(buffer, index) {
-          return audio.decodeAudioData(buffer)
+	  return audio.decodeAudioData(buffer)
             .then(function(bufferSource) {
               var channel = channels[index];
               var source = audio.createBufferSource();
@@ -42,7 +42,7 @@ function handleFilesSelect(input){
               splitter.connect(merger, channel[0], channel[1]);
               return source
             })
-        }))
+	}))
         .then(function(audionodes) {
           merger.connect(mixedAudio);
           merger.connect(audio.destination);
