@@ -74,6 +74,10 @@ function CenterControl(controlDiv, map) {
 
   // Setup the click event listeners: simply set the map to Chicago.
   controlUI.addEventListener('click', function() {
+    // Find out which valley user is at.
+    user_position = findValley(pos);
+    // fetch tracks from audio database.
+    // fetchtracks.js
     track(user_position);
   });
 
@@ -136,12 +140,14 @@ function findValley (pos) {
 
 function initMap() {
   var map, infoWindow;
+  var initialPosition = {lat: 53.527213,lng: -113.524544}
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 53.527050, lng: -113.525744},
+    center: initialPosition,
     zoom: 16
   });
 
   infoWindow = new google.maps.InfoWindow;
+
   var pos;
 
   // Try HTML5 geolocation.
@@ -150,26 +156,15 @@ function initMap() {
       pos = {
         //lat: position.coords.latitude,
         //lng: position.coords.longitude
-        lat: 53.527213,
-        lng: -113.524544
       };
-      infoWindow.setPosition(pos);
+      pos = initialPosition;
+      //infoWindow.setPosition(pos);
       infoWindow.open(map);
       map.setCenter(pos);
-
-      // Find out which valley user is at.
-      user_position = findValley(pos);
-      // fetch tracks from audio database.
-      // fetchtracks.js
-
+      const marker = new google.maps.Marker({ map, position: initialPosition });
 
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
-      var marker = new google.maps.Marker({
-        map: map,
-        position: pos
-      });
-
     });
   } else {
     // Browser doesn't support Geolocation

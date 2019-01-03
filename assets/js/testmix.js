@@ -33,6 +33,7 @@ function handleFilesSelect(input){
    const source = audio.createBufferSource();
    source.buffer = buffer;
    source.connect(audio.destination);
+   source.loop = true;
    source.start();
    return source;
   }
