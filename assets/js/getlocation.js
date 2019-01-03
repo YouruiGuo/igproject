@@ -69,12 +69,12 @@ function CenterControl(controlDiv, map) {
   controlText.style.lineHeight = '38px';
   controlText.style.paddingLeft = '5px';
   controlText.style.paddingRight = '5px';
-  controlText.innerHTML = 'Center Map';
+  controlText.innerHTML = 'Play music';
   controlUI.appendChild(controlText);
 
   // Setup the click event listeners: simply set the map to Chicago.
   controlUI.addEventListener('click', function() {
-    map.setCenter(chicago);
+    track(user_position);
   });
 
 }
@@ -161,7 +161,7 @@ function initMap() {
       user_position = findValley(pos);
       // fetch tracks from audio database.
       // fetchtracks.js
-      track(user_position);
+
 
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
