@@ -74,8 +74,7 @@ function CenterControl(controlDiv, map) {
 
   // Setup the click event listeners: simply set the map to Chicago.
   controlUI.addEventListener('click', function() {
-    // Find out which valley user is at.
-    user_position = findValley(pos);
+
     // fetch tracks from audio database.
     // fetchtracks.js
     track(user_position);
@@ -133,43 +132,68 @@ function findValley (pos) {
   return val;
 }
 
+//https://bagja.net/blog/track-user-location-google-maps.html
+var createMap = ({ lat, lng }) => {
+  return new google.maps.Map(document.getElementById('map'), {
+    center: { lat, lng },
+    zoom: 16
+  });
+};
+
+var createMarker = ({ map, position }) => {
+  return new google.maps.Marker({ map, position });
+};
+
+var getCurrentPosition = ({ onSuccess, onError = () => { } }) => {
+  if ('geolocation' in navigator === false) {
+    return onError(new Error('Geolocation is not supported by your browser.'));
+  }
+  return navigator.geolocation.getCurrentPosition(onSuccess, onError);
+};
+
+// New function to track user's location.
+var trackLocation = ({ onSuccess, onError = () => { } }) => {
+  if ('geolocation' in navigator === false) {
+    return onError(new Error('Geolocation is not supported by your browser.'));
+  }
+  // Use watchPosition instead.
+  return navigator.geolocation.watchPosition(onSuccess, onError);
+};
+
+
 // Note: This example requires that you consent to location sharing when
 // prompted by your browser. If you see the error "The Geolocation service
 // failed.", it means you probably did not give permission for the browser to
 // locate you.
 
 function initMap() {
-  var map, infoWindow;
-  var initialPosition = {lat: 53.527213,lng: -113.524544}
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: initialPosition,
-    zoom: 16
+//  var map, infoWindow;
+  var pos;
+  var initialPosition = {lat: 53.527213,lng: -113.524544};
+  const map = createMap(initialPosition);
+  const marker = createMarker({ map, position: initialPosition });
+  var prev = -1;
+
+  // Use the new trackLocation function.
+  let watchId = trackLocation({
+    onSuccess: ({ coords: { latitude: lat, longitude: lng } }) => {
+      pos = {lat, lng};
+      // Find out which valley user is at.
+      user_position = findValley(pos);
+      if (prev == -1 || prev != user_position) {
+        console.log(prev, user_position);
+        stopAudio();
+        track(user_position);
+      }
+      prev = user_position;
+      marker.setPosition({ lat, lng });
+      map.panTo({ lat, lng });
+    },
+    onError: err =>
+      alert(`Error: ${getPositionErrorMessage(err.code) || err.message}`)
   });
 
-  infoWindow = new google.maps.InfoWindow;
-
-  var pos;
-
-  // Try HTML5 geolocation.
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      pos = {
-        //lat: position.coords.latitude,
-        //lng: position.coords.longitude
-      };
-      pos = initialPosition;
-      //infoWindow.setPosition(pos);
-      infoWindow.open(map);
-      map.setCenter(pos);
-      const marker = new google.maps.Marker({ map, position: initialPosition });
-
-    }, function() {
-      handleLocationError(true, infoWindow, map.getCenter());
-    });
-  } else {
-    // Browser doesn't support Geolocation
-    handleLocationError(false, infoWindow, map.getCenter());
-  }
+  //infoWindow = new google.maps.InfoWindow;
 
   // draw polygons.
   var v = drawPolygons()

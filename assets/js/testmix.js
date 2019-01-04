@@ -1,8 +1,14 @@
+var AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
+
+var audio = new AudioContext();
+function stopAudio() {
+  audio.close();
+  audio = new AudioContext();
+}
+
 function handleFilesSelect(input){
   var description = "mix";
-  var AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
 
-  var audio = new AudioContext();
   var player = new Audio();
   async function fetchAudio(filePaths) {
     const files = filePaths.map(async filepath => {
@@ -13,6 +19,7 @@ function handleFilesSelect(input){
     });
     return await Promise.all(files);
   }
+
 
   function mergeAudio(buffers) {
    let output = audio.createBuffer(
@@ -140,7 +147,7 @@ function handleFilesSelect(input){
     return (window.URL || window.webkitURL).createObjectURL(blob);
   }
 
-  var temp = fetchAudio(input)
+  ret = fetchAudio(input)
           .then(buffers => mergeAudio(buffers))
           .then(output => play(output))
           .catch(error => {
