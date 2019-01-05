@@ -1,3 +1,18 @@
+window.addEventListener('touchstart', function() {
+
+	// create empty buffer
+	var buffer = myContext.createBuffer(1, 1, 22050);
+	var source = myContext.createBufferSource();
+	source.buffer = buffer;
+
+	// connect to output (your speakers)
+	source.connect(myContext.destination);
+
+	// play the file
+	source.noteOn(0);
+
+}, false);
+
 var AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
 
 var audio = new AudioContext();
@@ -152,7 +167,7 @@ function handleFilesSelect(input){
     return (window.URL || window.webkitURL).createObjectURL(blob);
   }
 
-  ret = fetchAudio(input)
+  let ret = fetchAudio(input)
           .then(buffers => mergeAudio(buffers))
           .then(output => play(output))
           .catch(error => {
