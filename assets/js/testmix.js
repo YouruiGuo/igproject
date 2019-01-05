@@ -1,6 +1,11 @@
 var AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
 
 var audio = new AudioContext();
+
+if (audio.state === "suspend") {
+  audio.resume();
+}
+
 function stopAudio() {
   audio.close();
   audio = new AudioContext();
