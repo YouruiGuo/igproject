@@ -37,12 +37,12 @@ function handleFilesSelect(input){
       );
       return await audio.decodeAudioData(buffer);
     });
-    return await Promise.all(files);
+  return await Promise.all(files);
   }
 
 
   function mergeAudio(buffers) {
-   let output = audio.createBuffer(
+  let output = audio.createBuffer(
      1,
      44100 * _maxDuration(buffers),
      44100
@@ -57,7 +57,7 @@ function handleFilesSelect(input){
   }
 
   function play(buffer) {
-   const source = audio.createBufferSource();
+ const source = audio.createBufferSource();
    source.buffer = buffer;
    source.connect(audio.destination);
    source.loop = true;
