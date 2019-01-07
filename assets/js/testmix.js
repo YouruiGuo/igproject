@@ -14,20 +14,30 @@ function stopAudio() {
 function handleFilesSelect(input){
   var description = "mix";
 
+ async function decodeAudioDataAsync(data) {
+    return new Promise((resolve, reject) => {
+      audio.decodeAudioData(data, b => {
+          console.log(b)
+          resolve(b)
+        }, e => {
+          reject(e)
+        })
+    })
+  }
   async function fetchAudio(filePaths) {
-    const files = filePaths.map(async filepath => {
-      const buffer = await fetch(filepath).then(response =>
-        response.arrayBuffer()
-      );
-      return await audio.decodeAudioData(buffer);
-    });
-  return await Promise.all(files);
+    let files = []
+    for (let f of filePaths) {
+       let buffer = await fetch(f).then(response => response.arrayBuffer()).catch(e => console.log(e))
+      let data = await decodeAudioDataAsync(buffer)
+      files.push(data)
+    }
+    console.log(files)
+    return files
   }
 
-
   function mergeAudio(buffers) {
-  let output = audio.createBuffer(
-     1,
+let output = audio.createBuffer(
+     2,
      44100 * _maxDuration(buffers),
      44100
    );
@@ -35,6 +45,9 @@ function handleFilesSelect(input){
    buffers.map(buffer => {
      for (let i = buffer.getChannelData(0).length - 1; i >= 0; i--) {
        output.getChannelData(0)[i] += buffer.getChannelData(0)[i];
+     }
+     for (let i = buffer.getChannelData(1).length - 1; i >= 0; i--) {
+       output.getChannelData(1)[i] += buffer.getChannelData(1)[i];
      }
    });
    return output;
@@ -151,7 +164,7 @@ function handleFilesSelect(input){
     return (window.URL || window.webkitURL).createObjectURL(blob);
   }
 
-  let ret = await fetchAudio(input)
+  let ret = fetchAudio(input)
           .then(buffers => mergeAudio(buffers))
           .then(output => play(output))
           .catch(error => {
