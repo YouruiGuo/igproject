@@ -84,7 +84,8 @@ function CenterControl(controlDiv, map) {
 
     // fetch tracks from audio database.
     // fetchtracks.js
-    track(user_position);
+    //track(user_position);
+    test();
   });
 
 }
