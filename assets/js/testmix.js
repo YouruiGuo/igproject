@@ -1,14 +1,13 @@
 var AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
 
 var audio = new AudioContext();
-
+	
 if (audio.state === "suspend") {
   audio.resume();
 }
 
 function stopAudio() {
-  audio.close();
-  audio = new AudioContext();
+  audio.close().then(function() {audio=new AudioContext();});
 }
 
 function handleFilesSelect(input){
@@ -17,7 +16,6 @@ function handleFilesSelect(input){
  async function decodeAudioDataAsync(data) {
     return new Promise((resolve, reject) => {
       audio.decodeAudioData(data, b => {
-          console.log(b)
           resolve(b)
         }, e => {
           reject(e)
@@ -31,7 +29,6 @@ function handleFilesSelect(input){
       let data = await decodeAudioDataAsync(buffer)
       files.push(data)
     }
-    console.log(files)
     return files
   }
 
@@ -42,23 +39,28 @@ let output = audio.createBuffer(
      44100
    );
 
-   buffers.map(buffer => {
+   for(let buffer of buffers) {
      for (let i = buffer.getChannelData(0).length - 1; i >= 0; i--) {
        output.getChannelData(0)[i] += buffer.getChannelData(0)[i];
      }
      for (let i = buffer.getChannelData(1).length - 1; i >= 0; i--) {
        output.getChannelData(1)[i] += buffer.getChannelData(1)[i];
      }
-   });
+   }
    return output;
   }
 
   function play(buffer) {
- const source = audio.createBufferSource();
+   var source = audio.createBufferSource();
    source.buffer = buffer;
-   source.connect(audio.destination);
    source.loop = true;
-   source.start();
+   if(audio.state === "suspended") {
+      audio.resume().then(function () { console.log(audio); source.connect(audio.destination); source.start();});
+   }else{
+   source.connect(audio.destination);
+   console.log(audio)
+   console.log(audio.destination)
+   source.start();}
    return source;
   }
 

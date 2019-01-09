@@ -76,7 +76,7 @@ function CenterControl(controlDiv, map) {
   controlText.style.lineHeight = '38px';
   controlText.style.paddingLeft = '5px';
   controlText.style.paddingRight = '5px';
-  controlText.innerHTML = 'Play music';
+  controlText.innerHTML = 'Click here to play music';
   controlUI.appendChild(controlText);
 
   // Setup the click event listeners: simply set the map to Chicago.
@@ -187,7 +187,7 @@ function initMap() {
       pos = {lat, lng};
       // Find out which valley user is at.
       user_position = findValley(pos);
-      if (prev == -1 || prev != user_position) {
+      if (prev != -1 && prev != user_position) {
         console.log(prev, user_position);
         stopAudio();
         track(user_position);
