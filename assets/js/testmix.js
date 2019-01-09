@@ -2,8 +2,31 @@ var AudioContext = window.AudioContext || window.webkitAudioContext || window.mo
 
 var audio = new AudioContext();
 
-if (audio.state === "suspend") {
-  audio.resume();
+function test() {
+    // Stereo
+  var channels = 2;
+  // Create an empty two second stereo buffer at the
+  // sample rate of the AudioContext
+  var frameCount = audioCtx.sampleRate * 2.0;
+  var myArrayBuffer = audioCtx.createBuffer(channels, frameCount, audioCtx.sampleRate);
+  for (var channel = 0; channel < channels; channel++) {
+     // This gives us the actual array that contains the data
+     var nowBuffering = myArrayBuffer.getChannelData(channel);
+     for (var i = 0; i < frameCount; i++) {
+       // Math.random() is in [0; 1.0]
+       // audio needs to be in [-1.0; 1.0]
+       nowBuffering[i] = Math.random() * 2 - 1;
+     }
+   // Get an AudioBufferSourceNode.
+   // This is the AudioNode to use when we want to play an AudioBuffer
+   var source = audioCtx.createBufferSource();
+   // set the buffer in the AudioBufferSourceNode
+   source.buffer = myArrayBuffer;
+   // connect the AudioBufferSourceNode to the
+   // destination so we can hear the sound
+   source.connect(audioCtx.destination);
+   // start the source playing
+   source.start();
 }
 
 function stopAudio() {
@@ -14,30 +37,20 @@ function stopAudio() {
 function handleFilesSelect(input){
   var description = "mix";
 
- async function decodeAudioDataAsync(data) {
-    return new Promise((resolve, reject) => {
-      audio.decodeAudioData(data, b => {
-          console.log(b)
-          resolve(b)
-        }, e => {
-          reject(e)
-        })
-    })
-  }
   async function fetchAudio(filePaths) {
-    let files = []
-    for (let f of filePaths) {
-       let buffer = await fetch(f).then(response => response.arrayBuffer()).catch(e => console.log(e))
-      let data = await decodeAudioDataAsync(buffer)
-      files.push(data)
-    }
-    console.log(files)
-    return files
+    const files = filePaths.map(async filepath => {
+      const buffer = await fetch(filepath).then(response =>
+        response.arrayBuffer()
+      );
+      return await audio.decodeAudioData(buffer);
+    });
+    return await Promise.all(files);
   }
 
+
   function mergeAudio(buffers) {
-let output = audio.createBuffer(
-     2,
+   let output = audio.createBuffer(
+     1,
      44100 * _maxDuration(buffers),
      44100
    );
@@ -46,18 +59,15 @@ let output = audio.createBuffer(
      for (let i = buffer.getChannelData(0).length - 1; i >= 0; i--) {
        output.getChannelData(0)[i] += buffer.getChannelData(0)[i];
      }
-     for (let i = buffer.getChannelData(1).length - 1; i >= 0; i--) {
-       output.getChannelData(1)[i] += buffer.getChannelData(1)[i];
-     }
    });
    return output;
   }
 
   function play(buffer) {
- const source = audio.createBufferSource();
+   const source = audio.createBufferSource();
    source.buffer = buffer;
    source.connect(audio.destination);
-   source.loop = true;
+   source.loop = true;0
    source.start();
    return source;
   }
