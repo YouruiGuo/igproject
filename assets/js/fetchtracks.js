@@ -22,7 +22,8 @@ function track(valley_pos) {
       console.log(paths);
       if (paths != []) {
         //handleFilesSelect(paths);
-        test();
+        return paths;
+        //test();
       }
     }
     //console.log(data);

@@ -45,11 +45,11 @@ var coords = [
    {lat: 53.527882, lng: -113.524934},
  ],*/
  [
-   {lat: 53.519072, lng: -113.522007}, 
+   {lat: 53.519072, lng: -113.522007},
    {lat: 53.518962, lng: -113.517668},
    {lat: 53.517355, lng: -113.517522},
    {lat: 53.517063, lng: -113.523125},
-   {lat: 53.519072, lng: -113.522007}, 
+   {lat: 53.519072, lng: -113.522007},
  ]
 ];
 var user_position; // which valley the user is at.
@@ -84,8 +84,8 @@ function CenterControl(controlDiv, map) {
 
     // fetch tracks from audio database.
     // fetchtracks.js
-    //track(user_position);
-    test();
+    var paths = track(user_position);
+    handleFilesSelect(paths);
   });
 
 }
