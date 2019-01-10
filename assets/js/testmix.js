@@ -46,20 +46,24 @@ function handleFilesSelect(input){
         })
     })
   }
-  async function fetchAudio(filePaths) {
+  async function fetchAudio(fP) {
     let files = []
+    var filePaths = [];
+    await fP.then(function(value) {filePaths = value;}); 
     for (let f of filePaths) {
+       console.log(f)
        let buffer = await fetch(f).then(response => response.arrayBuffer()).catch(e => console.log(e))
       let data = await decodeAudioDataAsync(buffer)
       files.push(data)
     }
+    console.log(files);
     return files
   }
 
 
   function mergeAudio(buffers) {
    let output = audio.createBuffer(
-     1,
+     2,
      44100 * _maxDuration(buffers),
      44100
    );
@@ -72,6 +76,7 @@ function handleFilesSelect(input){
        output.getChannelData(1)[i] += buffer.getChannelData(1)[i];
      }
    }
+   console.log(output);
    return output;
   }
 
@@ -80,12 +85,12 @@ function handleFilesSelect(input){
    source.buffer = buffer;
    source.loop = true;
    if(audio.state === "suspended") {
-      audio.resume().then(function () { console.log(audio); source.connect(audio.destination); source.start();});
-   }else{
+   audio.resume().then(function () { console.log(audio); source.connect(audio.destination); source.start();});
+   }
    source.connect(audio.destination);
    console.log(audio)
    console.log(audio.destination)
-   source.start();}
+   source.start();
    return source;
   }
 
