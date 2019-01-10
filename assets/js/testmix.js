@@ -55,7 +55,16 @@ async function fetchAudio(fP) {
    return files
  }
 
-function mergeAudio(buffers) {
+function handleFilesSelect(fP) {
+  let buffers = [];
+  var filePaths = [];
+  await fP.then(function(value) { filePaths = value;})
+  for (let f of filePaths) {
+     let buffer = await fetch(f).then(response => response.arrayBuffer()).catch(e => console.log(e))
+    let data = await decodeAudioDataAsync(buffer)
+    buffers.push(data)
+  }
+
   let output = audio.createBuffer(2,
     audio.sampleRate * _maxDuration(buffers), audio.sampleRate);
 
@@ -78,31 +87,20 @@ function mergeAudio(buffers) {
   source.connect(audio.destination);
   // start the source playing
   source.start();
-  
-}
 
-function play(buffer) {
-  var source = audio.createBufferSource();
-  source.buffer = buffer;
-  source.loop = true;
-  source.connect(audio.destination);
-  console.log(audio)
-  source.start();
-  return source;
 }
 
 function _maxDuration(buffers) {
  return Math.max.apply(Math, buffers.map(buffer => buffer.duration));
 }
-
+/*
 function handleFilesSelect(input){
   var description = "mix";
 
   let ret = fetchAudio(input)
           .then(buffers => mergeAudio(buffers))
-          //.then(output => play(output))
           .catch(error => {
           throw new Error(error);
         });
 
-}
+}*/
