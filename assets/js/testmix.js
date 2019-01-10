@@ -1,5 +1,4 @@
 var AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
-
 var audio = new AudioContext();
 
 function test() {
@@ -43,7 +42,7 @@ async function decodeAudioDataAsync(data) {
    })
  }
 
-async loadFiles() {
+async function loadFiles(fP) {
   let filePaths = [];
   await fP.then(function (value) { filePaths = value;});
   let buffers = [];
@@ -97,14 +96,3 @@ function handleFilesSelect(fP) {
 function _maxDuration(buffers) {
  return Math.max.apply(Math, buffers.map(buffer => buffer.duration));
 }
-/*
-function handleFilesSelect(input){
-  var description = "mix";
-
-  let ret = fetchAudio(input)
-          .then(buffers => mergeAudio(buffers))
-          .catch(error => {
-          throw new Error(error);
-        });
-
-}*/
