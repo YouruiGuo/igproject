@@ -88,9 +88,9 @@ function handleFilesSelect(fP) {
     if (audio.state === 'suspended') {
       audio.resume();
     }
-    //playTracks(track);
+    playTracks(track);
   })
-
+    
 }
 
 function _maxDuration(buffers) {
