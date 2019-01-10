@@ -44,24 +44,26 @@ async function decodeAudioDataAsync(data) {
  }
 
 
-async function handleFilesSelect(filePaths) {
+async function handleFilesSelect(fP) {
+  let filePaths = [];
+  await fP.then(function (value) { filePaths = value;});
   let buffers = [];
   for (let f of filePaths) {
     let response = await fetch(f);
     let arrayBuffer = await response.arrayBuffer();
-    let audioBuffer = await audio.decodeAudioData(arrayBuffer);
+    let audioBuffer = await decodeAudioDataAsync(arrayBuffer);
     buffers.push(audioBuffer);
   }
-
-  let output = audio.createBuffer(2,
-    audio.sampleRate * _maxDuration(buffers), audio.sampleRate);
+  var channel = 2;
+  var frameCount = audio.sampleRate*_maxDuration(buffers);
+  let output = audio.createBuffer(channel, frameCount, audio.sampleRate);
 
   for(let buffer of buffers) {
-    for (let i = buffer.getChannelData(0).length - 1; i >= 0; i--) {
-      output.getChannelData(0)[i] += buffer.getChannelData(0)[i];
-    }
-    for (let i = buffer.getChannelData(1).length - 1; i >= 0; i--) {
-      output.getChannelData(1)[i] += buffer.getChannelData(1)[i];
+    for (var c = 0; c < channel; c++) {
+      nowBuffering = output.getChannelData(c);
+      for(var i = 0; i < frameCount; i++){
+         nowBuffering[i] += buffer.getChannelData(c)[i];
+      }
     }
   }
   // check if context is in suspended state (autoplay policy)
