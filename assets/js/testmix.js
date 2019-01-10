@@ -43,8 +43,7 @@ async function decodeAudioDataAsync(data) {
    })
  }
 
-
-async function handleFilesSelect(fP) {
+async loadFiles() {
   let filePaths = [];
   await fP.then(function (value) { filePaths = value;});
   let buffers = [];
@@ -54,6 +53,10 @@ async function handleFilesSelect(fP) {
     let audioBuffer = await decodeAudioDataAsync(arrayBuffer);
     buffers.push(audioBuffer);
   }
+  return buffers;
+}
+
+function playTracks(buffers) {
   var channel = 2;
   var frameCount = audio.sampleRate*_maxDuration(buffers);
   let output = audio.createBuffer(channel, frameCount, audio.sampleRate);
@@ -66,10 +69,6 @@ async function handleFilesSelect(fP) {
       }
     }
   }
-  // check if context is in suspended state (autoplay policy)
-  if (audio.state === 'suspended') {
-    audio.resume();
-  }
   // Get an AudioBufferSourceNode.
   // This is the AudioNode to use when we want to play an AudioBuffer
   var source = audio.createBufferSource();
@@ -81,7 +80,18 @@ async function handleFilesSelect(fP) {
   source.connect(audio.destination);
   // start the source playing
   source.start();
+}
 
+function handleFilesSelect(fP) {
+
+  loadFiles(fP).then((track) => {
+    // check if context is in suspended state (autoplay policy)
+    if (audio.state === 'suspended') {
+      audio.resume();
+    }
+    playTracks(track);
+  })
+    
 }
 
 function _maxDuration(buffers) {
