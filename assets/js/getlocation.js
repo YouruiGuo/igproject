@@ -86,7 +86,7 @@ function CenterControl(controlDiv, map) {
     // fetchtracks.js
     var paths = track(user_position);
     //test();
-    handleFilesSelect(paths);
+    //handleFilesSelect(paths);
   });
 
 }

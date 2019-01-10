@@ -43,26 +43,14 @@ async function decodeAudioDataAsync(data) {
    })
  }
 
-async function fetchAudio(fP) {
-   let files = []
-   var filePaths = [];
-   await fP.then(function(value) { filePaths = value;})
-   for (let f of filePaths) {
-      let buffer = await fetch(f).then(response => response.arrayBuffer()).catch(e => console.log(e))
-     let data = await decodeAudioDataAsync(buffer)
-     files.push(data)
-   }
-   return files
- }
 
-function handleFilesSelect(fP) {
+async function handleFilesSelect(filePaths) {
   let buffers = [];
-  var filePaths = [];
-  await fP.then(function(value) { filePaths = value;})
   for (let f of filePaths) {
-     let buffer = await fetch(f).then(response => response.arrayBuffer()).catch(e => console.log(e))
-    let data = await decodeAudioDataAsync(buffer)
-    buffers.push(data)
+    let response = await fetch(f);
+    let arrayBuffer = await response.arrayBuffer();
+    let audioBuffer = await audio.decodeAudioData(arrayBuffer);
+    buffers.push(audioBuffer);
   }
 
   let output = audio.createBuffer(2,
@@ -75,6 +63,10 @@ function handleFilesSelect(fP) {
     for (let i = buffer.getChannelData(1).length - 1; i >= 0; i--) {
       output.getChannelData(1)[i] += buffer.getChannelData(1)[i];
     }
+  }
+  // check if context is in suspended state (autoplay policy)
+  if (audio.state === 'suspended') {
+    audio.resume();
   }
   // Get an AudioBufferSourceNode.
   // This is the AudioNode to use when we want to play an AudioBuffer
