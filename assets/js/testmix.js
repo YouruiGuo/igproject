@@ -58,20 +58,7 @@ function playTrack(buffer) {
 async function handleFilesSelect(fP) {
   let filePaths = [];
   await fP.then(function (value) { filePaths = value;});
-<<<<<<< HEAD
-=======
-  filePaths.forEach(function (f) {
-    loadFile(f).then((track) => {
-      // check if context is in suspended state (autoplay policy)
-      if (audio.state === 'suspended') {
-        audio.resume();
-      }
-      let controller = document.getElementById("clickdiv");
-      controller.addEventListener('click', function() {
-        playTrack(track);
-      })
 
->>>>>>> 17df9c6c43634c0980647619d5420c7a1e8fd88e
   loadFiles(fP).then((track) => {
     // check if context is in suspended state (autoplay policy)
     if (audio.state === 'suspended') {
@@ -81,13 +68,8 @@ async function handleFilesSelect(fP) {
     controller.addEventListener('click', function() {
       playTracks(track);
     })
-<<<<<<< HEAD
-  })
-=======
 
   })
-
->>>>>>> 17df9c6c43634c0980647619d5420c7a1e8fd88e
 }
 
 function _maxDuration(buffers) {
