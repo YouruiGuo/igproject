@@ -38,7 +38,7 @@ function playTrack(buffer) {
   source.start();
 }
 
-function handleFilesSelect(fP) {
+async function handleFilesSelect(fP) {
   let filePaths = [];
   await fP.then(function (value) { filePaths = value;});
   filePaths.forEach(function (f) {
