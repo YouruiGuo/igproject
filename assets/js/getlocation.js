@@ -191,7 +191,7 @@ function initMap() {
         stopAudio();
         // fetch tracks from audio database.
         // fetchtracks.js
-        let paths =  track(user_position);
+        var paths = track(user_position);
        // test();
         handleFilesSelect(paths);
       }

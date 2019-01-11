@@ -1,6 +1,7 @@
 var AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
 var audio = new AudioContext();
 
+
 function stopAudio() {
   audio.close().then(function() {audio=new AudioContext();});
 }
@@ -52,9 +53,17 @@ async function handleFilesSelect(fP) {
         playTrack(track);
       })
 
+  loadFiles(fP).then((track) => {
+    // check if context is in suspended state (autoplay policy)
+    if (audio.state === 'suspended') {
+      audio.resume();
+    }
+    var controller = document.getElementById("clickdiv");
+    controller.addEventListener('click', function() {
+      playTracks(track);
     })
-  })
 
+  })
 
 }
 
