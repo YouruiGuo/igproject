@@ -47,7 +47,11 @@ async function handleFilesSelect(fP) {
       if (audio.state === 'suspended') {
         audio.resume();
       }
-      playTrack(track);
+      let controller = document.getElementById("clickdiv");
+      controller.addEventListener('click', function() {
+        playTrack(track);
+      })
+
     })
   })
 
