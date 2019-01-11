@@ -70,6 +70,7 @@ function CenterControl(controlDiv, map) {
 
   // Set CSS for the control interior.
   var controlText = document.createElement('div');
+  controlText.setAttribute("id", "clickdiv");
   controlText.style.color = 'rgb(25,25,25)';
   controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
   controlText.style.fontSize = '16px';
@@ -82,11 +83,7 @@ function CenterControl(controlDiv, map) {
   // Setup the click event listeners: simply set the map to Chicago.
   controlUI.addEventListener('click', function() {
 
-    // fetch tracks from audio database.
-    // fetchtracks.js
-    let paths =  track(user_position);
-   // test();
-    handleFilesSelect(paths);
+
   });
 
 }
@@ -189,10 +186,14 @@ function initMap() {
       pos = {lat, lng};
       // Find out which valley user is at.
       user_position = findValley(pos);
-      if (prev != -1 && prev != user_position) {
+      if (prev != user_position) {
         console.log(prev, user_position);
         stopAudio();
-        track(user_position);
+        // fetch tracks from audio database.
+        // fetchtracks.js
+        var paths = track(user_position);
+       // test();
+        handleFilesSelect(paths);
       }
       prev = user_position;
       marker.setPosition({ lat, lng });
