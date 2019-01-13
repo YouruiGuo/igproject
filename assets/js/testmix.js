@@ -55,7 +55,7 @@ function playTracks(buffers) {
   source.start();
 }
 
-async function handleFilesSelect(fP) {
+async function firstHandleFilesSelect(fP) {
   let filePaths = [];
   await fP.then(function (value) { filePaths = value;});
 
@@ -69,6 +69,19 @@ async function handleFilesSelect(fP) {
       playTracks(track);
     })
 
+  })
+}
+
+async function handleFilesSelect(fP) {
+  let filePaths = [];
+  await fP.then(function (value) { filePaths = value;});
+
+  loadFiles(fP).then((track) => {
+    // check if context is in suspended state (autoplay policy)
+    if (audio.state === 'suspended') {
+      audio.resume();
+    }
+    playTracks(track);
   })
 }
 

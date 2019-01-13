@@ -186,6 +186,11 @@ function initMap() {
       pos = {lat, lng};
       // Find out which valley user is at.
       user_position = findValley(pos);
+      if (prev == -1) {
+        console.log("first play");
+        var paths = track(user_position);
+        firstHandleFilesSelect(paths);
+      }
       if (prev != user_position) {
         console.log(prev, user_position);
         stopAudio();
