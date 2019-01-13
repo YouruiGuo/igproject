@@ -16,7 +16,7 @@ async function decodeAudioDataAsync(data) {
    })
  }
 
-async function loadFile(filepath) {
+async function loadFiles(fP) {
   let filePaths = [];
   await fP.then(function (value) { filePaths = value;});
   let buffers = [];
@@ -29,7 +29,7 @@ async function loadFile(filepath) {
   return buffers;
 }
 
-function playTrack(buffer) {
+function playTracks(buffers) {
   var channel = 2;
   var frameCount = audio.sampleRate*_maxDuration(buffers);
   let output = audio.createBuffer(channel, frameCount, audio.sampleRate);
@@ -46,7 +46,7 @@ function playTrack(buffer) {
   // This is the AudioNode to use when we want to play an AudioBuffer
   var source = audio.createBufferSource();
   // set the buffer in the AudioBufferSourceNode
-  source.buffer = buffer;
+  source.buffer = output;
   source.loop = true;
   // connect the AudioBufferSourceNode to the
   // destination so we can hear the sound
