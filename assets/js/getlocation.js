@@ -1,34 +1,11 @@
 var numValleys = 3;
 var coords = [
-  /*
- [
-   {lat: 53.527863, lng: -113.526269}, // top left
-   {lat: 53.527866, lng: -113.525153}, // top right
-   {lat: 53.526725, lng: -113.525073}, // timhortons
-   {lat: 53.526709, lng: -113.526262}, // athabasca
-   {lat: 53.527863, lng: -113.526269}, // top left
- ],
- [
-   {lat: 53.526709, lng: -113.526262}, // athabasca
-   {lat: 53.526725, lng: -113.525073}, // timhortons
-   {lat: 53.526201, lng: -113.524993}, // middle right
-   {lat: 53.526315, lng: -113.526254}, // middle left
-   {lat: 53.526709, lng: -113.526262}, // athabasca
- ],*/
- /*
- [
-   {lat: 53.526315, lng: -113.526254}, // middle left
-   {lat: 53.526201, lng: -113.524993}, // middle right
-   {lat: 53.525485, lng: -113.525020}, // bottom right
-   {lat: 53.525477, lng: -113.526248}, // bottom left
-   {lat: 53.526315, lng: -113.526254}, // middle left
- ],*/
   [
-   {lat: 53.527840, lng: -113.528769}, 
+   {lat: 53.527840, lng: -113.528769},
    {lat: 53.527940, lng: -113.526244},
    {lat: 53.524841, lng: -113.526226},
    {lat: 53.525038, lng: -113.528843},
-   {lat: 53.527840, lng: -113.528769},  
+   {lat: 53.527840, lng: -113.528769},
  ],
  [
    {lat: 53.526811, lng: -113.525087}, //cab
@@ -37,13 +14,6 @@ var coords = [
    {lat: 53.526329, lng: -113.525060},
    {lat: 53.526811, lng: -113.525087},
  ],
- /*[
-   {lat: 53.527882, lng: -113.524934}, //chemistry
-   {lat: 53.527856, lng: -113.524266},
-   {lat: 53.526928, lng: -113.524305},
-   {lat: 53.526912, lng: -113.524980},
-   {lat: 53.527882, lng: -113.524934},
- ],*/
  [
    {lat: 53.519072, lng: -113.522007},
    {lat: 53.518962, lng: -113.517668},
@@ -54,39 +24,6 @@ var coords = [
 ];
 var user_position; // which valley the user is at.
 
-function CenterControl(controlDiv, map) {
-
-  // Set CSS for the control border.
-  var controlUI = document.createElement('div');
-  controlUI.style.backgroundColor = '#fff';
-  controlUI.style.border = '2px solid #fff';
-  controlUI.style.borderRadius = '3px';
-  controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
-  controlUI.style.cursor = 'pointer';
-  controlUI.style.marginBottom = '22px';
-  controlUI.style.textAlign = 'center';
-  controlUI.title = 'Click to recenter the map';
-  controlDiv.appendChild(controlUI);
-
-  // Set CSS for the control interior.
-  var controlText = document.createElement('div');
-  controlText.setAttribute("id", "clickdiv");
-  controlText.style.color = 'rgb(25,25,25)';
-  controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-  controlText.style.fontSize = '16px';
-  controlText.style.lineHeight = '38px';
-  controlText.style.paddingLeft = '5px';
-  controlText.style.paddingRight = '5px';
-  controlText.innerHTML = 'Click here to play music';
-  controlUI.appendChild(controlText);
-
-  // Setup the click event listeners: simply set the map to Chicago.
-  controlUI.addEventListener('click', function() {
-
-
-  });
-
-}
 
 // get polygons according to coords.
 function drawPolygons() {
@@ -142,6 +79,7 @@ function findValley (pos) {
 var createMap = ({ lat, lng }) => {
   return new google.maps.Map(document.getElementById('map'), {
     center: { lat, lng },
+    disableDefaultUI: true,
     zoom: 16
   });
 };
@@ -202,10 +140,10 @@ function initMap() {
           handleFilesSelect(paths);
         }
       }
-      else { 
+      else {
           stopAudio();
           console.log("user position -1");
-           
+
       }
       prev = user_position;
       marker.setPosition({ lat, lng });
@@ -222,16 +160,6 @@ function initMap() {
   for (var i = 0; i < numValleys; i++) {
     v[i].setMap(map);
   }
-
-
-  // infoWindow = new google.maps.InfoWindow;
-  // Create the DIV to hold the control and call the CenterControl()
-  // constructor passing in this DIV.
-  var centerControlDiv = document.createElement('div');
-  var centerControl = new CenterControl(centerControlDiv, map);
-
-  centerControlDiv.index = 1;
-  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv);
 
 }
 
