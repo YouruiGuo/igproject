@@ -1,9 +1,8 @@
 var AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
 var audio = new AudioContext();
 
-
 function stopAudio() {
-  audio.close().then(function() {audio=new AudioContext();});
+  audio.close().then(function () {audio = new AudioContext();});
 }
 
 async function decodeAudioDataAsync(data) {

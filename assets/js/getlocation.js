@@ -23,12 +23,12 @@ var coords = [
    {lat: 53.525477, lng: -113.526248}, // bottom left
    {lat: 53.526315, lng: -113.526254}, // middle left
  ],*/
- [
-   {lat: 53.527034, lng: -113.526722}, //athabasca hall
-   {lat: 53.527037, lng: -113.526345},
-   {lat: 53.526418, lng: -113.526333},
-   {lat: 53.526419, lng: -113.526730},
-   {lat: 53.527034, lng: -113.526722},
+  [
+   {lat: 53.527840, lng: -113.528769}, 
+   {lat: 53.527940, lng: -113.526244},
+   {lat: 53.524841, lng: -113.526226},
+   {lat: 53.525038, lng: -113.528843},
+   {lat: 53.527840, lng: -113.528769},  
  ],
  [
    {lat: 53.526811, lng: -113.525087}, //cab
@@ -201,6 +201,11 @@ function initMap() {
          // test();
           handleFilesSelect(paths);
         }
+      }
+      else { 
+          stopAudio();
+          console.log("user position -1");
+           
       }
       prev = user_position;
       marker.setPosition({ lat, lng });
