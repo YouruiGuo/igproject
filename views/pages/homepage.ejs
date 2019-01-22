@@ -4,17 +4,58 @@ For more information, see:
 • https://sailsjs.com/documentation/concepts/views
 • https://sailsjs.com/documentation/concepts/routes
 -->
-<style>
-  div.fixed {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    width: 100%;
-  }
-</style>
 
 <div id="map"></div>
+<div class="row no-gap">
+	<div class="col-30">
+	</div>
+	<div class="col-70">
+    	<!-- Open About Popup -->
+	    <div class="popup-open" data-popup=".popup-about">
+	    	<div class="scroll-left">
+	    		<p id="description"></p>
+	    	</div>
+	    </div>
+	</div>
+</div>
 
+
+
+<div class="popup popup-about">
+	<div class="block">
+		<button type="submit" class="popup-close" style="background-color:transparent; border-color:transparent;">
+		  <span><img src="/images/icons8-delete-24.png"></span>
+		</button>
+	  	<div class="block-title">List View Accordion</div>
+		<div class="list accordion-list">
+		  <ul>
+		    <li class="accordion-item"><a href="#" class="item-content item-link">
+		        <div class="item-inner">
+		          <div class="item-title">Item 1</div>
+		        </div></a>
+		      <div class="accordion-item-content">
+		        <div class="block">
+		          <p>Item 1 content. Lorem ipsum dolor sit amet...</p>
+		        </div>
+		      </div>
+		    </li>
+		    <li class="accordion-item"><a href="#" class="item-content item-link">
+		        <div class="item-inner">
+		          <div class="item-title">Item 2</div>
+		        </div></a>
+		      <div class="accordion-item-content">
+		        <div class="block">
+		          <p>Item 2 content. Lorem ipsum dolor sit amet...</p>
+		        </div>
+		      </div>
+		    </li>
+		  </ul>
+		</div>
+	</div>
+</div>
+
+
+<script src="dependencies/framework7.min.js"></script>
 <script src="js/getlocation.js"></script>
 
 <script src="js/fetchtracks.js"></script>

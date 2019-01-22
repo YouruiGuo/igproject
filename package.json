@@ -9,6 +9,8 @@
     "@sailshq/lodash": "^3.10.3",
     "@sailshq/socket.io-redis": "^5.2.0",
     "async": "2.0.1",
+    "framework7": "^3.6.5",
+    "framework7-icons": "^2.1.1",
     "grunt": "^1.0.3",
     "sails": "^1.1.0",
     "sails-hook-grunt": "^3.0.2",
