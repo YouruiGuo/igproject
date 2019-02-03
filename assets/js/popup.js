@@ -20,6 +20,7 @@ class musicPlayer {
 
 	play() {
 		let controlPanelObj = this.controlPanel;
+    playAndPause();
 		Array.from(controlPanelObj.classList).find(function(element){
 					return element !== "active" ?
 controlPanelObj.classList.add('active') : 		controlPanelObj.classList.remove('active');

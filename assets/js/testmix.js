@@ -54,6 +54,18 @@ function playTracks(buffers) {
   source.start();
 }
 
+function playAndPause() {
+  var play = document.getElementById("play");
+  play.addEventListener('click', function() {
+    if (audio.state === "suspended") {
+      audio.resume();
+    }
+    if (audio.state === "running") {
+      audio.suspend();
+    }
+  });
+}
+
 async function firstHandleFilesSelect(fP) {
   let filePaths = [];
   await fP.then(function (value) { filePaths = value;});
@@ -63,7 +75,7 @@ async function firstHandleFilesSelect(fP) {
     if (audio.state === 'suspended') {
       audio.resume();
     }
-    var controller = document.getElementById("clickdiv");
+    var controller = document.getElementById("play");
     controller.addEventListener('click', function() {
       playTracks(track);
     })

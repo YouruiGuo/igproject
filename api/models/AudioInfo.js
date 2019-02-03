@@ -12,11 +12,47 @@ module.exports = {
       type: 'string',
     },
 
+    identifier: {
+      type: 'string',
+    },
+
+    TrackName: {
+      type: 'string',
+    },
+
     filePath: {
       type: 'string',
     },
 
     valley: {
+      type: 'string',
+    },
+
+    imagePath: {
+      type: 'string',
+    },
+
+    videoPath: {
+      type: 'string',
+    },
+
+    generalDesc: {
+      type: 'string',
+    },
+
+    instrumentDesc: {
+      type: 'string',
+    },
+
+    musicianDesc: {
+      type: 'string',
+    },
+
+    lyrictranslit: {
+      type: 'string',
+    },
+
+    lyrictranslation: {
       type: 'string',
     },
 
@@ -26,6 +62,10 @@ module.exports = {
 
     latitude: {
       type: 'number',
+    },
+
+    oneLineDescription: {
+      type: 'string',
     },
 
   },
