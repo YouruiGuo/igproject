@@ -14,7 +14,7 @@ For more information, see:
 					<div id="play" class="play"></div>
 					<div class="popup-open" data-popup=".popup-about">
 						<div class="scroll-left">
-			    		<p id="description">helloheadkfjgnslkjhapdihgnlsdkfgnlqergbldanfmbs</p>
+			    		<p id="description"></p>
 			    	</div>
 					</div>
 			</div>
@@ -38,29 +38,9 @@ For more information, see:
 		<button type="submit" class="popup-close" style="background-color:transparent; border-color:transparent;">
 		  <span><img src="/images/icons8-delete-24.png"></span>
 		</button>
-	  	<div class="block-title">List View Accordion</div>
+	  	<div class="block-title">Music List</div>
 		<div class="list accordion-list">
-		  <ul>
-		    <li class="accordion-item"><a href="#" class="item-content item-link">
-		        <div class="item-inner">
-		          <div class="item-title">Item 1</div>
-		        </div></a>
-		      <div class="accordion-item-content">
-		        <div class="block">
-		          <p>Item 1 content. Lorem ipsum dolor sit amet...</p>
-		        </div>
-		      </div>
-		    </li>
-		    <li class="accordion-item"><a href="#" class="item-content item-link">
-		        <div class="item-inner">
-		          <div class="item-title">Item 2</div>
-		        </div></a>
-		      <div class="accordion-item-content">
-		        <div class="block">
-		          <p>Item 2 content. Lorem ipsum dolor sit amet...</p>
-		        </div>
-		      </div>
-		    </li>
+		  <ul class="popinfo" >
 		  </ul>
 		</div>
 	</div>
@@ -68,11 +48,13 @@ For more information, see:
 
 
 <script src="dependencies/framework7.min.js"></script>
+<script src="js/newtovalley.js"></script>
 <script src="js/getlocation.js"></script>
 
 <script src="js/fetchtracks.js"></script>
 <!--<script src="js/mixtrack.js"></script>-->
 <script src="js/testmix.js"></script>
+
 
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbWz128iTCfINrC_DIE2GxR9D6yChszaE&callback=initMap">

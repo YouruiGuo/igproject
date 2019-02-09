@@ -124,10 +124,11 @@ function initMap() {
       pos = {lat, lng};
       // Find out which valley user is at.
       user_position = findValley(pos);
+      //console.log(user_position);
       if (user_position != -1) {
         if (prev == -1) {
           console.log("first play");
-          var paths = track(user_position);
+          var paths = welcomeValley(user_position);
           firstHandleFilesSelect(paths);
         }
         else if (prev != user_position) {
@@ -135,7 +136,7 @@ function initMap() {
           stopAudio();
           // fetch tracks from audio database.
           // fetchtracks.js
-          var paths = track(user_position);
+          var paths = welcomeValley(user_position);
          // test();
           handleFilesSelect(paths);
         }
@@ -143,7 +144,6 @@ function initMap() {
       else {
           stopAudio();
           console.log("user position -1");
-
       }
       prev = user_position;
       marker.setPosition({ lat, lng });

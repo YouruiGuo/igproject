@@ -17,7 +17,7 @@ async function track(valley_pos) {
   //p.then(d => {
     if (valley_pos != -1) {
       for (var i = 0; i < d.length; i++) {
-        paths.push(d[i].filePath);
+        paths.push(d[i]);
       }
       //console.log(paths);
       if (paths != []) {
