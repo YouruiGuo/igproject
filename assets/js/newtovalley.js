@@ -1,6 +1,6 @@
 var $$ = Dom7;
 
-async function readfile(file, id, header){
+async function readfile(file, id){
   var xmlhttp = new XMLHttpRequest();
   var txt;
   xmlhttp.open("GET", file, true);
@@ -9,7 +9,7 @@ async function readfile(file, id, header){
     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
         txt = xmlhttp.responseText;
         //alert(txt);
-        document.getElementById(id).innerHTML = '<p>'+ header + txt +'</p> ';
+        document.getElementById(id).innerHTML = txt;
     }
   }
 }
@@ -56,38 +56,73 @@ async function welcomeValley (user_position) {
 
     if (generalDesc) {
       temp = document.createElement('div');
-      temp.setAttribute("class", "block");
-      temp.setAttribute("id", "generalDesc"+i.toString());
+      temp.setAttribute("class", "card");
+      var n0 = document.createElement('div');
+      n0.setAttribute("class", "card-header");
+      n0.innerHTML = "General description";
+      temp.append(n0);
+      var n1 = document.createElement('div');
+      n1.setAttribute("class", "card-content card-content-padding");
+      n1.setAttribute("id", "generalDesc"+i.toString());
+      temp.append(n1);
       $$('#'+i.toString()).append(temp);
-      readfile(generalDesc, "generalDesc"+i.toString(), "General description:");
+      readfile("robots.txt", "generalDesc"+i.toString());
     }
     if (instrumentDesc) {
       temp = document.createElement('div');
-      temp.setAttribute("class", "block");
-      temp.setAttribute("id", "instrumentDesc"+i.toString());
+      temp.setAttribute("class", "card");
+      var n0 = document.createElement('div');
+      n0.setAttribute("class", "card-header");
+      n0.innerHTML = "instrument description";
+      temp.append(n0);
+      var n1 = document.createElement('div');
+      n1.setAttribute("class", "card-content card-content-padding");
+      n1.setAttribute("id", "instrumentDesc"+i.toString());
+      temp.append(n1);
       $$('#'+i.toString()).append(temp);
-      readfile(instrumentDesc, "instrumentDesc"+i.toString(), "instrument description:");
+      readfile(instrumentDesc, "instrumentDesc"+i.toString());
     }
     if (musicianDesc) {
       temp = document.createElement('div');
-      temp.setAttribute("class", "block");
-      temp.setAttribute("id", "musicianDesc"+i.toString());
+      temp.setAttribute("class", "card");
+      var n0 = document.createElement('div');
+      n0.setAttribute("class", "card-header");
+      n0.innerHTML = "Musician description";
+      temp.append(n0);
+      var n1 = document.createElement('div');
+      n1.setAttribute("class", "card-content card-content-padding");
+      n1.setAttribute("id", "musicianDesc"+i.toString());
+      temp.append(n1);
       $$('#'+i.toString()).append(temp);
-      readfile(musicianDesc, "musicianDesc"+i.toString(), "Musician description:");
+      readfile(musicianDesc, "musicianDesc"+i.toString());
     }
     if (lyrictranslation) {
       temp = document.createElement('div');
-      temp.setAttribute("class", "block");
-      temp.setAttribute("id", "lyrictranslation"+i.toString());
+      temp.setAttribute("class", "card");
+      var n0 = document.createElement('div');
+      n0.setAttribute("class", "card-header");
+      n0.innerHTML = "Lyrics translation";
+      temp.append(n0);
+      var n1 = document.createElement('div');
+      n1.setAttribute("class", "card-content card-content-padding");
+      n1.setAttribute("id", "lyrictranslation"+i.toString());
+      temp.append(n1);
       $$('#'+i.toString()).append(temp);
-      readfile(lyrictranslation, "lyrictranslation"+i.toString(), "Lyrics translation:");
+      readfile(lyrictranslation, "lyrictranslation"+i.toString());
     }
     if (lyrictranslit) {
       temp = document.createElement('div');
-      temp.setAttribute("class", "block");
-      temp.setAttribute("id", "lyrictranslit"+i.toString());
+      temp.setAttribute("class", "card");
+      var n0 = document.createElement('div');
+      n0.setAttribute("class", "card-header");
+      n0.innerHTML = "Lyrics transliteration";
+      temp.append(n0);
+      var n1 = document.createElement('div');
+      n1.setAttribute("class", "card-content card-content-padding");
+      n1.setAttribute("id", "lyrictranslit"+i.toString());
+      temp.append(n1);
       $$('#'+i.toString()).append(temp);
-      readfile(lyrictranslit, "lyrictranslit"+i.toString(), "Lyrics transliteration:");
+      readfile(lyrictranslit, "lyrictranslit"+i.toString());
     }
   }
   //console.log(pop);
