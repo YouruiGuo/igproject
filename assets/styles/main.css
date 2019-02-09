@@ -142,3 +142,15 @@
 .player .control-panel.active .controls .play {
   background-image: url("/images/icons8-pause-32.png");
 }
+
+
+/* A bit of demo styles */;
+.demo-swiper .swiper-slide {
+  font-size: 25px;
+  font-weight: 300;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  color: #000;
+}

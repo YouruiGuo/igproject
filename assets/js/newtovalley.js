@@ -44,6 +44,9 @@ async function welcomeValley (user_position) {
     var performer = info[i].performer;
     var videoPath = info[i].videoPath;
 
+    var images = info[i].imagePath;
+    images = images.split(",");
+
     newitem.setAttribute("class", "accordion-item");
     insert = '<a href="#" class="item-content item-link">'+
              '  <div class="item-inner"> '+
@@ -54,8 +57,31 @@ async function welcomeValley (user_position) {
     newitem.innerHTML = insert;
     pop.appendChild(newitem);
 
+    if (images) {
+      var temp = document.createElement('div');
+      temp.setAttribute("class", "card");
+      var n0 = document.createElement('div');
+      n0.setAttribute("class", "card-header");
+      n0.innerHTML = "Images";
+      temp.append(n0);
+      $$('#'+i.toString()).append(temp);
+      var div = document.createElement('div');
+      div.setAttribute('class', 'swiper-container swiper-init demo-swiper');
+      div.innerHTML = '<div class="swiper-pagination"></div>';
+      temp.append(div);
+      var newdiv = document.createElement('div');
+      newdiv.setAttribute('class', 'swiper-wrapper');
+      div.append(newdiv);
+      for (var j = 0; j < images.length; j++) {
+        var imgs = document.createElement('div');
+        imgs.setAttribute('class','swiper-slide');
+        imgs.innerHTML = '<img src='+ images[j] +'>';
+        newdiv.appendChild(imgs);
+      }
+    }
+
     if (generalDesc) {
-      temp = document.createElement('div');
+      var temp = document.createElement('div');
       temp.setAttribute("class", "card");
       var n0 = document.createElement('div');
       n0.setAttribute("class", "card-header");
