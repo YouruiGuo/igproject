@@ -148,6 +148,7 @@
 .demo-swiper .swiper-slide {
   font-size: 25px;
   font-weight: 300;
+  background-size: 1000px;
   display: flex;
   justify-content: center;
   align-items: center;
