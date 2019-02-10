@@ -55,15 +55,15 @@ function playTracks(buffers) {
 }
 
 function playAndPause() {
-  var play = document.getElementById("play");
-  play.addEventListener('click', function() {
+  //var play = document.getElementById("play");
+ // play.addEventListener('click', function() {
     if (audio.state === "suspended") {
       audio.resume();
     }
-    if (audio.state === "running") {
+    else if (audio.state === "running") {
       audio.suspend();
     }
-  });
+ // });
 }
 
 async function firstHandleFilesSelect(fP) {
@@ -72,14 +72,10 @@ async function firstHandleFilesSelect(fP) {
 
   loadFiles(fP).then((track) => {
     // check if context is in suspended state (autoplay policy)
-    if (audio.state === 'suspended') {
-      audio.resume();
-    }
     var controller = document.getElementById("play");
     controller.addEventListener('click', function() {
       playTracks(track);
-    })
-
+    }, {once: true});
   })
 }
 
@@ -89,9 +85,6 @@ async function handleFilesSelect(fP) {
 
   loadFiles(fP).then((track) => {
     // check if context is in suspended state (autoplay policy)
-    if (audio.state === 'suspended') {
-      audio.resume();
-    }
     playTracks(track);
   })
 }
