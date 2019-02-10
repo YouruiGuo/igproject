@@ -28,8 +28,9 @@ async function welcomeValley (user_position) {
   }
   // TODO: Bug here
   document.getElementById('description').innerHTML = des;
-  //console.log(des);
-  $$('.album-art').css('background-image', 'url(/images/icons8-play-32.png)');
+  var a = imgs[0].split(",");
+  //console.log(a[0]);
+  $$('.album-art').css('background-image', 'url('+a[0]+')');
 
   pop = document.querySelector('.popinfo');
   //console.log(pop.innelHTML);
