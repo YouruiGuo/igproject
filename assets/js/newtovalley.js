@@ -93,7 +93,7 @@ async function welcomeValley (user_position) {
       n1.setAttribute("id", "generalDesc"+i.toString());
       temp.append(n1);
       $$('#'+i.toString()).append(temp);
-      readfile("robots.txt", "generalDesc"+i.toString());
+      readfile(generalDesc, "generalDesc"+i.toString());
     }
     if (instrumentDesc) {
       temp = document.createElement('div');
