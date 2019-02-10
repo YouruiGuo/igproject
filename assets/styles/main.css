@@ -3,6 +3,11 @@
   float: right;
 }
 
+.popup{
+   height:50px;
+   overflow:auto;
+}
+
 
 .player .control-panel .controls .scroll-left p {
  position: absolute;
@@ -11,6 +16,7 @@
  margin: 0;
  line-height: 80px;
  text-align: center;
+ overflow:auto;
  z-index: -1;
  /* Starting position */
  -moz-transform:translateX(100%);
@@ -148,6 +154,7 @@
 .demo-swiper .swiper-slide {
   font-size: 25px;
   font-weight: 300;
+  background-size: 1000px;
   display: flex;
   justify-content: center;
   align-items: center;
