@@ -55,15 +55,12 @@ function playTracks(buffers) {
 }
 
 function playAndPause() {
-  //var play = document.getElementById("play");
- // play.addEventListener('click', function() {
     if (audio.state === "suspended") {
       audio.resume();
     }
     else if (audio.state === "running") {
       audio.suspend();
     }
- // });
 }
 
 async function firstHandleFilesSelect(fP) {
@@ -71,7 +68,6 @@ async function firstHandleFilesSelect(fP) {
   await fP.then(function (value) { filePaths = value;});
 
   loadFiles(fP).then((track) => {
-    // check if context is in suspended state (autoplay policy)
     var controller = document.getElementById("play");
     controller.addEventListener('click', function() {
       playTracks(track);
@@ -84,7 +80,6 @@ async function handleFilesSelect(fP) {
   await fP.then(function (value) { filePaths = value;});
 
   loadFiles(fP).then((track) => {
-    // check if context is in suspended state (autoplay policy)
     playTracks(track);
   })
 }
