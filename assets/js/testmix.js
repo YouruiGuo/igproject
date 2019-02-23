@@ -66,7 +66,6 @@ function playAndPause() {
 async function firstHandleFilesSelect(fP) {
   let filePaths = [];
   await fP.then(function (value) { filePaths = value;});
-
   loadFiles(fP).then((track) => {
     var controller = document.getElementById("play");
     controller.addEventListener('click', function() {
