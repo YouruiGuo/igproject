@@ -7,6 +7,14 @@
    overflow:auto;
 }
 
+.mute {
+  background-image: url("/images/icons8-audio-32.png");
+}
+
+.mute .active{
+  background-image: url("/images/icons8-no-audio-32.png");
+}
+
 
 .player .control-panel .controls .scroll-left p {
  position: absolute;
