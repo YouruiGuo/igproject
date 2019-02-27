@@ -1,6 +1,6 @@
 var AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
 var audio = new AudioContext();
-
+console.log(audio);
 function stopAudio() {
   audio.close().then(function () {audio = new AudioContext();});
 }
