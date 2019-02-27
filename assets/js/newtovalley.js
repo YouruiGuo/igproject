@@ -14,6 +14,16 @@ async function readfile(file, id){
   }
 }
 
+function mute(index, path) {
+  mute_cls = document.getElementByClassName('mute')[index];
+  Array.from(mute_cls.classList).find(function(element){
+        return element !== "active" ?
+          mute_cls.classList.add('active') :
+	        mute_cls.classList.remove('active');
+  });
+  playAndPauseSingleTrack(path);
+}
+
 async function welcomeValley (user_position) {
 
   var i = track(user_position);
@@ -36,7 +46,7 @@ async function welcomeValley (user_position) {
   //console.log(pop.innelHTML);
   for (var i = 0; i < info.length; i++) {
     var newitem = document.createElement('li');
-
+    var trackpath = info[i].filePath;
     var generalDesc = info[i].generalDesc;
     var instrumentDesc = info[i].instrumentDesc;
     var musicianDesc = info[i].musicianDesc;
@@ -54,9 +64,19 @@ async function welcomeValley (user_position) {
              '     <div class="item-title">' + info[i].TrackName + '</div> '+
              '    </div></a> '+
              '  <div class="accordion-item-content" id="'+i.toString()+'"> </div>';
+    muteinsert =  '<div class="card">'+
+                  '   <div class="card-header"> <p> Mute/Unmute</p> </div>'+
+                  '   <div class="card-content card-content-padding">'+
+                  '       <div class="col-50"><p>Mute: </p><div class="mute">'+
+                  '         <a onclick="mute('+i.toString(), trackpath+');"></a>'+
+                  '       </div></div>'+
+                  '   </div>'+
+                  '</div>';
 
     newitem.innerHTML = insert;
     pop.appendChild(newitem);
+
+    $$('#'+i.toString()).append(muteinsert);
 
     if (images) {
       var temp = document.createElement('div');

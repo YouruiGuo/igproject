@@ -1,3 +1,4 @@
+
 var numValleys = 6;
 var coords = [
   [
