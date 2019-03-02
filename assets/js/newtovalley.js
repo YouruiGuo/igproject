@@ -15,14 +15,16 @@ async function readfile(file, id){
 }
 
 function mute(index, path) {
-  console.log("here");
-  mute_cls = document.getElementByClassName('mute')[index];
-  Array.from(mute_cls.classList).find(function(element){
-	console.log(element);
-        return element !== "active" ?
-		mute_cls.classList.add('active') :
-	        mute_cls.classList.remove('active');
-  });
+  console.log(path);
+  mute_cls = $$('#mutediv'+index);
+  if (mute_cls.hasClass("muteinactive")) {
+	mute_cls.remove("muteinactive");
+  	mute_cls.add("muteactive");
+  }
+  else {
+	mute_cls.add("muteinactive")
+  	mute_cls.remove("muteactive");
+  }
   playAndPauseSingleTrack(path);
 }
 
@@ -56,6 +58,7 @@ async function welcomeValley (user_position) {
     var lyrictranslit = info[i].lyrictranslit;
     var performer = info[i].performer;
     var videoPath = info[i].videoPath;
+    var num = -1;
 
     var images = info[i].imagePath;
     images = images.split(",");
@@ -69,17 +72,20 @@ async function welcomeValley (user_position) {
     muteinsert =  '<div class="card">'+
                   '   <div class="card-header"> <p> Mute/Unmute</p> </div>'+
                   '   <div class="card-content card-content-padding">'+
-                  '       <div class="col-50"><p>Mute: </p><div class="mute">'+
-                  '         <a onclick="mute('+i.toString()+','+trackPath+');">mute</a>'+
+                  '       <div class="col-50"><p>Mute: </p><div class="mute muteinactive" id="mutediv'+i.toString()+'">'+
+                  '         <a id=mute'+ i.toString() +'>mute</a>'+
                   '       </div></div>'+
                   '   </div>'+
                   '</div>';
 
     newitem.innerHTML = insert;
     pop.appendChild(newitem);
-
+    num = i;
     $$('#'+i.toString()).append(muteinsert);
-
+    //$$('#mute'+i.toString()).on('click', {param1: i.toString(), param2: trackPath}, mute);
+    $$('#mute'+num.toString()).on('click', function(){
+	mute(num.toString(), trackPath);
+    });
     if (images) {
       var temp = document.createElement('div');
       temp.setAttribute("class", "card");

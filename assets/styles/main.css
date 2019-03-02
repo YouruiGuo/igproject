@@ -17,11 +17,11 @@
   margin: 5px 0;
 }
 
-.mute {
+.muteinactive {
   background-image: url("/images/icons8-audio-32.png");
 }
 
-.mute:active{
+.muteactive {
   background-image: url("/images/icons8-no-audio-32.png");
 }
 
