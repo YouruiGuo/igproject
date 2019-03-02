@@ -4,7 +4,7 @@ console.log(audio);
 var buffers = {};
 var allsources = {};
 var pauses = {}; // 0: playing, else: pause at some time
-
+console.log(buffers);
 function stopAudio() {
   audio.close().then(function () {audio = new AudioContext();});
 }
@@ -35,10 +35,10 @@ async function loadFiles(fP) {
 
 function playTracks(buffers) {
   var channel = 2;
-  var frameCount = audio.sampleRate*_maxDuration(buffers);
-
+  console.log(buffers);
   for(var key in buffers) {
-    var buffer = buffers[key]
+    var frameCount = audio.sampleRate*buffers[key].duration;
+    var buffer = buffers[key];
     let output = audio.createBuffer(channel, frameCount, audio.sampleRate);
     for (var c = 0; c < channel; c++) {
       nowBuffering = output.getChannelData(c);
@@ -68,12 +68,13 @@ function playTracks(buffers) {
 }
 
 function playAndPauseSingleTrack(filepath) {
+  console.log(allsources[filepath], pauses[filepath], buffers);
   let source = allsources[filepath];
   let playInfo = pauses[filepath];
   if (playInfo["paused"]) {
     playInfo["paused"] = 0; // playing
     playInfo["interval"] += playInfo["pausedAt"] - playInfo["startedAt"];
-    playInfo["interval"] %= _maxDuration(buffers);
+    playInfo["interval"] %= buffers[filepath].duration;
     source.play(0, temp/1000);
     playInfo["startedAt"] = Date.now();
   }
