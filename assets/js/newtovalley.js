@@ -84,7 +84,7 @@ async function welcomeValley (user_position) {
     $$('#'+i.toString()).append(muteinsert);
     //$$('#mute'+i.toString()).on('click', {param1: i.toString(), param2: trackPath}, mute);
     $$('#mute'+num.toString()).on('click', function(){
-	mute(num.toString(), trackPath);
+	     mute(num.toString(), trackPath);
     });
     if (images) {
       var temp = document.createElement('div');
