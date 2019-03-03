@@ -56,8 +56,9 @@ function playTracks(buffers) {
     // destination so we can hear the sound
     source.connect(audio.destination);
     allsources[key] = source;
+    console.log(key, allsources[key]);
     var playInfo = {};
-    playInfo["startedAt"] = -1;
+    playInfo["startedAt"] = new Date();
     playInfo["paused"] = 0; // playing
     playInfo["pausedAt"] = -1;
     playInfo["interval"] = 0;
@@ -68,20 +69,22 @@ function playTracks(buffers) {
 }
 
 function playAndPauseSingleTrack(filepath) {
-  console.log(allsources[filepath], pauses[filepath], buffers);
+  console.log(allsources[filepath], pauses[filepath]);
   let source = allsources[filepath];
   let playInfo = pauses[filepath];
   if (playInfo["paused"]) {
     playInfo["paused"] = 0; // playing
-    playInfo["interval"] += playInfo["pausedAt"] - playInfo["startedAt"];
-    playInfo["interval"] %= buffers[filepath].duration;
-    source.play(0, temp/1000);
-    playInfo["startedAt"] = Date.now();
+    playInfo["interval"] = (playInfo["pausedAt"] - playInfo["startedAt"]);
+    //playInfo["interval"] %= source.duration;
+    console.log(Math.round(playInfo["interval"]/1000));
+    source.start(0, 4);
+    playInfo["startedAt"] = new Date();
   }
   else{
+    console.log("paused");
     playInfo["paused"] = 1; // paused
     source.stop(0);
-    playInfo["pausedAt"] = Date.now();
+    playInfo["pausedAt"] = new Date();
   }
 }
 
