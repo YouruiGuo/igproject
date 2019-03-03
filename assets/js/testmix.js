@@ -22,8 +22,8 @@ async function decodeAudioDataAsync(data) {
  }
 
 async function loadSingleFile(fp) {
-  var filepath;
-  await fp.then(function (value) {filepath = value;});
+  var filepath=fp;
+  //await fp.then(function (value) {filepath = value;});
   let response = await fetch(filepath);
   let arrayBuffer = await response.arrayBuffer();
   let audioBuffer = await decodeAudioDataAsync(arrayBuffer);
@@ -50,19 +50,23 @@ function playSingleTrack(buffer, fp){
   source.buffer = buffer;
   source.loop = true;
   source.connect(audio.destination);
-  var playInfo = {};
-  playInfo["paused"] = 0;
-  if (pauses[fp] == None) {
-    playInfo["startedAt"] = Date.now();
+  var playInfo = pauses[fp];
+  if (!pauses[fp]) {
+    playInfo = {};    
+    playInfo["startedAt"] = new Date();
     playInfo["interval"] = 0;
   }
   else{
-    playInfo["interval"] = Date.now() - playInfo["startedAt"];
-    playInfo["interval"] = Math.round(playInfo["interval"] % buffer.duration);
+    end = new Date(); 
+    playInfo["interval"] = end - playInfo["startedAt"];
+    playInfo["interval"] = playInfo["interval"] % buffer.duration;
   }
+  playInfo["paused"] = 0;
   pauses[fp] = playInfo;
+  playback = Number.parseFloat(playInfo["interval"]-pausedinterval).toFixed(3);
   // start the source playing
-  source.start(0, playInfo["interval"]-pausedinterval);
+  console.log(playInfo["interval"], pausedinterval);
+  source.start(0, playback);
 }
 
 function playTracks(buffers) {
@@ -90,7 +94,7 @@ function playTracks(buffers) {
     allsources[key] = source;
     console.log(key, allsources[key]);
     var playInfo = {};
-    playInfo["startedAt"] = Date.now();;
+    playInfo["startedAt"] = new Date();
     playInfo["paused"] = 0; // playing
     playInfo["interval"] = 0;
     pauses[key] = playInfo;
@@ -117,7 +121,7 @@ function playAndPauseSingleTrack(filepath) {
 
 function playAndPause() {
     if (audio.state === "suspended") {
-      pausedinterval += Math.round(Date.now()-pausedat);
+      pausedinterval += (Date.now()-pausedat)/1000;
       audio.resume();
     }
     else if (audio.state === "running") {
@@ -127,6 +131,8 @@ function playAndPause() {
 }
 
 async function firstHandleFilesSelect(fP) {
+  pausedat = -1;
+  pausedinterval = 0;
   let filePaths = [];
   await fP.then(function (value) { filePaths = value;});
   loadFiles(fP).then((track) => {
@@ -138,6 +144,8 @@ async function firstHandleFilesSelect(fP) {
 }
 
 async function handleFilesSelect(fP) {
+  pausedat = -1;
+  pausedinterval = 0;
   let filePaths = [];
   await fP.then(function (value) { filePaths = value;});
   for (let f of filePaths) {

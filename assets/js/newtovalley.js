@@ -14,6 +14,24 @@ async function readfile(file, id){
   }
 }
 
+function solo(index, allPaths){
+  console.log(allPaths, allPaths[index]);
+  for (var i = 0; i < allPaths.length; i++){
+    if(allPaths[index] !== allPaths[i]){
+      solo_cls = $$('solo'+i);
+      if (solo_cls.hasClass("soloinactive")){
+	solo_cls.remove("soloinactive");_
+	solo_cls.add("soloactive");
+      }
+      else{
+	solo_cls.add("soloinacive");
+        solo_cls.remove("soloactive");
+      }
+      playAndPauseSingleTrack(allPaths[i]);
+    } 
+  }
+}
+
 function mute(index, path) {
   console.log(path);
   mute_cls = $$('#mutediv'+index);
@@ -36,6 +54,10 @@ async function welcomeValley (user_position) {
   console.log(info);
   var des = [];
   var imgs = [];
+  var allPaths = [];
+  for (var i = 0; i < info.length; i++) {
+    allPaths.push(info[i].filePath);
+  }
   for (var i = 0; i < info.length; i++) {
     des.push(info[i].oneLineDescription);
     imgs.push(info[i].imagePath);
@@ -73,7 +95,9 @@ async function welcomeValley (user_position) {
                   '   <div class="card-header"> <p> Mute/Unmute</p> </div>'+
                   '   <div class="card-content card-content-padding">'+
                   '       <div class="col-50"><p>Mute: </p><div class="mute muteinactive" id="mutediv'+i.toString()+'">'+
-                  '         <a id=mute'+ i.toString() +'>mute</a>'+
+                  '         <a id=mute'+ i.toString() +'>mute</a></div>'+
+                  '       <div class="col-50"><p>Solo: </p><div class="solo soloinactive" id="solodiv'+i.toString()+'">'+
+                  '         <a id=solo'+ i.toString() +'>solo</a>'+
                   '       </div></div>'+
                   '   </div>'+
                   '</div>';
@@ -85,6 +109,9 @@ async function welcomeValley (user_position) {
     //$$('#mute'+i.toString()).on('click', {param1: i.toString(), param2: trackPath}, mute);
     $$('#mute'+num.toString()).on('click', function(){
 	     mute(num.toString(), trackPath);
+    });
+    $$('#solo'+num.toString()).on('click', function(){
+	solo(num.toString(), allPaths);
     });
     if (images) {
       var temp = document.createElement('div');
