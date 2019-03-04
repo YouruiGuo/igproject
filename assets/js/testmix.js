@@ -35,6 +35,7 @@ async function decodeAudioDataAsync(data) {
 
  function Mute(fp) {
    if (gains[fp]) {
+      mute[fp] = 0;
       gains[fp].gain.setValueAtTime(0, audio.currentTime);
    }
    else{
@@ -47,6 +48,7 @@ async function decodeAudioDataAsync(data) {
 
  function unMute(fp) {
    if (gains[fp]) {
+      mute[fp] = 0;
       gains[fp].gain.setValueAtTime(1, audio.currentTime);
    }
    else{
@@ -57,14 +59,16 @@ async function decodeAudioDataAsync(data) {
    }
  }
 
- function muteAndUnmute() {
+ function muteAndUnmute(fp) {
    if (gains[fp]) {
      if (mute[fp]) {
+       mute[fp] = 0;
        gains[fp].gain.setValueAtTime(1, audio.currentTime);
      }
-    else{
-      gains[fp].gain.setValueAtTime(0, audio.currentTime);
-    }
+     else{
+       mute[fp] = 1;
+       gains[fp].gain.setValueAtTime(0, audio.currentTime);
+     }
    }
    else{
      mute[fp] = 1;

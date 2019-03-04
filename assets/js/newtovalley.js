@@ -15,7 +15,7 @@ async function readfile(file, id){
 }
 
 function soloTrack(index, allPaths){
-  console.log(allPaths, allPaths[index]);
+//  console.log(allPaths[index]);
   unMute(allPaths[index]);
   for (var i = 0; i < allPaths.length; i++){
     if(allPaths[index] !== allPaths[i]){
@@ -34,7 +34,7 @@ function soloTrack(index, allPaths){
 }
 
 function muteTrack(index, path) {
-  console.log(path);
+//  console.log(path);
   mute_cls = $$('#mutediv'+index);
   if (mute_cls.hasClass("muteinactive")) {
 	  mute_cls.remove("muteinactive");
@@ -53,12 +53,12 @@ async function welcomeValley (user_position) {
   var info = [];
   await i.then(function (value) {info = value;});
   console.log(info);
+  var paths = [];
+  for (var i = 0; i < info.length; i++) {
+    paths.push(info[i].filePath);
+  }
   var des = [];
   var imgs = [];
-  var allPaths = [];
-  for (var i = 0; i < info.length; i++) {
-    allPaths.push(info[i].filePath);
-  }
   for (var i = 0; i < info.length; i++) {
     des.push(info[i].oneLineDescription);
     imgs.push(info[i].imagePath);
@@ -96,9 +96,9 @@ async function welcomeValley (user_position) {
                   '   <div class="card-header"> <p> Mute/Unmute</p> </div>'+
                   '   <div class="card-content card-content-padding">'+
                   '       <div class="col-50"><p>Mute: </p><div class="mute muteinactive" id="mutediv'+i.toString()+'">'+
-                  '         <a id=mute'+ i.toString() +'>mute</a></div>'+
+                  '         <a class="mutea" id="mute'+i.toString()+'">mute</a></div>'+
                   '       <div class="col-50"><p>Solo: </p><div class="solo soloinactive" id="solodiv'+i.toString()+'">'+
-                  '         <a id=solo'+ i.toString() +'>solo</a>'+
+                  '         <a class="soloa" id="solo'+i.toString()+'">solo</a>'+
                   '       </div></div>'+
                   '   </div>'+
                   '</div>';
@@ -108,12 +108,19 @@ async function welcomeValley (user_position) {
     num = i;
     $$('#'+i.toString()).append(muteinsert);
     //$$('#mute'+i.toString()).on('click', {param1: i.toString(), param2: trackPath}, mute);
-    $$('#mute'+num.toString()).on('click', function(){
-	     muteTrack(num.toString(), trackPath);
-    });
-    $$('#solo'+num.toString()).on('click', function(){
-	     soloTrack(num.toString(), allPaths);
-    });
+ //   var muteListener = document.getElementById('mute'+num.toString());
+ //   muteListener.addEventListener("click", function(){
+ //      console.log(num.toString());
+//	muteTrack(num.toString(), trackPath);
+ //   }, false);
+//    $$('.mutea').on('click', function(){
+//console.log(this.id);
+//	     muteTrack(num.toString(), trackPath);
+//   });
+//    $$('.soloa').on('click', function(){
+//console.log(this.id);
+//	     soloTrack(num.toString(), paths);
+ //   });
     if (images) {
       var temp = document.createElement('div');
       temp.setAttribute("class", "card");
@@ -209,10 +216,17 @@ async function welcomeValley (user_position) {
     }
   }
   //console.log(pop);
-  var paths = [];
-  for (var i = 0; i < info.length; i++) {
-    paths.push(info[i].filePath);
-  }
-
+  //var paths = [];
+  //for (var i = 0; i < info.length; i++) {
+  //  paths.push(info[i].filePath);
+ // }
+  $$('.mutea').on('click', function(){
+//console.log(paths[this.id[this.id.length-1]]);
+             muteTrack(this.id[this.id.length-1].toString(), paths[this.id[this.id.length-1]]);
+   });
+    $$('.soloa').on('click', function(){
+//console.log(paths[this.id[this.id.length-1]]);
+             soloTrack(this.id[this.id.length-1].toString(), paths);
+    });
   return paths;
 }
