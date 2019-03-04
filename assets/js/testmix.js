@@ -35,12 +35,7 @@ async function decodeAudioDataAsync(data) {
 
  function Mute(fp) {
    if (gains[fp]) {
-     if (mute[fp]) {
-       gains[fp].gain.setValueAtTime(1, audio.currentTime);
-     }
-     else{
-       gains[fp].gain.setValueAtTime(0, audio.currentTime);
-     }
+      gains[fp].gain.setValueAtTime(0, audio.currentTime);
    }
    else{
      mute[fp] = 1;
@@ -49,6 +44,36 @@ async function decodeAudioDataAsync(data) {
      gains[fp] = g;
    }
  }
+
+ function unMute(fp) {
+   if (gains[fp]) {
+      gains[fp].gain.setValueAtTime(1, audio.currentTime);
+   }
+   else{
+     mute[fp] = 0;
+     var g = audio.createGain();
+     g.gain.setValueAtTime(1, audio.currentTime);
+     gains[fp] = g;
+   }
+ }
+
+ function muteAndUnmute() {
+   if (gains[fp]) {
+     if (mute[fp]) {
+       gains[fp].gain.setValueAtTime(1, audio.currentTime);
+     }
+    else{
+      gains[fp].gain.setValueAtTime(0, audio.currentTime);
+    }
+   }
+   else{
+     mute[fp] = 1;
+     var g = audio.createGain();
+     g.gain.setValueAtTime(0, audio.currentTime);
+     gains[fp] = g;
+   }
+ }
+
 
 function playTracks(buffers) {
   var channel = 2;
@@ -84,10 +109,6 @@ function playTracks(buffers) {
     // start the source playing
     source.start(0);
   }
-}
-
-function playAndPauseSingleTrack(filepath) {
-  Mute(filepath);
 }
 
 function playAndPause() {

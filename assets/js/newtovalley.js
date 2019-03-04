@@ -14,8 +14,9 @@ async function readfile(file, id){
   }
 }
 
-function solo(index, allPaths){
+function soloTrack(index, allPaths){
   console.log(allPaths, allPaths[index]);
+  unMute(allPaths[index]);
   for (var i = 0; i < allPaths.length; i++){
     if(allPaths[index] !== allPaths[i]){
       solo_cls = $$('solo'+i);
@@ -27,12 +28,12 @@ function solo(index, allPaths){
 	      solo_cls.add("soloinacive");
         solo_cls.remove("soloactive");
       }
-      playAndPauseSingleTrack(allPaths[i]);
+      Mute(allPaths[i]);
     }
   }
 }
 
-function mute(index, path) {
+function muteTrack(index, path) {
   console.log(path);
   mute_cls = $$('#mutediv'+index);
   if (mute_cls.hasClass("muteinactive")) {
@@ -43,7 +44,7 @@ function mute(index, path) {
 	  mute_cls.add("muteinactive")
   	mute_cls.remove("muteactive");
   }
-  playAndPauseSingleTrack(path);
+  muteAndUnmute(path);
 }
 
 async function welcomeValley (user_position) {
@@ -108,10 +109,10 @@ async function welcomeValley (user_position) {
     $$('#'+i.toString()).append(muteinsert);
     //$$('#mute'+i.toString()).on('click', {param1: i.toString(), param2: trackPath}, mute);
     $$('#mute'+num.toString()).on('click', function(){
-	     mute(num.toString(), trackPath);
+	     muteTrack(num.toString(), trackPath);
     });
     $$('#solo'+num.toString()).on('click', function(){
-	solo(num.toString(), allPaths);
+	     soloTrack(num.toString(), allPaths);
     });
     if (images) {
       var temp = document.createElement('div');
