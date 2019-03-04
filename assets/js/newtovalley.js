@@ -20,15 +20,15 @@ function solo(index, allPaths){
     if(allPaths[index] !== allPaths[i]){
       solo_cls = $$('solo'+i);
       if (solo_cls.hasClass("soloinactive")){
-	solo_cls.remove("soloinactive");_
-	solo_cls.add("soloactive");
+	        solo_cls.remove("soloinactive");
+	        solo_cls.add("soloactive");
       }
       else{
-	solo_cls.add("soloinacive");
+	      solo_cls.add("soloinacive");
         solo_cls.remove("soloactive");
       }
       playAndPauseSingleTrack(allPaths[i]);
-    } 
+    }
   }
 }
 
@@ -36,11 +36,11 @@ function mute(index, path) {
   console.log(path);
   mute_cls = $$('#mutediv'+index);
   if (mute_cls.hasClass("muteinactive")) {
-	mute_cls.remove("muteinactive");
+	  mute_cls.remove("muteinactive");
   	mute_cls.add("muteactive");
   }
   else {
-	mute_cls.add("muteinactive")
+	  mute_cls.add("muteinactive")
   	mute_cls.remove("muteactive");
   }
   playAndPauseSingleTrack(path);
