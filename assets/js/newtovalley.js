@@ -19,8 +19,8 @@ function soloTrack(index, allPaths){
   unMute(allPaths[index]);
   solo_cls = $$('#mute'+index);
   if (solo_cls.hasClass('muteactive')) {
-	solo_cls.removeClass('muteactive');
-        solo_cls.addClass('muteinactive');
+	  solo_cls.removeClass('muteactive');
+    solo_cls.addClass('muteinactive');
   }
   for (var i = 0; i < allPaths.length; i++){
     if(allPaths[index] != allPaths[i]){
@@ -29,8 +29,8 @@ function soloTrack(index, allPaths){
          solo_cls.removeClass('muteinactive');
          solo_cls.addClass('muteactive');
       }
+      Mute(allPaths[i]);
     }
-    Mute(allPaths[i]);
   }
 }
 
@@ -45,7 +45,6 @@ function muteTrack(index, path) {
 	  mute_cls.addClass('muteinactive');
   	mute_cls.removeClass('muteactive');
   }
-  console.log(mute_cls);
   muteAndUnmute(path);
 }
 
