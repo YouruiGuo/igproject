@@ -35,7 +35,7 @@ async function decodeAudioDataAsync(data) {
 
  function Mute(fp) {
    if (gains[fp]) {
-      mute[fp] = 0;
+      mute[fp] = 1;
       gains[fp].gain.setValueAtTime(0, audio.currentTime);
    }
    else{
