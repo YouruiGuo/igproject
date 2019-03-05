@@ -35,7 +35,7 @@ function soloTrack(index, allPaths){
 
 function muteTrack(index, path) {
 //  console.log(path);
-  mute_cls = $$('#mutediv'+index);
+  mute_cls = $$('#mute'+index);
   if (mute_cls.hasClass("muteinactive")) {
 	  mute_cls.remove("muteinactive");
   	mute_cls.add("muteactive");
@@ -95,11 +95,10 @@ async function welcomeValley (user_position) {
     muteinsert =  '<div class="card">'+
                   '   <div class="card-header"> <p> Mute/Unmute</p> </div>'+
                   '   <div class="card-content card-content-padding">'+
-                  '       <div class="col-50"><p>Mute: </p><div class="mute muteinactive" id="mutediv'+i.toString()+'">'+
-                  '         <a class="mutea" id="mute'+i.toString()+'">mute</a></div>'+
-                  '       <div class="col-50"><p>Solo: </p><div class="solo soloinactive" id="solodiv'+i.toString()+'">'+
-                  '         <a class="soloa" id="solo'+i.toString()+'">solo</a>'+
-                  '       </div></div>'+
+                  '       <div class="col-50"><p>Mute: </p>'+
+                  '         <input type="button" class="mute muteinactive" id="mute'+i.toString()+'"></div>'+
+                  '       <div class="col-50"><p>Solo: </p>'+
+                  '         <input type="button" class="solo soloinactive" id="solo'+i.toString()+'"></div>'+
                   '   </div>'+
                   '</div>';
 
@@ -220,11 +219,11 @@ async function welcomeValley (user_position) {
   //for (var i = 0; i < info.length; i++) {
   //  paths.push(info[i].filePath);
  // }
-  $$('.mutea').on('click', function(){
+  $$('.mute').on('click', function(){
 //console.log(paths[this.id[this.id.length-1]]);
              muteTrack(this.id[this.id.length-1].toString(), paths[this.id[this.id.length-1]]);
    });
-    $$('.soloa').on('click', function(){
+    $$('.solo').on('click', function(){
 //console.log(paths[this.id[this.id.length-1]]);
              soloTrack(this.id[this.id.length-1].toString(), paths);
     });

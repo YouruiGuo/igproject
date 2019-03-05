@@ -25,6 +25,24 @@
   background-image: url("/images/icons8-no-audio-32.png");
 }
 
+.solo {
+  width: 60px;
+  height: auto;
+  z-index: 10;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 20px;
+  margin: 5px 0;
+}
+
+.soloinactive {
+  background-image: url("/images/icons8-audio-32.png");
+}
+
+.soloactive {
+  background-image: url("/images/icons8-no-audio-32.png");
+}
+
 
 .player .control-panel .controls .scroll-left p {
  position: absolute;
