@@ -152,6 +152,8 @@ function initMap() {
       if (user_position != -1) {
         if (prev == -1) {
           console.log("first play");
+          $$(".intro").show();
+          setTimeout(function() { $$(".intro").hide(); }, 5000);
           var paths = welcomeValley(user_position);
           firstHandleFilesSelect(paths);
         }
