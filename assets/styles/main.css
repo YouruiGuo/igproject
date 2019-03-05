@@ -19,10 +19,16 @@
 
 .muteinactive {
   background-image: url("/images/icons8-audio-32.png");
+  background-repeat: no-repeat;
+  cursor:pointer;
+  border: none;
 }
 
 .muteactive {
   background-image: url("/images/icons8-no-audio-32.png");
+  background-repeat: no-repeat;
+  cursor:pointer;
+  border: none;
 }
 
 .solo {
@@ -37,10 +43,16 @@
 
 .soloinactive {
   background-image: url("/images/icons8-audio-32.png");
+  background-repeat: no-repeat;
+  cursor:pointer;
+  border: none;
 }
 
 .soloactive {
   background-image: url("/images/icons8-no-audio-32.png");
+  background-repeat: no-repeat;
+  cursor:pointer;
+  border: none;
 }
 
 

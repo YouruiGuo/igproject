@@ -36,6 +36,7 @@ function soloTrack(index, allPaths){
 function muteTrack(index, path) {
 //  console.log(path);
   mute_cls = $$('#mute'+index);
+  console.log(mute_cls);
   if (mute_cls.hasClass("muteinactive")) {
 	  mute_cls.remove("muteinactive");
   	mute_cls.add("muteactive");
