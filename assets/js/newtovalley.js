@@ -17,34 +17,35 @@ async function readfile(file, id){
 function soloTrack(index, allPaths){
 //  console.log(allPaths[index]);
   unMute(allPaths[index]);
+  solo_cls = $$('#mute'+index);
+  if (solo_cls.hasClass('muteactive')) {
+	solo_cls.removeClass('muteactive');
+        solo_cls.addClass('muteinactive');
+  }
   for (var i = 0; i < allPaths.length; i++){
-    if(allPaths[index] !== allPaths[i]){
-      solo_cls = $$('solo'+i);
-      if (solo_cls.hasClass("soloinactive")){
-	        solo_cls.remove("soloinactive");
-	        solo_cls.add("soloactive");
+    if(allPaths[index] != allPaths[i]){
+      solo_cls = $$('#mute'+i);
+      if (solo_cls.hasClass('muteinactive')){
+         solo_cls.removeClass('muteinactive');
+         solo_cls.addClass('muteactive');
       }
-      else{
-	      solo_cls.add("soloinacive");
-        solo_cls.remove("soloactive");
-      }
-      Mute(allPaths[i]);
     }
+    Mute(allPaths[i]);
   }
 }
 
 function muteTrack(index, path) {
 //  console.log(path);
   mute_cls = $$('#mute'+index);
-  console.log(mute_cls);
-  if (mute_cls.hasClass("muteinactive")) {
-	  mute_cls.remove("muteinactive");
-  	mute_cls.add("muteactive");
+  if (mute_cls.hasClass('muteinactive')) {
+	  mute_cls.removeClass('muteinactive');
+  	mute_cls.addClass('muteactive');
   }
   else {
-	  mute_cls.add("muteinactive")
-  	mute_cls.remove("muteactive");
+	  mute_cls.addClass('muteinactive');
+  	mute_cls.removeClass('muteactive');
   }
+  console.log(mute_cls);
   muteAndUnmute(path);
 }
 
