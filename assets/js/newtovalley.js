@@ -37,11 +37,14 @@ function muteTrack(index, path) {
   mute_cls = $$('#mute'+index);
   solo_cls = $$('#solo'+index);
   console.log(mute_cls);
+console.log(mute_cls.prop('checked'));
   if (mute_cls.prop('checked')) {
-	  mute_cls.prop('checked', false);
+	console.log(mute_cls.prop('checked'));
+	  mute_cls.prop('checked', true);
   }
   else {
-	  mute_cls.prop('checked', true);
+	console.log("checked");
+	  mute_cls.prop('checked', false);
   }
   if (solo_cls.prop('checked')) {
 	solo_cls.prop('checked', false);
@@ -98,14 +101,14 @@ async function welcomeValley (user_position) {
                   '   <div class="card-header"> <p> Mute/Unmute</p> </div>'+
                   '   <div class="card-content card-content-padding">'+
                   '       <div class="row"><div class="col-50"><p>Mute: </p>'+
-                  '         <label class="radio">'+
-                  '           <input type="radio" class="mute" id="mute'+i.toString()+'">'+
-                  '               <i class="icon-radio"></i>'+
+                  '         <label class="item-checkbox item-content">'+
+                  '           <input type="checkbox"  class="mute" id="mute'+i.toString()+'">'+
+                  '               <i class="icon icon-checkbox"></i>'+
                   '         </label></div>'+
                   '       <div class="col-50"><p>Solo: </p>'+
-                  '         <label class="radio">'+
-                  '           <input type="radio" class="solo" id="solo'+i.toString()+'">'+
-                  '               <i class="icon-radio"></i>'+
+                  '         <label class="checkbox">'+
+                  '           <input type="checkbox" class="solo" id="solo'+i.toString()+'">'+
+                  '               <i class="icon icon-checkbox"></i>'+
                   '         </label></div></div>'+
                   '   </div>'+
                   '</div>';
@@ -217,9 +220,11 @@ async function welcomeValley (user_position) {
 
   $$('.mute').on('click change', function(){
 //console.log(paths[this.id[this.id.length-1]]);
+	console.log(this.id, $$(this.id).prop('checked'));
+	if ($$(this.id).prop('checked')) console.log(" checked true");
              muteTrack(this.id[this.id.length-1].toString(), paths[this.id[this.id.length-1]]);
    });
-    $$('.solo').on('click change', function(){
+    $$('.solo').on('click', function(){
 //console.log(paths[this.id[this.id.length-1]]);
              soloTrack(this.id[this.id.length-1].toString(), paths);
     });
