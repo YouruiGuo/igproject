@@ -35,11 +35,16 @@ function soloTrack(index, allPaths){
 function muteTrack(index, path) {
 //  console.log(path);
   mute_cls = $$('#mute'+index);
-  if (mute_cls.prop('checked');) {
-	  solo_cls.prop('checked', false);
+  solo_cls = $$('#solo'+index);
+  console.log(mute_cls);
+  if (mute_cls.prop('checked')) {
+	  mute_cls.prop('checked', false);
   }
   else {
-	  solo_cls.prop('checked', true);
+	  mute_cls.prop('checked', true);
+  }
+  if (solo_cls.prop('checked')) {
+	solo_cls.prop('checked', false);
   }
   muteAndUnmute(path);
 }
@@ -198,7 +203,7 @@ async function welcomeValley (user_position) {
       var n1 = document.createElement('div');
       n1.setAttribute("class", "card-content card-content-padding");
       n1.setAttribute("id", "lyrictranslit"+i.toString());
-      temp.append(n1);muteTrac
+      temp.append(n1);
       $$('#'+i.toString()).append(temp);
       readfile(lyrictranslit, "lyrictranslit"+i.toString());
     }
