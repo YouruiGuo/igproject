@@ -97,9 +97,15 @@ async function welcomeValley (user_position) {
                   '   <div class="card-header"> <p> Mute/Unmute</p> </div>'+
                   '   <div class="card-content card-content-padding">'+
                   '       <div class="col-50"><p>Mute: </p>'+
-                  '         <input type="button" class="mute muteinactive" id="mute'+i.toString()+'"></div>'+
+                  '         <label class="radio">'+
+                  '           <input type="radio" class="mute" id="mute'+i.toString()+'">'+
+                  '               <i class="icon-radio"></i>'+
+                  '         </label></div>'+
                   '       <div class="col-50"><p>Solo: </p>'+
-                  '         <input type="button" class="solo soloinactive" id="solo'+i.toString()+'"></div>'+
+                  '         <label class="radio">'+
+                  '           <input type="radio" class="solo" id="solo'+i.toString()+'">'+
+                  '               <i class="icon-radio"></i>'+
+                  '         </label></div>'+
                   '   </div>'+
                   '</div>';
 
@@ -107,20 +113,6 @@ async function welcomeValley (user_position) {
     pop.appendChild(newitem);
     num = i;
     $$('#'+i.toString()).append(muteinsert);
-    //$$('#mute'+i.toString()).on('click', {param1: i.toString(), param2: trackPath}, mute);
- //   var muteListener = document.getElementById('mute'+num.toString());
- //   muteListener.addEventListener("click", function(){
- //      console.log(num.toString());
-//	muteTrack(num.toString(), trackPath);
- //   }, false);
-//    $$('.mutea').on('click', function(){
-//console.log(this.id);
-//	     muteTrack(num.toString(), trackPath);
-//   });
-//    $$('.soloa').on('click', function(){
-//console.log(this.id);
-//	     soloTrack(num.toString(), paths);
- //   });
     if (images) {
       var temp = document.createElement('div');
       temp.setAttribute("class", "card");
@@ -220,11 +212,13 @@ async function welcomeValley (user_position) {
   //for (var i = 0; i < info.length; i++) {
   //  paths.push(info[i].filePath);
  // }
-  $$('.mute').on('click', function(){
+
+
+  $$('.mute').on('click change', function(){
 //console.log(paths[this.id[this.id.length-1]]);
              muteTrack(this.id[this.id.length-1].toString(), paths[this.id[this.id.length-1]]);
    });
-    $$('.solo').on('click', function(){
+    $$('.solo').on('click change', function(){
 //console.log(paths[this.id[this.id.length-1]]);
              soloTrack(this.id[this.id.length-1].toString(), paths);
     });
