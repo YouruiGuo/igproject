@@ -18,16 +18,14 @@ function soloTrack(index, allPaths){
 //  console.log(allPaths[index]);
   unMute(allPaths[index]);
   solo_cls = $$('#mute'+index);
-  if (solo_cls.hasClass('muteactive')) {
-	  solo_cls.removeClass('muteactive');
-    solo_cls.addClass('muteinactive');
+  if (solo_cls.prop('checked')) {
+    solo_cls.prop('checked', false);
   }
   for (var i = 0; i < allPaths.length; i++){
     if(allPaths[index] != allPaths[i]){
       solo_cls = $$('#mute'+i);
-      if (solo_cls.hasClass('muteinactive')){
-         solo_cls.removeClass('muteinactive');
-         solo_cls.addClass('muteactive');
+      if (!solo_cls.prop('checked')){
+         solo_cls.prop('checked', true);
       }
       Mute(allPaths[i]);
     }
@@ -37,13 +35,11 @@ function soloTrack(index, allPaths){
 function muteTrack(index, path) {
 //  console.log(path);
   mute_cls = $$('#mute'+index);
-  if (mute_cls.hasClass('muteinactive')) {
-	  mute_cls.removeClass('muteinactive');
-  	mute_cls.addClass('muteactive');
+  if (mute_cls.prop('checked');) {
+	  solo_cls.prop('checked', false);
   }
   else {
-	  mute_cls.addClass('muteinactive');
-  	mute_cls.removeClass('muteactive');
+	  solo_cls.prop('checked', true);
   }
   muteAndUnmute(path);
 }
@@ -96,7 +92,7 @@ async function welcomeValley (user_position) {
     muteinsert =  '<div class="card">'+
                   '   <div class="card-header"> <p> Mute/Unmute</p> </div>'+
                   '   <div class="card-content card-content-padding">'+
-                  '       <div class="col-50"><p>Mute: </p>'+
+                  '       <div class="row"><div class="col-50"><p>Mute: </p>'+
                   '         <label class="radio">'+
                   '           <input type="radio" class="mute" id="mute'+i.toString()+'">'+
                   '               <i class="icon-radio"></i>'+
@@ -105,7 +101,7 @@ async function welcomeValley (user_position) {
                   '         <label class="radio">'+
                   '           <input type="radio" class="solo" id="solo'+i.toString()+'">'+
                   '               <i class="icon-radio"></i>'+
-                  '         </label></div>'+
+                  '         </label></div></div>'+
                   '   </div>'+
                   '</div>';
 
@@ -202,7 +198,7 @@ async function welcomeValley (user_position) {
       var n1 = document.createElement('div');
       n1.setAttribute("class", "card-content card-content-padding");
       n1.setAttribute("id", "lyrictranslit"+i.toString());
-      temp.append(n1);
+      temp.append(n1);muteTrac
       $$('#'+i.toString()).append(temp);
       readfile(lyrictranslit, "lyrictranslit"+i.toString());
     }
