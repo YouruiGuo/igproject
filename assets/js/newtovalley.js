@@ -19,6 +19,7 @@ function soloTrack(index, allPaths){
   unMute(allPaths[index]);
   mute_cls = $$('#mute'+index);
   solo_cls = $$('#solo'+index);
+console.log(solo_cls);
   if (solo_cls.prop('checked')) {
     if (mute_cls.prop('checked')) {
       mute_cls.prop('checked', false);
@@ -26,9 +27,13 @@ function soloTrack(index, allPaths){
     for (var i = 0; i < allPaths.length; i++){
       if(allPaths[index] != allPaths[i]){
         mute_cls = $$('#mute'+i);
+	solo_cls = $$('#solo'+i);
         if (!mute_cls.prop('checked')){
            mute_cls.prop('checked', true);
         }
+	if (solo_cls.prop('checked')) {
+	   solo_cls.prop('checked', false);
+	}
         Mute(allPaths[i]);
       }
     }
@@ -41,6 +46,7 @@ function soloTrack(index, allPaths){
         }
         unMute(allPaths[i]);
     }
+  }
 }
 
 function muteTrack(index, path) {
@@ -234,7 +240,7 @@ async function welcomeValley (user_position) {
 	//console.log(this.id, $$(this.id).prop('checked'));
              muteTrack(this.id[this.id.length-1].toString(), paths[this.id[this.id.length-1]]);
    });
-    $$('.solo').on('click', function(){
+    $$('.solo').on('click change', function(){
 //console.log(paths[this.id[this.id.length-1]]);
              soloTrack(this.id[this.id.length-1].toString(), paths);
     });
