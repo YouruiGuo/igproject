@@ -17,37 +17,48 @@ async function readfile(file, id){
 function soloTrack(index, allPaths){
 //  console.log(allPaths[index]);
   unMute(allPaths[index]);
-  solo_cls = $$('#mute'+index);
+  mute_cls = $$('#mute'+index);
+  solo_cls = $$('#solo'+index);
   if (solo_cls.prop('checked')) {
-    solo_cls.prop('checked', false);
-  }
-  for (var i = 0; i < allPaths.length; i++){
-    if(allPaths[index] != allPaths[i]){
-      solo_cls = $$('#mute'+i);
-      if (!solo_cls.prop('checked')){
-         solo_cls.prop('checked', true);
+    if (mute_cls.prop('checked')) {
+      mute_cls.prop('checked', false);
+    }
+    for (var i = 0; i < allPaths.length; i++){
+      if(allPaths[index] != allPaths[i]){
+        mute_cls = $$('#mute'+i);
+        if (!mute_cls.prop('checked')){
+           mute_cls.prop('checked', true);
+        }
+        Mute(allPaths[i]);
       }
-      Mute(allPaths[i]);
     }
   }
+  else {
+    for (var i = 0; i < allPaths.length; i++){
+        mute_cls = $$('#mute'+i);
+        if (mute_cls.prop('checked')) {
+          mute_cls.prop('checked', false);
+        }
+        unMute(allPaths[i]);
+    }
 }
 
 function muteTrack(index, path) {
 //  console.log(path);
   mute_cls = $$('#mute'+index);
   solo_cls = $$('#solo'+index);
-  console.log(mute_cls);
-console.log(mute_cls.prop('checked'));
-  if (mute_cls.prop('checked')) {
-	console.log(mute_cls.prop('checked'));
+  //console.log(mute_cls);
+  //console.log(mute_cls.prop('checked'));
+  /*if (mute_cls.prop('checked')) {
+	  //console.log(mute_cls.prop('checked'));
 	  mute_cls.prop('checked', true);
   }
   else {
-	console.log("checked");
-	  mute_cls.prop('checked', false);
-  }
+    //console.log("checked");
+    mute_cls.prop('checked', false);
+  }*/
   if (solo_cls.prop('checked')) {
-	solo_cls.prop('checked', false);
+	  solo_cls.prop('checked', false);
   }
   muteAndUnmute(path);
 }
@@ -220,8 +231,7 @@ async function welcomeValley (user_position) {
 
   $$('.mute').on('click change', function(){
 //console.log(paths[this.id[this.id.length-1]]);
-	console.log(this.id, $$(this.id).prop('checked'));
-	if ($$(this.id).prop('checked')) console.log(" checked true");
+	//console.log(this.id, $$(this.id).prop('checked'));
              muteTrack(this.id[this.id.length-1].toString(), paths[this.id[this.id.length-1]]);
    });
     $$('.solo').on('click', function(){
