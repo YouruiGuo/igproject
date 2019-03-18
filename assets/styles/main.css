@@ -17,13 +17,8 @@
 }
 
 .mute {
-  width: 60px;
+  width: auto;
   height: auto;
-  z-index: 10;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: 20px;
-  margin: 5px 0;
 }
 
 .muteinactive {
@@ -41,13 +36,8 @@
 }
 
 .solo {
-  width: 60px;
+  width: auto;
   height: auto;
-  z-index: 10;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: 20px;
-  margin: 5px 0;
 }
 
 .soloinactive {

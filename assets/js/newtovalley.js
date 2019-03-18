@@ -100,16 +100,15 @@ async function welcomeValley (user_position) {
     muteinsert =  '<div class="card">'+
                   '   <div class="card-header"> <p> Mute/Unmute</p> </div>'+
                   '   <div class="card-content card-content-padding">'+
-                  '       <div class="row"><div class="col-50"><p>Mute: </p>'+
-                  '         <label class="item-checkbox item-content">'+
+                  '       <div class="block block-strong">'+
+                  '         <label class="checkbox">'+
                   '           <input type="checkbox"  class="mute" id="mute'+i.toString()+'">'+
                   '               <i class="icon icon-checkbox"></i>'+
-                  '         </label></div>'+
-                  '       <div class="col-50"><p>Solo: </p>'+
+                  '         </label>'+
                   '         <label class="checkbox">'+
                   '           <input type="checkbox" class="solo" id="solo'+i.toString()+'">'+
                   '               <i class="icon icon-checkbox"></i>'+
-                  '         </label></div></div>'+
+                  '         </label></div>'+
                   '   </div>'+
                   '</div>';
 
