@@ -29,3 +29,27 @@ async function track(valley_pos) {
     //console.log(data);
  // });
 }
+
+// fetch the audio for welcome
+async function fetchTrackIntro(valley_pos) {
+  const d = await fetch('/audio', {
+    method: 'post',
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+    },
+    body: 'valleypos='+valley_pos.toString()
+  })
+  .then(res => res.json())
+  .catch(function (error) {
+    console.log(' Request failed', error);
+  });
+  var paths = [];
+  if (valley_pos != -1) {
+    for (var i = 0; i < d.length; i++) {
+      paths.push(d[i]);
+    }
+    if (paths != []) {
+      return paths;
+    }
+  }
+}

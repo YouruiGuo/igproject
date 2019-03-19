@@ -124,6 +124,18 @@ function playAndPause() {
     }
 }
 
+async function firstHandleFilesSelectIntro(fP) {
+  let filePaths = [];
+  await fP.then(function (value) { filePaths = value;});
+  loadFiles(fP).then((track) => {
+    var controller = document.getElementById("introplay");
+    controller.addEventListener('click', function() {
+      playTracks(track);
+    }, {once: true});
+  });
+}
+
+
 async function firstHandleFilesSelect(fP) {
   let filePaths = [];
   await fP.then(function (value) { filePaths = value;});
