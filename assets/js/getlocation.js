@@ -56,10 +56,10 @@ function drawPolygons() {
   for (var i = 0; i < numValleys; i++) {
     v[i] = new google.maps.Polygon({
       paths: coords[i],
-      strokeColor: '#FF0000',
+      strokeColor: '#008000',
       strokeOpacity: 0.8,
       strokeWeight: 3,
-      fillColor: '#FF0000',
+      fillColor: '#008000',
       fillOpacity: 0.35
     });
   }
@@ -152,6 +152,7 @@ function initMap() {
       if (user_position != -1) {
         if (prev == -1) {
           console.log("first play");
+          
           $$(".intro").show();
           setTimeout(function() { $$(".intro").hide(); }, 5000);
           var paths = welcomeValley(user_position);
@@ -186,7 +187,6 @@ function initMap() {
   for (var i = 0; i < numValleys; i++) {
     v[i].setMap(map);
   }
-
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
