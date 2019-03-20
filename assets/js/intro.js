@@ -22,8 +22,9 @@ async function introPage(numvalley) {
     var words = document.createElement('div');
     words.setAttribute('height', '40px');
     words.setAttribute('width', '80px');
-    var str = info[0].TrackName.substring(0, addy.indexOf('-'));
+    var str = info[0].TrackName.split('-')[0];
     words.innerHTML = '<h1>Welcome to valley '+ str +'</h1>';
+    newdiv.appendChild(words);
 
     var imghtml = document.createElement('div');
     imghtml.setAttribute('height', '40px');
