@@ -3,14 +3,13 @@ var visited = [];
 async function introPage(numvalley) {
   if (!visited[numvalley]) {
     visited[numvalley] = true;
-    var pg = document.getElementById('intro');
+    var pg = document.querySelector('.intro');
 
     var i = fetchTrackIntro(numvalley);
     var info = [];
     await i.then(function (value) {info = value;});
     var img = info.imagePath;
     var trackp = info.filePath;
-
 
     var newdiv = document.createElement('div');
 
@@ -21,6 +20,8 @@ async function introPage(numvalley) {
     var bt = document.createElement('div');
     bg.innerHTML = '<a href="#" title="Play video" class="playintro"></a>';
     newdiv.appendChild(bg);
+    pg.appendChild(newdiv);
+
 
     $(document).ready(function() {
       var icon = $$('.playintro');

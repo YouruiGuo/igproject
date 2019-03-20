@@ -32,12 +32,13 @@ async function track(valley_pos) {
 
 // fetch the audio for welcome
 async function fetchTrackIntro(valley_pos) {
-  const d = await fetch('/audio', {
+  valley_pos += 1;
+  const d = await fetch('/intro', {
     method: 'post',
     headers: {
       "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
     },
-    body: 'valleypos='+valley_pos.toString()
+    body: 'valleypos=intro'+valley_pos.toString()
   })
   .then(res => res.json())
   .catch(function (error) {

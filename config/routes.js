@@ -30,6 +30,9 @@ module.exports.routes = {
   'POST /audio': {
     action: 'user-audio'
   },
+  'POST /intro': {
+    action: 'intro-audio'
+  },
 
   /***************************************************************************
   *                                                                          *
