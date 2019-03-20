@@ -33,6 +33,19 @@ async function decodeAudioDataAsync(data) {
    return buffers;
  }
 
+ async function loadFilesList(fP) {
+   let filePaths = fP;
+   //await fP.then(function (value) { filePaths = value;});
+   let buffers = [];
+   for (let f of filePaths) {
+     let response = await fetch(f);
+     let arrayBuffer = await response.arrayBuffer();
+     let audioBuffer = await decodeAudioDataAsync(arrayBuffer);
+     buffers[f] = audioBuffer;
+   }
+   return buffers;
+ }
+
  function Mute(fp) {
    if (gains[fp]) {
       mute[fp] = 1;
@@ -126,15 +139,22 @@ function playAndPause() {
 
 async function firstHandleFilesSelectIntro(fP) {
   let filePaths = fP;
-console.log(fP);
 //  await fP.then(function (value) { filePaths = value;});
-  loadFiles(fP).then((track) => {
-console.log(track);
+  loadFilesList(fP).then((track) => {
+  console.log(track);
+
+  var icon = $$('.playintro');
+  icon.click(function() {
+     playTracks(track);
+     icon.toggleClass('active');
+     return false;
+  });
+/*
     var controller = document.getElementById("introplay");
     controller.addEventListener('click', function() {
       playTracks(track);
     }, {once: true});
-  });
+  });*/
 }
 
 
