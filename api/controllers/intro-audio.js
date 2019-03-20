@@ -1,4 +1,4 @@
-// api/controllers/user-audio.js
+// api/controllers/intro-audio.js
 
 module.exports = {
 
@@ -17,13 +17,13 @@ module.exports = {
 
   fn: async function (inputs, exits) {
 
-    //sails.log(inputs.valleypos);
+    sails.log(inputs.valleypos);
     var fileinputs;
     datastore = sails.getDatastore();
     sql = "select * from audioinfo where valley = $1";
-    valuesToEscape = inputs.valleypos;
+    var valuesToEscape = [inputs.valleypos];
     var v = await datastore.sendNativeQuery(sql, valuesToEscape);
-    //sails.log(v.rows);
+//    sails.log(v.rows);
     if (v.rows != []) {
       fileinputs = v.rows;
     }

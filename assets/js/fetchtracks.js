@@ -44,6 +44,7 @@ async function fetchTrackIntro(valley_pos) {
   .catch(function (error) {
     console.log(' Request failed', error);
   });
+console.log(d);
   var paths = [];
   if (valley_pos != -1) {
     for (var i = 0; i < d.length; i++) {

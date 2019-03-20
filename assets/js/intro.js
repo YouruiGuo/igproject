@@ -8,28 +8,34 @@ async function introPage(numvalley) {
     var i = fetchTrackIntro(numvalley);
     var info = [];
     await i.then(function (value) {info = value;});
-    var img = info.imagePath;
-    var trackp = info.filePath;
-
+    var imgs = [];
+    var trackp = [];
+    //imgs.push(info[0].imagePath);
+    for (var a = 0; a < info.length; a++) {
+       if (info[a].imagePath != "")
+	    imgs.push(info[a].imagePath);
+	trackp.push(info[a].filePath);
+    }
+console.log(trackp);
     var newdiv = document.createElement('div');
 
     var imghtml = document.createElement('div');
-    imghtml.innerHTML = '<img src='+ img +'>';
+    imghtml.innerHTML = '<img src='+ imgs +'>';
     newdiv.appendChild(imghtml);
 
     var bt = document.createElement('div');
-    bg.innerHTML = '<a href="#" title="Play video" class="playintro"></a>';
-    newdiv.appendChild(bg);
+    bt.innerHTML = '<a href="#" title="Play video" class="playintro"></a>';
+    newdiv.appendChild(bt);
     pg.appendChild(newdiv);
 
 
-    $(document).ready(function() {
+   // $(document).ready(function() {
       var icon = $$('.playintro');
       icon.click(function() {
          icon.toggleClass('active');
          return false;
       });
-    });
+   // });
 
     firstHandleFilesSelectIntro(trackp);
 
