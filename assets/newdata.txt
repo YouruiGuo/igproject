@@ -47,3 +47,45 @@ VALUES ('15', 'Vol03-Tr02',	'Raga Yaman', '/audio/Vol03-Tr02.mp3',	'7', '/images
 
 INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
 VALUES ('16', 'Vol04-Tr05',	'Aqsholpan', '/audio/Vol04-Tr05.mp3', '7', '/images/Instrument-Dombra.jpg, /images/Performer-poverty.jpg', 	'/video/video-excerpt-poverty.mp4', '/decriptions/GeneralDescription4-5.txt', '', '/decriptions/MusiciansBio4-5.txt', '', '', -113.526016, 53.526589, 'Aqsholpan (Lovely Sholpan); Music: traditional; Aigul Ulkenbaeva, dombra');
+
+INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
+VALUES('17', 'Intro', 'Quest-Intro', '/audio/Quest-Intro.mp3', 'intro1', '/images/01-valley-Quest.jpg','','','','','','',-113.525458, 53.525927,'');
+
+INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
+VALUES('18', 'Intro', 'Quest-Ambient', '/audio/Quest-Ambient.mp3', 'intro1', '','','','','','','',-113.525458, 53.525927,'');
+
+INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
+VALUES('19', 'Intro', 'Love-Intro', '/audio/Love-Intro.mp3', 'intro2', '/images/02-valley-Love.jpg','','','','','','',-113.525458, 53.525927,'');
+
+INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
+VALUES('20', 'Intro', 'Love-Ambient', '/audio/Love-Ambient.mp3', 'intro2', '','','','','','','',-113.525458, 53.525927,'');
+
+INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
+VALUES('21', 'Intro', 'Insight-into-Mystification-Intro', '/audio/Insight-into-Mystification-Intro.mp3', 'intro3', '/images/03-valley-Insight-into-Mystification.jpg','','','','','','',-113.525458, 53.525927,'');
+
+INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
+VALUES('22', 'Intro', 'Insight-into-Mystification-Ambient', '/audio/Insight-into-Mystification-Ambient.mp3', 'intro3', '','','','','','','',-113.525458, 53.525927,'');
+
+INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
+VALUES('23', 'Intro', 'Detachment-Intro', '/audio/Detachment-Intro.mp3', 'intro4', '/images/04-valley-Detachment.jpg','','','','','','',-113.525458, 53.525927,'');
+
+INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
+VALUES('24', 'Intro', 'Detachment-Ambient', '/audio/Detachment-Ambient.mp3', 'intro4', '','','','','','','',-113.525458, 53.525927,'');
+
+INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
+VALUES('25', 'Intro', 'Unity-Intro', '/audio/Unity-Intro.mp3', 'intro5', '/images/05-valley-Unity.jpg','','','','','','',-113.525458, 53.525927,'');
+
+INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
+VALUES('26', 'Intro', 'Unity-Ambient', '/audio/Unity-Ambient.mp3', 'intro5', '','','','','','','',-113.525458, 53.525927,'');
+
+INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
+VALUES('27', 'Intro', 'Bewilderment-Intro', '/audio/Bewilderment-Intro.mp3', 'intro6', '/images/06-valley-Bewilderment.jpg','','','','','','',-113.525458, 53.525927,'');
+
+INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
+VALUES('28', 'Intro', 'Bewilderment-Ambient', '/audio/Bewilderment-Ambient.mp3', 'intro6', '','','','','','','',-113.525458, 53.525927,'');
+
+INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
+VALUES('29', 'Intro', 'Annihilation-Poverty-Intro', '/audio/Annihilation-Poverty-Intro.mp3', 'intro7', '/images/07-valley-Annihilation-Poverty.jpg','','','','','','',-113.525458, 53.525927,'');
+
+INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
+VALUES('30', 'Intro', 'Annihilation-Poverty-Ambient', '/audio/Annihilation-Poverty-Ambient.mp3', 'intro7', '','','','','','','',-113.525458, 53.525927,'');
