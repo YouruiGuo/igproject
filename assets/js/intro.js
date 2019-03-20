@@ -1,6 +1,6 @@
 var visited = [];
 
-function introPage(numvalley) {
+async function introPage(numvalley) {
   if (!visited[numvalley]) {
     visited[numvalley] = true;
     var pg = document.getElementById('intro');
@@ -18,8 +18,17 @@ function introPage(numvalley) {
     imghtml.innerHTML = '<img src='+ img +'>';
     newdiv.appendChild(imghtml);
 
-    var 
+    var bt = document.createElement('div');
+    bg.innerHTML = '<a href="#" title="Play video" class="playintro"></a>';
+    newdiv.appendChild(bg);
 
+    $(document).ready(function() {
+      var icon = $$('.playintro');
+      icon.click(function() {
+         icon.toggleClass('active');
+         return false;
+      });
+    });
 
     firstHandleFilesSelectIntro(trackp);
 
