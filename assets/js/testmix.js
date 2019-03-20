@@ -144,7 +144,7 @@ async function firstHandleFilesSelectIntro(fP) {
   console.log(track);
 
   var icon = $$('.playintro');
-  icon.click(function() {
+  icon.on('click', function() {
      playTracks(track);
      icon.toggleClass('active');
      return false;
@@ -153,8 +153,8 @@ async function firstHandleFilesSelectIntro(fP) {
     var controller = document.getElementById("introplay");
     controller.addEventListener('click', function() {
       playTracks(track);
-    }, {once: true});
-  });*/
+    }, {once: true});*/
+  });
 }
 
 

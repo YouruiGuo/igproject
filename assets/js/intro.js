@@ -19,6 +19,12 @@ async function introPage(numvalley) {
     //console.log(trackp);
     var newdiv = document.createElement('div');
 
+    var words = document.createElement('div');
+    words.setAttribute('height', '40px');
+    words.setAttribute('width', '80px');
+    var str = info[0].TrackName.substring(0, addy.indexOf('-'));
+    words.innerHTML = '<h1>Welcome to valley '+ str +'</h1>';
+
     var imghtml = document.createElement('div');
     imghtml.setAttribute('height', '40px');
     imghtml.setAttribute('width', '80px');

@@ -19,7 +19,7 @@ function soloTrack(index, allPaths){
   unMute(allPaths[index]);
   mute_cls = $$('#mute'+index);
   solo_cls = $$('#solo'+index);
-console.log(solo_cls);
+  console.log(solo_cls);
   if (solo_cls.prop('checked')) {
     if (mute_cls.prop('checked')) {
       mute_cls.prop('checked', false);
@@ -27,13 +27,13 @@ console.log(solo_cls);
     for (var i = 0; i < allPaths.length; i++){
       if(allPaths[index] != allPaths[i]){
         mute_cls = $$('#mute'+i);
-	solo_cls = $$('#solo'+i);
+	      solo_cls = $$('#solo'+i);
         if (!mute_cls.prop('checked')){
            mute_cls.prop('checked', true);
         }
-	if (solo_cls.prop('checked')) {
-	   solo_cls.prop('checked', false);
-	}
+      	if (solo_cls.prop('checked')) {
+      	   solo_cls.prop('checked', false);
+      	}
         Mute(allPaths[i]);
       }
     }
