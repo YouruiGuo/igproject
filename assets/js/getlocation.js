@@ -139,9 +139,21 @@ function initMap() {
   var pos;
   var initialPosition = {lat: 53.527213,lng: -113.524544};
   const map = createMap(initialPosition);
-  const marker = createMarker({ map, position: initialPosition });
-  var prev = -1;
+  var marker = new google.maps.Marker({
+        clickable : false,
+        icon: {
+              path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+              strokeColor : '#3333FF',
+              strokeWeight : 5,
+              scale: 2.5
+            },
+        shadow : null,
+        zIndex : 999,
+        map : map
+    });
 
+  var prev = -1;
+  enableOrientationArrow();
   // Use the new trackLocation function.
   let watchId = trackLocation({
     onSuccess: ({ coords: { latitude: lat, longitude: lng } }) => {
@@ -185,6 +197,26 @@ function initMap() {
   for (var i = 0; i < numValleys; i++) {
     v[i].setMap(map);
   }
+}
+
+function enableOrientationArrow () {
+  if (window.DeviceOrientationEvent) {
+
+       window.addEventListener('deviceorientation', function(event) {
+           var alpha = null;
+           //Check for iOS property
+           if (event.webkitCompassHeading) {
+               alpha = event.webkitCompassHeading;
+           }
+           //non iOS
+           else {
+               alpha = event.alpha;
+           }
+           var locationIcon = marker.get('icon');
+           locationIcon.rotation = 360 - alpha;
+           marker.set('icon', locationIcon);
+       }, false);
+   }
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
