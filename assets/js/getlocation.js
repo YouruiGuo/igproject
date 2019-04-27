@@ -153,12 +153,12 @@ function initMap() {
     });
 
   var prev = -1;
-if ('ondeviceorientationabsolute' in window) {
-  // Chrome 50+ specific
-  window.addEventListener('deviceorientationabsolute', handleOrientation);
-} else if ('ondeviceorientation' in window) {
-  window.addEventListener('deviceorientation', handleOrientation);
-}  
+  //if ('ondeviceorientationabsolute' in window) {
+    // Chrome 50+ specific
+    window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+  //} else if ('ondeviceorientation' in window) {
+    //window.addEventListener('deviceorientation', handleOrientation);
+  //}
   // Use the new trackLocation function.
   let watchId = trackLocation({
     onSuccess: ({ coords: { latitude: lat, longitude: lng } }) => {
@@ -205,24 +205,20 @@ if ('ondeviceorientationabsolute' in window) {
 }
 
 function handleOrientation (event) {
-  //if (window.DeviceOrientationEvent) {
-
-    //   window.addEventListener('deviceorientation', function(event) {
-           var alpha = null;
-           //Check for iOS property
-           if (event.webkitCompassHeading) {
-               alpha = event.webkitCompassHeading;
-           }
-           //non iOS
-           else {
-               alpha = 360 - event.alpha;
-           }
-           console.log("here");
-           var locationIcon = marker.get('icon');
-           locationIcon.rotation = alpha;
-           marker.set('icon', locationIcon);
-      // }, false);
-  // }
+  var alpha = null;
+  //Check for iOS property
+  if (event.absolute) {
+   alpha = 360 - event.alpha;
+  }
+  else if (event.hasOwnProperty('webkitCompassHeading')) {
+   alpha = 360 - event.webkitCompassHeading;
+  }
+  else {
+    alpha = 360 - event.alpha;
+  }
+  var locationIcon = marker.get('icon');
+  locationIcon.rotation = alpha;
+  marker.set('icon', locationIcon);
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
