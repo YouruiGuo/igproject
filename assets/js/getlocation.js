@@ -139,7 +139,7 @@ function initMap() {
   var pos;
   var initialPosition = {lat: 53.527213,lng: -113.524544};
   const map = createMap(initialPosition);
-  var marker = new google.maps.Marker({
+  marker = new google.maps.Marker({
         clickable : false,
         icon: {
               path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
@@ -153,7 +153,12 @@ function initMap() {
     });
 
   var prev = -1;
-  enableOrientationArrow();
+if ('ondeviceorientationabsolute' in window) {
+  // Chrome 50+ specific
+  window.addEventListener('deviceorientationabsolute', handleOrientation);
+} else if ('ondeviceorientation' in window) {
+  window.addEventListener('deviceorientation', handleOrientation);
+}  
   // Use the new trackLocation function.
   let watchId = trackLocation({
     onSuccess: ({ coords: { latitude: lat, longitude: lng } }) => {
@@ -199,10 +204,10 @@ function initMap() {
   }
 }
 
-function enableOrientationArrow () {
-  if (window.DeviceOrientationEvent) {
+function handleOrientation (event) {
+  //if (window.DeviceOrientationEvent) {
 
-       window.addEventListener('deviceorientation', function(event) {
+    //   window.addEventListener('deviceorientation', function(event) {
            var alpha = null;
            //Check for iOS property
            if (event.webkitCompassHeading) {
@@ -210,13 +215,14 @@ function enableOrientationArrow () {
            }
            //non iOS
            else {
-               alpha = event.alpha;
+               alpha = 360 - event.alpha;
            }
+           console.log("here");
            var locationIcon = marker.get('icon');
-           locationIcon.rotation = 360 - alpha;
+           locationIcon.rotation = alpha;
            marker.set('icon', locationIcon);
-       }, false);
-   }
+      // }, false);
+  // }
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
