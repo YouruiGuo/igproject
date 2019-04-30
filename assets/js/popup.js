@@ -31,24 +31,25 @@ function calculateCurrentValue(currentTime) {
 }
 
 function initProgressBar() {
+console.log("herehere0");
   var player = document.getElementById('player');
   var length = player.duration
   var current_time = player.currentTime;
 
   // calculate total length of value
   var totalLength = calculateTotalValue(length)
-  jQuery(".end-time").html(totalLength);
+  $$(".end-time").innherHTML = totalLength;
 
   // calculate current value time
   var currentTime = calculateCurrentValue(current_time);
-  jQuery(".start-time").html(currentTime);
+  $$(".start-time").innerHTML = currentTime;
 
   var progressbar = document.getElementById('seekObj');
   progressbar.value = (player.currentTime / player.duration);
   progressbar.addEventListener("click", seek);
 
   if (player.currentTime == player.duration) {
-    $('#play-btn').removeClass('pause');
+    $$('#play-btn').removeClass('pause');
   }
 
   function seek(evt) {
@@ -60,8 +61,7 @@ function initProgressBar() {
 
 function initPlayers() {
   // pass num in if there are multiple audio players e.g 'player' + i
-
-    (function() {
+console.log("initplayers");
 
       // Variables
       // ----------------------------------------------------------
@@ -85,15 +85,14 @@ function initPlayers() {
         if (player.paused === false) {
           player.pause();
           isPlaying = false;
-          $('#play-btn').removeClass('pause');
+          $$('#play-btn').removeClass('pause');
 
         } else {
           player.play();
-          $('#play-btn').addClass('pause');
+          $$('#play-btn').addClass('pause');
           isPlaying = true;
         }
       }
-    }());
 
 }
 
