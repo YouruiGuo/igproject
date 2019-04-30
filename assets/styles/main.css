@@ -134,45 +134,6 @@ $ratio:1.2;
   --f7-checkbox-extra-margin: 22px;
 }
 
-.player .control-panel .controls .scroll-left p {
- position: absolute;
- width: 80%;
- height: 100%;
- margin: 0;
- line-height: 80px;
- text-align: center;
- overflow:auto;
- z-index: -1;
- /* Starting position */
- -moz-transform:translateX(100%);
- -webkit-transform:translateX(100%);
- transform:translateX(100%);
- /* Apply animation to this element */
- -moz-animation: scroll-left 15s linear infinite;
- -webkit-animation: scroll-left 15s linear infinite;
- animation: scroll-left 15s linear infinite;
-}
-/* Move it (define the animation) */
-@-moz-keyframes scroll-left {
- 0%   { -moz-transform: translateX(100%); }
- 100% { -moz-transform: translateX(-100%); }
-}
-@-webkit-keyframes scroll-left {
- 0%   { -webkit-transform: translateX(100%); }
- 100% { -webkit-transform: translateX(-100%); }
-}
-@keyframes scroll-left {
- 0%   {
- -moz-transform: translateX(100%); /* Browser bug fix */
- -webkit-transform: translateX(100%); /* Browser bug fix */
- transform: translateX(100%);
- }
- 100% {
- -moz-transform: translateX(-100%); /* Browser bug fix */
- -webkit-transform: translateX(-100%); /* Browser bug fix */
- transform: translateX(-100%);
- }
-}
 
 /* for player */
 @import url("https://fonts.googleapis.com/css?family=Fira+Sans");
@@ -200,52 +161,38 @@ $ratio:1.2;
   z-index: 6;
   border-radius: 50%;
   box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0);
-  transform: scale(1.1);
-  transition: all .5s ease;
+  background-size: cover;
 }
-.player .control-panel .album-art::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  background-color: #fff;
-  border-radius: 50%;
-  z-index: 5;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-}
-.player .control-panel .album-art::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 50%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 90px;
-  background-image: url();
-}
-.player .control-panel.active .album-art {
-  box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.2);
-  transition: all .5s ease;
-}
-.player .control-panel.active .album-art::before {
-  animation: rotation 3s infinite linear;
-  -webkit-animation: rotation 3s infinite linear;
-  animation-fill-mode: forwards;
-}
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
+
+.player .control-panel .player-controls {
+  align-items: center;
+  justify-content: center;
+  margin-top: 2.5rem;
+  flex: 3;
+  progress {
+    width: 90%;
   }
-  100% {
-    transform: rotate(360deg);
+  progress[value] {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: white;
+    color: blue;
+    height: 5px;
+  }
+  progress[value]::-webkit-progress-bar {
+    background-color: white;
+    border-radius: 2px;
+    border: 1px solid lighten(#acacac, 20%);
+    color: blue;
+  }
+  progress::-webkit-progress-value {
+    background-color: blue;
+  }
+  p {
+    font-size: 1.6rem;
   }
 }
+
 .player .control-panel .controls {
   display: flex;
   height: 80px;
