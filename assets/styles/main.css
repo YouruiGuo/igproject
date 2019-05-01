@@ -170,12 +170,15 @@ $ratio:1.2;
     }
 .audio-player  #play-btn {
     background-image: url("/images/icons8-play-32.png");
-    background-size: cover;
+    background-size: cover; 
     width: 50px;
     height: 50px;
   }
-.audio-player  #play-btn .pause{
+.audio-player #play-btn  .pause{
   background-image: url("/images/icons8-pause-32.png");
+background-size: cover;
+    width: 50px;
+    height: 50px;
   }
 
 /* for player */

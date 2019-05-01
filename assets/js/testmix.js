@@ -36,6 +36,7 @@ async function decodeAudioDataAsync(data) {
        src = f;
      }
    }
+   console.log(src);
    document.getElementById("player").setAttribute("src", src);
    return buffers;
  }
@@ -54,6 +55,7 @@ async function decodeAudioDataAsync(data) {
        src = f;
      }
    }
+   console.log(src);
    document.getElementById("player").setAttribute("src", src);
    return buffers;
  }

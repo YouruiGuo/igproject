@@ -62,7 +62,7 @@ console.log("herehere0");
 function initPlayers() {
   // pass num in if there are multiple audio players e.g 'player' + i
 console.log("initplayers");
-
+$$('#play-btn').addClass('pause');
       // Variables
       // ----------------------------------------------------------
       // audio embed object
@@ -82,15 +82,15 @@ console.log("initplayers");
       // Controls & Sounds Methods
       // ----------------------------------------------------------
       function togglePlay() {
-				if (audio.state === "suspended") {
+				if ($$('#play-btn').hasClass('pause')) {
 		      audio.resume();
-          $$('#play-btn').addClass('pause');
+          $$('#play-btn').removeClass('pause');
           isPlaying = true;
 		    }
-				else if (audio.state === "running") {
+				else {
 			    audio.suspend();
 					isPlaying = false;
-          $$('#play-btn').removeClass('pause');
+          $$('#play-btn').addClass('pause');
 			  }
       }
 

@@ -86,7 +86,7 @@ async function welcomeValley (user_position) {
     imgs.push(info[i].imagePath);
   }
   // TODO: Bug here
-  document.getElementById('description').innerHTML = des;
+//  document.getElementById('description').innerHTML = des;
   var a = imgs[0].split(",");
   //console.log(a[0]);
   $$('.album-art').css('background-image', 'url('+a[0]+')');
