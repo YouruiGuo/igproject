@@ -62,7 +62,7 @@ function initProgressBar() {
 function initPlayers() {
   // pass num in if there are multiple audio players e.g 'player' + i
 		console.log("initplayers");
-		$$('#play-btn').addClass('pause');
+		//$$('#play-btn').addClass('pause');
 	  // Variables
 	  // ----------------------------------------------------------
 	  // audio embed object
