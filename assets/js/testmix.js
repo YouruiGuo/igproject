@@ -1,5 +1,7 @@
 var AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
 var audio = new AudioContext();
+var myAudio = document.querySelector('audio');
+
 console.log(audio);
 var buffers = {};
 var allsources = {};
@@ -37,7 +39,7 @@ async function decodeAudioDataAsync(data) {
      }
    }
    console.log(src);
-   document.getElementById("player").setAttribute("src", src);
+   //document.getElementById("player").setAttribute("src", src);
    return buffers;
  }
 
@@ -56,7 +58,7 @@ async function decodeAudioDataAsync(data) {
      }
    }
    console.log(src);
-   document.getElementById("player").setAttribute("src", src);
+   //document.getElementById("player").setAttribute("src", src);
    return buffers;
  }
 
@@ -121,7 +123,7 @@ function playTracks(buffers) {
     }
     // Get an AudioBufferSourceNode.
     // This is the AudioNode to use when we want to play an AudioBuffer
-    var source = audio.createBufferSource();
+    var source = audio.createMediaElementSource(myAudio);
     var g;
     if (!gains[key]) {
       g = audio.createGain();
