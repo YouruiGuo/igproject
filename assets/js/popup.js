@@ -96,7 +96,7 @@ function initPlayers() {
 
 }
 
-//initPlayers();
+initPlayers();
 /*
 class musicPlayer {
 	constructor() {

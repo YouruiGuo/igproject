@@ -39,7 +39,7 @@ async function decodeAudioDataAsync(data) {
      }
    }
    console.log(src);
-   //document.getElementById("player").setAttribute("src", src);
+//   document.getElementById("player").setAttribute("src", src);
    return buffers;
  }
 
@@ -58,7 +58,7 @@ async function decodeAudioDataAsync(data) {
      }
    }
    console.log(src);
-   //document.getElementById("player").setAttribute("src", src);
+ //  document.getElementById("player").setAttribute("src", src);
    return buffers;
  }
 
@@ -123,7 +123,7 @@ function playTracks(buffers) {
     }
     // Get an AudioBufferSourceNode.
     // This is the AudioNode to use when we want to play an AudioBuffer
-    var source = audio.createMediaElementSource(myAudio);
+    var source = audio.createBufferSource();
     var g;
     if (!gains[key]) {
       g = audio.createGain();
@@ -140,8 +140,8 @@ function playTracks(buffers) {
     source.connect(g);
     g.connect(audio.destination);
     // start the source playing
-    //source.start(0);
-    myAudio.play();
+    source.start(0);
+   // myAudio.play();
   }
 }
 
@@ -180,10 +180,10 @@ async function firstHandleFilesSelect(fP) {
   await fP.then(function (value) { filePaths = value;});
   loadFiles(fP).then((track) => {
 
-    var controller = document.getElementById("play-btn");
-    controller.addEventListener('click', function() {
+ //   var controller = document.getElementById("play-btn");
+ //   controller.addEventListener('click', function() {
       playTracks(track);
-    }, {once: true});
+   // }, {once: true});
   });
 }
 
