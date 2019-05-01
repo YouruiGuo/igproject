@@ -140,7 +140,8 @@ function playTracks(buffers) {
     source.connect(g);
     g.connect(audio.destination);
     // start the source playing
-    source.start(0);
+    //source.start(0);
+    myAudio.play();
   }
 }
 
