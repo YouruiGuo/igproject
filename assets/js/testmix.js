@@ -24,12 +24,19 @@ async function decodeAudioDataAsync(data) {
    let filePaths = [];
    await fP.then(function (value) { filePaths = value;});
    let buffers = [];
+   var max=0;
+   var src = "";
    for (let f of filePaths) {
      let response = await fetch(f);
      let arrayBuffer = await response.arrayBuffer();
      let audioBuffer = await decodeAudioDataAsync(arrayBuffer);
      buffers[f] = audioBuffer;
+     if (audioBuffer.duration > max) {
+       max = audioBuffer.duration;
+       src = f;
+     }
    }
+   document.getElementById("player").setAttribute("src", src);
    return buffers;
  }
 
@@ -42,7 +49,12 @@ async function decodeAudioDataAsync(data) {
      let arrayBuffer = await response.arrayBuffer();
      let audioBuffer = await decodeAudioDataAsync(arrayBuffer);
      buffers[f] = audioBuffer;
+     if (audioBuffer.duration > max) {
+       max = audioBuffer.duration;
+       src = f;
+     }
    }
+   document.getElementById("player").setAttribute("src", src);
    return buffers;
  }
 
@@ -162,7 +174,8 @@ async function firstHandleFilesSelect(fP) {
   let filePaths = [];
   await fP.then(function (value) { filePaths = value;});
   loadFiles(fP).then((track) => {
-    var controller = document.getElementById("play");
+
+    var controller = document.getElementById("play-btn");
     controller.addEventListener('click', function() {
       playTracks(track);
     }, {once: true});
@@ -170,6 +183,7 @@ async function firstHandleFilesSelect(fP) {
 }
 
 async function handleFilesSelect(fP) {
+
   let filePaths = [];
   await fP.then(function (value) { filePaths = value;});
   loadFiles(fP).then((track) => {

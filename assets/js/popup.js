@@ -82,16 +82,16 @@ console.log("initplayers");
       // Controls & Sounds Methods
       // ----------------------------------------------------------
       function togglePlay() {
-        if (player.paused === false) {
-          player.pause();
-          isPlaying = false;
-          $$('#play-btn').removeClass('pause');
-
-        } else {
-          player.play();
+				if (audio.state === "suspended") {
+		      audio.resume();
           $$('#play-btn').addClass('pause');
           isPlaying = true;
-        }
+		    }
+				else if (audio.state === "running") {
+			    audio.suspend();
+					isPlaying = false;
+          $$('#play-btn').removeClass('pause');
+			  }
       }
 
 }
