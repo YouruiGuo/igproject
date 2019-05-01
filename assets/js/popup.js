@@ -45,6 +45,7 @@ console.log("herehere0");
   $$(".start-time").innerHTML = currentTime;
 
   var progressbar = document.getElementById('seekObj');
+console.log(player.currentTime / player.duration);
   progressbar.value = (player.currentTime / player.duration);
   progressbar.addEventListener("click", seek);
 
@@ -70,7 +71,6 @@ $$('#play-btn').addClass('pause');
         player = document.getElementById('player'),
         isPlaying = false,
         playBtn = document.getElementById('play-btn');
-
       // Controls Listeners
       // ----------------------------------------------------------
       if (playBtn != null) {
@@ -82,6 +82,7 @@ $$('#play-btn').addClass('pause');
       // Controls & Sounds Methods
       // ----------------------------------------------------------
       function togglePlay() {
+//console.log("play button triggered");
 				if ($$('#play-btn').hasClass('pause')) {
 		      audio.resume();
           $$('#play-btn').removeClass('pause');
