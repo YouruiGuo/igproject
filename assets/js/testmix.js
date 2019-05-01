@@ -1,8 +1,6 @@
 var AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
 var audio = new AudioContext();
-var myAudio = document.querySelector('audio');
 
-console.log(audio);
 var buffers = {};
 var allsources = {};
 var gains = {};
@@ -27,19 +25,12 @@ async function decodeAudioDataAsync(data) {
    await fP.then(function (value) { filePaths = value;});
    let buffers = [];
    var max=0;
-   var src = "";
    for (let f of filePaths) {
      let response = await fetch(f);
      let arrayBuffer = await response.arrayBuffer();
      let audioBuffer = await decodeAudioDataAsync(arrayBuffer);
      buffers[f] = audioBuffer;
-     if (audioBuffer.duration > max) {
-       max = audioBuffer.duration;
-       src = f;
-     }
    }
-   console.log(src);
-//   document.getElementById("player").setAttribute("src", src);
    return buffers;
  }
 
@@ -52,13 +43,7 @@ async function decodeAudioDataAsync(data) {
      let arrayBuffer = await response.arrayBuffer();
      let audioBuffer = await decodeAudioDataAsync(arrayBuffer);
      buffers[f] = audioBuffer;
-     if (audioBuffer.duration > max) {
-       max = audioBuffer.duration;
-       src = f;
-     }
    }
-   console.log(src);
- //  document.getElementById("player").setAttribute("src", src);
    return buffers;
  }
 
@@ -180,10 +165,10 @@ async function firstHandleFilesSelect(fP) {
   await fP.then(function (value) { filePaths = value;});
   loadFiles(fP).then((track) => {
 
- //   var controller = document.getElementById("play-btn");
- //   controller.addEventListener('click', function() {
+   var controller = document.getElementById("play-btn");
+    controller.addEventListener('click', function() {
       playTracks(track);
-   // }, {once: true});
+    }, {once: true});
   });
 }
 
