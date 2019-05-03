@@ -135,10 +135,10 @@ async function welcomeValley (user_position) {
                     '     <div class="col-33"><p><label class="checkbox">'+
                     '           <input type="checkbox" class="solo" id="solo'+i.toString()+'">'+
                     '               <i class="icon icon-checkbox"></i>'+
-                    '         </label>  Solo</p></div></div>'+
+                    '         </label>  Solo</p></div></div>';
     insert = '<a href="#" class="item-content item-link">'+
              '  <div class="item-inner"> '+
-             '     <div class="item-title">' + info[i].TrackName + muteinsert_0 + '</div> '+
+             '     <div class="item-title">' + info[i].TrackName  + '</div> '+ muteinsert_0 +
              '    </div></a> '+
              '  <div class="accordion-item-content" id="'+i.toString()+'"> </div>';
     newitem.innerHTML = insert;
