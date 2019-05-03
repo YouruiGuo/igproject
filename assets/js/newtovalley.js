@@ -94,7 +94,7 @@ async function welcomeValley (user_position) {
   pop = document.querySelector('.popinfo');
   //console.log(pop.innelHTML);
   for (var i = 0; i < info.length; i++) {
-    var newitem = document.createElement('div');
+    var newitem = document.createElement('li');
     var trackPath = info[i].filePath;
     var generalDesc = info[i].generalDesc;
     var instrumentDesc = info[i].instrumentDesc;
@@ -133,12 +133,12 @@ async function welcomeValley (user_position) {
                     '           <input type="checkbox" class="solo" id="solo'+i.toString()+'">'+
                     '               <i class="icon icon-checkbox"></i>'+
                     '         </label>  Solo</p></div>';
-    insert = '<div class="row no-gap"><div class="col-33"><div class="accordion-item-toggle">'+
-             '     <h2>' + info[i].TrackName  + '</h2> ' +
-             '    </div></div>'+ muteinsert_0 + '</div>' +
+    insert = '<div class="row no-gap"><div class="col-33"><a href="#" class="item-content item-link">'+
+             '     <div class="item-inner"><div class="item-title">' + info[i].TrackName  + '</div></div></a> ' +
+             '    </div>'+ muteinsert_0 + '</div>' +
              '  <div class="accordion-item-content" id="'+i.toString()+'"> </div>';
     newitem.innerHTML = insert;
-    $$('.custom-accordion').append(newitem);
+    pop.appendChild(newitem);
     num = i;
     //$$('#'+i.toString()).append(muteinsert);
     if (images) {
