@@ -124,16 +124,16 @@ async function welcomeValley (user_position) {
                   '         </label>  Solo</p></div></div>'+
                   '   </div>'+
                   '</div>';
-    muteinsert_0 =  '     <div class="col-33">'+
+    muteinsert_0 =  '     <div class="col-25">'+
                     '        <p> <label class="checkbox">'+
                     '           <input type="checkbox"  class="mute" id="mute'+i.toString()+'">'+
                     '               <i class="icon icon-checkbox"></i>'+
                     '         </label>  Mute</p></div>'+
-                    '     <div class="col-33"><p><label class="checkbox">'+
+                    '     <div class="col-25"><p><label class="checkbox">'+
                     '           <input type="checkbox" class="solo" id="solo'+i.toString()+'">'+
                     '               <i class="icon icon-checkbox"></i>'+
                     '         </label>  Solo</p></div>';
-    insert = '<div class="row no-gap"><div class="col-33"><a href="#" class="item-content item-link">'+
+    insert = '<div class="row no-gap"><div class="col-50"><a href="#" class="item-content item-link">'+
              '     <div class="item-inner"><div class="item-title">' + info[i].TrackName  + '</div></div></a> ' +
              '    </div>'+ muteinsert_0 + '</div>' +
              '  <div class="accordion-item-content" id="'+i.toString()+'"> </div>';
