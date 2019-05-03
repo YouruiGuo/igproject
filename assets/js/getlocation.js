@@ -129,6 +129,25 @@ var trackLocation = ({ onSuccess, onError = () => { } }) => {
 };
 
 
+function setMarkers(map) {
+  var temp = allInfo();
+  var info = [];
+  temp.then(function (value) {info = value;});
+  for (var i = 0; i < info.length; i++) {
+    var marker = new google.maps.Marker({
+      position: {lat:info[i].latitude, lng:info[i].longitude},
+      map: map,
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: 2.5,
+        strokeColor: '#FFA07A',
+      },
+      zIndex : 999,
+    });
+  }
+}
+
+
 // Note: This example requires that you consent to location sharing when
 // prompted by your browser. If you see the error "The Geolocation service
 // failed.", it means you probably did not give permission for the browser to
@@ -153,6 +172,7 @@ function initMap() {
     });
 
   var prev = -1;
+  setMarkers(map);
   //if ('ondeviceorientationabsolute' in window) {
     // Chrome 50+ specific
     window.addEventListener('deviceorientationabsolute', handleOrientation, true);

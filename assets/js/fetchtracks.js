@@ -1,3 +1,25 @@
+async function allInfo () {
+  const d = await fetch('/info', {
+    method: 'post',
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+    },
+    body: 'valleypos='+valley_pos.toString()
+  })
+  .then(res => res.json())
+  .catch(function (error) {
+    console.log(' Request failed', error);
+  });
+  var paths = [];
+  for (var i = 0; i < d.length; i++) {
+    paths.push(d[i]);
+  }
+  //console.log(paths);
+  if (paths != []) {
+    return paths;
+  }
+}
+
 async function track(valley_pos) {
   //console.log(valley_pos);
   var data = {valleypos: valley_pos};
