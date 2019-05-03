@@ -109,11 +109,6 @@ async function welcomeValley (user_position) {
     images = images.split(",");
 
     newitem.setAttribute("class", "accordion-item");
-    insert = '<a href="#" class="item-content item-link">'+
-             '  <div class="item-inner"> '+
-             '     <div class="item-title">' + info[i].TrackName + '</div> '+
-             '    </div></a> '+
-             '  <div class="accordion-item-content" id="'+i.toString()+'"> </div>';
     muteinsert =  '<div class="card">'+
                   '   <div class="card-header"> <p> Mute/Unmute</p> </div>'+
                   '   <div class="card-content card-content-padding">'+
@@ -129,11 +124,27 @@ async function welcomeValley (user_position) {
                   '         </label>  Solo</p></div></div>'+
                   '   </div>'+
                   '</div>';
-
+    muteinsert_0 =  '<div class="block">'+
+                    '     <div class="col-33">'+
+                    '        <p> Mute/Unmute</p> </div>'+
+                    '     <div class="col-33">'+
+                    '        <p> <label class="checkbox">'+
+                    '           <input type="checkbox"  class="mute" id="mute'+i.toString()+'">'+
+                    '               <i class="icon icon-checkbox"></i>'+
+                    '         </label>  Mute</p></div>'+
+                    '     <div class="col-33"><p><label class="checkbox">'+
+                    '           <input type="checkbox" class="solo" id="solo'+i.toString()+'">'+
+                    '               <i class="icon icon-checkbox"></i>'+
+                    '         </label>  Solo</p></div></div>'+
+    insert = '<a href="#" class="item-content item-link">'+
+             '  <div class="item-inner"> '+
+             '     <div class="item-title">' + info[i].TrackName + muteinsert_0 + '</div> '+
+             '    </div></a> '+
+             '  <div class="accordion-item-content" id="'+i.toString()+'"> </div>';
     newitem.innerHTML = insert;
     pop.appendChild(newitem);
     num = i;
-    $$('#'+i.toString()).append(muteinsert);
+    //$$('#'+i.toString()).append(muteinsert);
     if (images) {
       var temp = document.createElement('div');
       temp.setAttribute("class", "card");
@@ -246,4 +257,3 @@ async function welcomeValley (user_position) {
     });
   return paths;
 }
-
