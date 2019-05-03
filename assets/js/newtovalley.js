@@ -124,10 +124,7 @@ async function welcomeValley (user_position) {
                   '         </label>  Solo</p></div></div>'+
                   '   </div>'+
                   '</div>';
-    muteinsert_0 =  '<div class="block">'+
-                    '     <div class="row no-gap"><div class="col-33">'+
-                    '        <p> Mute/Unmute</p> </div>'+
-                    '     <div class="col-33">'+
+    muteinsert_0 =  '     <div class="col-33">'+
                     '        <p> <label class="checkbox">'+
                     '           <input type="checkbox"  class="mute" id="mute'+i.toString()+'">'+
                     '               <i class="icon icon-checkbox"></i>'+
@@ -135,10 +132,10 @@ async function welcomeValley (user_position) {
                     '     <div class="col-33"><p><label class="checkbox">'+
                     '           <input type="checkbox" class="solo" id="solo'+i.toString()+'">'+
                     '               <i class="icon icon-checkbox"></i>'+
-                    '         </label>  Solo</p></div></div></div>';
-    insert = '<div class="accordion-item-toggle"><i class="icon icon-plus">+</i><i class="icon icon-minus">-</i>'+
-             '     <span>' + info[i].TrackName  + '</span> '+ muteinsert_0 +
-             '    </div>'+
+                    '         </label>  Solo</p></div>';
+    insert = '<div class="row no-gap"><div class="col-33"><div class="accordion-item-toggle">'+
+             '     <h2>' + info[i].TrackName  + '</h2> ' +
+             '    </div></div>'+ muteinsert_0 + '</div>' +
              '  <div class="accordion-item-content" id="'+i.toString()+'"> </div>';
     newitem.innerHTML = insert;
     $$('.custom-accordion').append(newitem);
