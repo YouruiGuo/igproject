@@ -13,6 +13,7 @@ $$('.popup-about').on('popup:opened', function (e, popup) {
 function initPlayers() {
 	console.log("initplayers");
 	$$('#play-btn').addClass('pause');
+$$('#play-btn').attr('style', 'background-image:url("/images/icons8-play-32.png")');
 }
 
 // Controls & Sounds Methods
@@ -21,13 +22,15 @@ function togglePlay() {
         //console.log("play button triggered");
         if ($$('#play-btn').hasClass('pause')) {
               audio.resume();
-              $$('#play-btn').removeClass('pause');
+	      $$('#play-btn').removeClass('pause');
+              $$('#play-btn').attr('style', 'background-image:url("/images/icons8-pause-32.png")');
               isPlaying = true;
         }
         else {
                audio.suspend();
                isPlaying = false;
                $$('#play-btn').addClass('pause');
+               $$('#play-btn').attr('style', 'background-image: url("/images/icons8-play-32.png")');
          }
 }
 

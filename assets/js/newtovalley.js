@@ -246,3 +246,4 @@ async function welcomeValley (user_position) {
     });
   return paths;
 }
+

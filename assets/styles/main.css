@@ -1,65 +1,11 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,800);
-
-$background:#f9f9f9;
-$foreground:#2c3e50;
-
-$foreground-light:#34495e;
-
-
-$size:50px;
-$ratio:1.2;
-
-.play {
-  display:block;
-  width: 0;
-	height: 0;
-	border-top: $size solid transparent;
-	border-bottom: $size solid transparent;
-	border-left: ($size*$ratio) solid $foreground;
-  margin: ($size * 2) auto $size auto;
-  position:relative;
-  z-index:1;
-  left:($size*0.2);
-
-  &:before {
-    content:'';
-    position:absolute;
-    top:($size*-1.5);
-    left:($size*-2.3);
-    bottom:($size*-1.5);
-    right:($size*-0.7);
-    border-radius:50%;
-    border: ($size*0.2) solid $foreground;
-    z-index:2;
-  }
-  &:after {
-    content:'';
-    opacity:0;
-  }
-
-
-  &.active {
-	  border-color:transparent;
-    &:after {
-      content:'';
-      opacity:1;
-      width:($size);
-      height:($size*1.6);
-      background:$foreground;
-      position:absolute;
-      right: ($size*0.1);
-      top: ($size*-0.8);
-      border-left:($size*0.4) solid $foreground;
-      box-shadow:inset ($size*0.6) 0 0 0 $background;
-    }
-  }
-}
+.page {position:fixed; z-index: 50;}
 
 
 .intro {
+  position: fixed;
   height: 100%;
   width: 100%;
-  z-index: 100;
+  z-index: 1000;
   background-color: white;
   display: none;
 }
@@ -115,24 +61,6 @@ $ratio:1.2;
   border: none;
 }
 
-:root {
-  /* --f7-checkbox-active-color: var(--f7-theme-color); */
-  --f7-checkbox-icon-color: #fff;
-}
-.ios {
-  --f7-checkbox-size: 22px;
-  --f7-checkbox-border-radius: 50%;
-  --f7-checkbox-border-width: 1px;
-  --f7-checkbox-inactive-color: #c7c7cc;
-  --f7-checkbox-extra-margin: 0px;
-}
-.md {
-  --f7-checkbox-size: 18px;
-  --f7-checkbox-border-radius: 2px;
-  --f7-checkbox-border-width: 2px;
-  --f7-checkbox-inactive-color: #6d6d6d;
-  --f7-checkbox-extra-margin: 22px;
-}
 
 
 .audio-player {
@@ -152,102 +80,15 @@ $ratio:1.2;
       width: 90%;
     }
 }
-.audio-player  #play-btn {
-    background-image: url("/images/icons8-play-32.png");
+.audio-player #play-btn  {
+    background-image: url("images/icons8-play-32.png");
     background-size: cover; 
-    margin: 30px 0 10px 15px;
+    margin: 30px 0 10px 14px;
     width: 20px;
     Height: 20px;
   }
-.audio-player #play-btn  .pause{
-  background-image: url("/images/icons8-pause-32.png");
-  background-size: cover;
-  width: 50px;
-  height: 50px;
- }
-
-/* for player */
-@import url("https://fonts.googleapis.com/css?family=Fira+Sans");
 
 
-.player {
-  position: relative;
-}
-
-.player .control-panel {
-  position: relative;
-  background-color: #fff;
-  border-radius: 15px;
-  width: 100%;
-  height: 80px;
-  z-index: 5;
-  box-shadow: 0px 20px 20px 5px rgba(132, 132, 132, 0.3);
-}
-.player .control-panel .album-art {
-  position: absolute;
-  left: 4px;
-  top: -4px;
-  height: 80px;
-  width: 80px;
-  z-index: 6;
-  border-radius: 50%;
-  box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0);
-  background-size: cover;
-}
-
-.player .control-panel .player-controls0 {
-  align-items: center;
-  justify-content: center;
-  margin-top: 2.5rem;
-  flex: 3;
-  progress {
-    width: 90%;
-  }
-  progress[value] {
-    -webkit-appearance: none;
-    appearance: none;
-    background-color: black;
-    color: blue;
-    height: 5px;
-  }
-  progress[value]::-webkit-progress-bar {
-    background-color: black;
-    border-radius: 2px;
-    border: 1px solid lighten(#acacac, 20%);
-    color: blue;
-  }
-  progress::-webkit-progress-value {
-    background-color: blue;
-  }
-}
-
-.player .control-panel .controls {
-  display: flex;
-  height: 80px;
-  padding: 0 15px;
-}
-
-.player .control-panel .controls .play {
-  width: 60px;
-  height: auto;
-  z-index: 10;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: 20px;
-  margin: 5px 0;
-  cursor: pointer;
-  transition: background-color .3s ease;
-  -webkit-transition: background-color .3s ease;
-}
-
-
-.player .control-panel .controls .play {
-  background-image: url("/images/icons8-play-32.png");
-}
-
-.player .control-panel.active .controls .play {
-  background-image: url("/images/icons8-pause-32.png");
-}
 
 
 /* A bit of demo styles */;

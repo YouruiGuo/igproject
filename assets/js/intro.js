@@ -3,6 +3,7 @@ var visited = [];
 async function introPage(numvalley) {
   if (!visited[numvalley]) {
     visited[numvalley] = true;
+    var fab = document.querySelector('.fab');
     var pg = document.querySelector('.intro');
 
     var i = fetchTrackIntro(numvalley);
