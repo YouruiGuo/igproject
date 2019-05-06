@@ -33,12 +33,15 @@ async function introPage(numvalley) {
     imghtml.innerHTML = '<img class="img" src='+ imgs +'>';
     newdiv.appendChild(imghtml);
 
-    var bt = document.createElement('div');
-    bt.innerHTML = '<a href="#" title="Play video" class="playintro"></a>';
-    newdiv.appendChild(bt);
-    pg.appendChild(newdiv);
 
-    firstHandleFilesSelectIntro(trackp);
+    for (var b = 0; b < trackp.length; b++) {
+      introaudio = document.createElement('audio');
+      introaudio.setAttribute('src', trackp[b]);
+      introaudio.play();
+    }
+
+
+    //firstHandleFilesSelectIntro(trackp);
 
     $$(".intro").show();
     setTimeout(function() { $$(".intro").hide(); }, 5000);
