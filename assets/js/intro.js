@@ -39,8 +39,6 @@ async function introPage(numvalley) {
       introaudio.setAttribute('src', trackp[b]);
       introaudio.play();
     }
-
-
     //firstHandleFilesSelectIntro(trackp);
 
     $$(".intro").show();
