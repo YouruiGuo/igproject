@@ -1,15 +1,12 @@
 async function allInfo () {
   const d = await fetch('/info', {
     method: 'post',
-    headers: {
-      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-    },
-    body: 'valleypos='+valley_pos.toString()
   })
   .then(res => res.json())
   .catch(function (error) {
     console.log(' Request failed', error);
   });
+  //console.log(d);
   var paths = [];
   for (var i = 0; i < d.length; i++) {
     paths.push(d[i]);

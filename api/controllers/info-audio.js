@@ -20,7 +20,7 @@ module.exports = {
     datastore = sails.getDatastore();
     sql = "select * from audioinfo";
     var v = await datastore.sendNativeQuery(sql, '');
-    //sails.log(v.rows);
+    sails.log(v.rows);
     if (v.rows != []) {
       results = v.rows;
     }

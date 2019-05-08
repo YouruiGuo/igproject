@@ -34,7 +34,7 @@ module.exports.routes = {
     action: 'intro-audio'
   },
   'POST /info': {
-    action: 'info'
+    action: 'info-audio'
   },
 
 

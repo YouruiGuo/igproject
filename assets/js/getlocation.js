@@ -129,10 +129,11 @@ var trackLocation = ({ onSuccess, onError = () => { } }) => {
 };
 
 
-function setMarkers(map) {
+async function setMarkers(map) {
   var temp = allInfo();
   var info = [];
-  temp.then(function (value) {info = value;});
+  await temp.then(function (value) {info = value;});
+  console.log(temp);
   for (var i = 0; i < info.length; i++) {
     var marker = new google.maps.Marker({
       position: {lat:info[i].latitude, lng:info[i].longitude},
