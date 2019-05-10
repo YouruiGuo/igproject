@@ -159,9 +159,15 @@ function initMap() {
   var pos;
   var initialPosition = {lat: 53.527213,lng: -113.524544};
   const map = createMap(initialPosition);
+  var icon = {
+    url: "/images/direction.png", // url
+    scaledSize: new google.maps.Size(30, 30), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+  };
   marker = new google.maps.Marker({
         clickable : false,
-        icon: '/images/direction.png',
+        icon: icon,
         shadow : null,
         zIndex : 999,
         map : map
