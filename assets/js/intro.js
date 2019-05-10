@@ -1,8 +1,9 @@
 var visited = [];
 
-async function introPage(numvalley) {
+async function introPage(numvalley, prev) {
   //console.log(visited);
-  stopAudio();
+ // if(prev) {stopAudio();}
+  var paths = [];
   if (!visited[numvalley]) {
     visited[numvalley] = true;
     var pg = document.querySelector('.intro');
@@ -54,7 +55,7 @@ async function introPage(numvalley) {
          p = document.getElementById("introaudio"+x);
          p.pause();
        }
-       var paths = welcomeValley(numvalley);
+       paths = welcomeValley(numvalley);
        handleFilesSelect(paths);
    });
    function playintrotracks() {
@@ -75,12 +76,14 @@ async function introPage(numvalley) {
        p = document.getElementById("introaudio"+x);
        p.pause();
      }
-     var paths = welcomeValley(numvalley);
+     paths = welcomeValley(numvalley);
      handleFilesSelect(paths);
      }, 100000);
   }
   else {
-    var paths = welcomeValley(numvalley);
+    //if(prev) {stopAudio();}
+    paths = welcomeValley(numvalley);
+    console.log(paths);
     handleFilesSelect(paths);
   }
 }

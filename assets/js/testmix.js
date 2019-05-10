@@ -8,6 +8,13 @@ var mute = {};
 
 function stopAudio() {
   audio.close().then(function () {audio = new AudioContext();});
+  gains = {};
+  if (!$$('#play-btn').hasClass('pause')) {
+    $$('#play-btn').addClass('pause');
+               $$('#play-btn').attr('style', 'background-image: url("/images/icons8-play-32.png")');
+         
+  }
+
 }
 
 async function decodeAudioDataAsync(data) {
@@ -110,23 +117,37 @@ function playTracks(buffers) {
     // This is the AudioNode to use when we want to play an AudioBuffer
     var source = audio.createBufferSource();
     var g;
-    if (!gains[key]) {
+//    if (!gains[key]) {
       g = audio.createGain();
       g.gain.value = 1;
       gains[key] = g;
-    }
+   // }
+/*
     else{
+      console.log(gains[key]);
       g = gains[key];
-    }
+    }*/
     // set the buffer in the AudioBufferSourceNode
     source.buffer = output;
     source.loop = true;
     mute[key] = 0; // un-muted
-    source.connect(g);
-    g.connect(audio.destination);
+    console.log(gains[key]);
+    source.connect(gains[key]);
+    gains[key].connect(audio.destination);
     // start the source playing
     source.start(0);
-   // myAudio.play();
+    if (audio.state === "running") {
+      if ($$('#play-btn').hasClass('pause')) {
+        $$('#play-btn').removeClass('pause');
+        $$('#play-btn').attr('style', 'background-image:url("/images/icons8-pause-32.png")');
+      }
+    }
+    else if (audio.state === "suspended") {
+      if (!$$('#play-btn').hasClass('pause')) {
+         $$('#play-btn').addClass('pause');
+               $$('#play-btn').attr('style', 'background-image: url("/images/icons8-play-32.png")');
+      }
+    } 
   }
 }
 
@@ -173,9 +194,9 @@ async function firstHandleFilesSelect(fP) {
 }
 
 async function handleFilesSelect(fP) {
-
   let filePaths = [];
   await fP.then(function (value) { filePaths = value;});
+  console.log("handlefileselct");
   loadFiles(fP).then((track) => {
     playTracks(track);
   });

@@ -189,7 +189,11 @@ function initMap() {
       user_position = findValley(pos);
       //console.log(user_position);
       if (user_position != -1) {
-        introPage(user_position);
+        if (prev != user_position){
+          stopAudio();
+          //console.log(audio);
+          introPage(user_position, true);}
+        else if (prev == -1){ introPage(user_position, false);}
         //stopAudio();
         //var paths = welcomeValley(user_position);
         //handleFilesSelect(paths);
