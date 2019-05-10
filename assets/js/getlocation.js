@@ -2,18 +2,18 @@
 var numValleys = 6;
 var coords = [
   [
-   {lat: 53.527840, lng: -113.528769},
-   {lat: 53.527940, lng: -113.526244},
-   {lat: 53.524841, lng: -113.526226},
-   {lat: 53.525038, lng: -113.528843},
-   {lat: 53.527840, lng: -113.528769},
- ],
+   {lat: 30.020048, lng: 31.497416},
+   {lat: 30.020572, lng: 31.498844},
+   {lat: 30.019027, lng: 31.500264},
+   {lat: 30.018405, lng: 31.498258},
+   {lat: 30.020048, lng: 31.497416},
+  ],
   [
-   {lat: 53.527882, lng: -113.525062},
-   {lat: 53.527944, lng: -113.521045},
-   {lat: 53.525665, lng: -113.521045},
-   {lat: 53.525717, lng: -113.524983},
-   {lat: 53.527882, lng: -113.525062},
+   {lat: 30.019867, lng: 31.499512},
+   {lat: 30.020431, lng: 31.500290},
+   {lat: 30.020048, lng: 31.500875},
+   {lat: 30.019288, lng: 31.500114},
+   {lat: 30.019867, lng: 31.499512},
  ],
  [
    {lat: 53.519072, lng: -113.522007},
@@ -188,9 +188,10 @@ function initMap() {
       user_position = findValley(pos);
       //console.log(user_position);
       if (user_position != -1) {
+        introPage(user_position);
         if (prev == -1) {
           console.log("first play");
-          introPage(user_position);
+          //introPage(user_position);
           var paths = welcomeValley(user_position);
           firstHandleFilesSelect(paths);
         }

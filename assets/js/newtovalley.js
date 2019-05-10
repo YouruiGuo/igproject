@@ -92,6 +92,7 @@ async function welcomeValley (user_position) {
   $$('.album-art').css('background-image', 'url('+a[0]+')');
 
   pop = document.querySelector('.popinfo');
+  pop.innerHTML = "";
   //console.log(pop.innelHTML);
   for (var i = 0; i < info.length; i++) {
     var newitem = document.createElement('li');
