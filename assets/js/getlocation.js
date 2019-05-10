@@ -161,12 +161,7 @@ function initMap() {
   const map = createMap(initialPosition);
   marker = new google.maps.Marker({
         clickable : false,
-        icon: {
-              path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-              strokeColor : '#3333FF',
-              strokeWeight : 5,
-              scale: 2.5
-            },
+        icon: '/images/direction.png',
         shadow : null,
         zIndex : 999,
         map : map
@@ -189,6 +184,10 @@ function initMap() {
       //console.log(user_position);
       if (user_position != -1) {
         introPage(user_position);
+        //stopAudio();
+        //var paths = welcomeValley(user_position);
+        //handleFilesSelect(paths);
+        /*
         if (prev == -1) {
           console.log("first play");
           //introPage(user_position);
@@ -203,7 +202,7 @@ function initMap() {
           var paths = welcomeValley(user_position);
          // test();
           handleFilesSelect(paths);
-        }
+        }*/
       }
       else {
           stopAudio();

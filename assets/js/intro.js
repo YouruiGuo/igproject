@@ -1,7 +1,8 @@
 var visited = [];
 
 async function introPage(numvalley) {
-  console.log(visited);
+  //console.log(visited);
+  stopAudio();
   if (!visited[numvalley]) {
     visited[numvalley] = true;
     var pg = document.querySelector('.intro');
@@ -15,7 +16,7 @@ async function introPage(numvalley) {
     for (var a = 0; a < info.length; a++) {
        if (info[a].imagePath != "")
 	       imgs.push(info[a].imagePath);
-	     trackp.push(info[a].filePath);
+	       trackp.push(info[a].filePath);
     }
     var newdiv = document.createElement('div');
 
@@ -37,10 +38,6 @@ async function introPage(numvalley) {
       pg.appendChild(introaudio);
       introaudio.setAttribute('id', "introaudio"+b);
       introaudio.setAttribute('src', trackp[b]);
-      //var player = document.getElementById("introaudio"+b);
-      //console.log(player);
-      //player.play();
-     // introaudio.play();
     }
    var playbutton = document.createElement("button");
    playbutton.innerHTML = "PLAY";
@@ -52,24 +49,38 @@ async function introPage(numvalley) {
    closebutton.setAttribute("class","button");
    closebutton.innerHTML = "CLOSE";
    closebutton.addEventListener("click", function () {
-       $$(".intro").hide(); for(var x=0; x<trackp.length; x++){ p = document.getElementById("introaudio"+x); p.pause();}
+       $$(".intro").hide();
+       for(var x=0; x<trackp.length; x++){
+         p = document.getElementById("introaudio"+x);
+         p.pause();
+       }
+       var paths = welcomeValley(numvalley);
+       handleFilesSelect(paths);
    });
-   function playintrotracks() {  
+   function playintrotracks() {
    for (var b = 0; b < trackp.length; b++) {
       var play = document.getElementById('introaudio'+b);
       console.log(play);
       var playpromise = play.play();
       if (playpromise !== undefined) {
-	playpromise.then(_ => {}).catch(error => {
-	  play.play();
-	});
+      	playpromise.then(_ => {}).catch(error => {
+      	  play.play();
+      	});
       }
    }}
-   // var playa = document.querySelector('audio');
-   // playa.play();
-    //firstHandleFilesSelectIntro(trackp);
-
-    $$(".intro").show();
-    setTimeout(function() { $$(".intro").hide(); for(var x=0; x<trackp.length; x++){ p = document.getElementById("introaudio"+x); p.pause();} }, 50000);
+   $$(".intro").show();
+   setTimeout(function() {
+     $$(".intro").hide();
+     for(var x=0; x<trackp.length; x++){
+       p = document.getElementById("introaudio"+x);
+       p.pause();
+     }
+     var paths = welcomeValley(numvalley);
+     handleFilesSelect(paths);
+     }, 100000);
+  }
+  else {
+    var paths = welcomeValley(numvalley);
+    handleFilesSelect(paths);
   }
 }
