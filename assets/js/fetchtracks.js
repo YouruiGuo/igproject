@@ -17,6 +17,25 @@ async function allInfo () {
   }
 }
 
+async function birdsTrack() {
+  var data = {valleypos: 'birds'};
+  var r = Math.floor(Math.random()*10);
+  const d = await fetch('/audio', {
+    method: 'post',
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+    },
+    body: 'valleypos='+valley_pos+r.toString()
+  })
+  .then(res => res.json())
+  .catch(function (error) {
+    console.log(' Request failed', error);
+  });
+  if (d.length != 0) {
+    return d;
+  }
+}
+
 async function track(valley_pos) {
   //console.log(valley_pos);
   var data = {valleypos: valley_pos};

@@ -91,31 +91,31 @@ INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePat
 VALUES('30', 'Intro', 'Annihilation-Poverty-Ambient', '/audio/Annihilation-Poverty-Ambient.mp3', 'intro7', '','','','','','','',-113.525458, 53.525927,'');
 
 INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
-VALUES('31', 'birds', 'duck', '/audio/duck.mp3', 'birds', '','','','','','','',-113.525458, 53.525927,'');
+VALUES('31', 'birds', 'duck', '/audio/duck.mp3', 'birds0', '','','','','','','',-113.525458, 53.525927,'');
 
 INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
-VALUES('32', 'birds', 'hawk', '/audio/hawk.mp3', 'birds', '','','','','','','',-113.525458, 53.525927,'');
+VALUES('32', 'birds', 'hawk', '/audio/hawk.mp3', 'birds1', '','','','','','','',-113.525458, 53.525927,'');
 
 INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
-VALUES('33', 'birds', 'hoopoe', '/audio/hoopoe.mp3', 'birds', '','','','','','','',-113.525458, 53.525927,'');
+VALUES('33', 'birds', 'hoopoe', '/audio/hoopoe.mp3', 'birds2', '','','','','','','',-113.525458, 53.525927,'');
 
 INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
-VALUES('34', 'birds', 'Humay_and_Humayun', '/audio/Humay_and_Humayun.mp3', 'birds', '','','','','','','',-113.525458, 53.525927,'');
+VALUES('34', 'birds', 'Humay_and_Humayun', '/audio/Humay_and_Humayun.mp3', 'birds3', '','','','','','','',-113.525458, 53.525927,'');
 
 INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
-VALUES('35', 'birds', 'owl', '/audio/owl.mp3', 'birds', '','','','','','','',-113.525458, 53.525927,'');
+VALUES('35', 'birds', 'owl', '/audio/owl.mp3', 'birds4', '','','','','','','',-113.525458, 53.525927,'');
 
 INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
-VALUES('36', 'birds', 'nightingale', '/audio/nightingale.mp3', 'birds', '','','','','','','',-113.525458, 53.525927,'');
+VALUES('36', 'birds', 'nightingale', '/audio/nightingale.mp3', 'birds5', '','','','','','','',-113.525458, 53.525927,'');
 
 INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
-VALUES('37', 'birds', 'partridge', '/audio/partridge.mp3', 'birds', '','','','','','','',-113.525458, 53.525927,'');
+VALUES('37', 'birds', 'partridge', '/audio/partridge.mp3', 'birds6', '','','','','','','',-113.525458, 53.525927,'');
 
 INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
-VALUES('38', 'birds', 'peacock', '/audio/peacock.mp3', 'birds', '','','','','','','',-113.525458, 53.525927,'');
+VALUES('38', 'birds', 'peacock', '/audio/peacock.mp3', 'birds7', '','','','','','','',-113.525458, 53.525927,'');
 
 INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
-VALUES('39', 'birds', 'peregrine_falcon', '/audio/peregrine_falcon.mp3', 'birds', '','','','','','','',-113.525458, 53.525927,'');
+VALUES('39', 'birds', 'peregrine_falcon', '/audio/peregrine_falcon.mp3', 'birds8', '','','','','','','',-113.525458, 53.525927,'');
 
 INSERT INTO audioinfo(musicID, identifier, TrackName, filePath, valley, imagePath, videoPath, generalDesc, instrumentDesc, musicianDesc, lyrictranslit, lyrictranslation, longitude, latitude, oneLineDescription)
-VALUES('40', 'birds', 'scops_owl_and_crickets', '/audio/scops_owl_and_crickets.mp3', 'birds', '','','','','','','',-113.525458, 53.525927,'');
+VALUES('40', 'birds', 'scops_owl_and_crickets', '/audio/scops_owl_and_crickets.mp3', 'birds9', '','','','','','','',-113.525458, 53.525927,'');

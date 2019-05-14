@@ -193,30 +193,12 @@ function initMap() {
       user_position = findValley(pos);
       //console.log(user_position);
       if (user_position != -1) {
+        birdSongs();
         if (prev != user_position){
           stopAudio();
           //console.log(audio);
           introPage(user_position, true);}
         else if (prev == -1){ introPage(user_position, false);}
-        //stopAudio();
-        //var paths = welcomeValley(user_position);
-        //handleFilesSelect(paths);
-        /*
-        if (prev == -1) {
-          console.log("first play");
-          //introPage(user_position);
-          var paths = welcomeValley(user_position);
-          firstHandleFilesSelect(paths);
-        }
-        else if (prev != user_position) {
-          console.log(prev, user_position);
-          stopAudio();
-          // fetch tracks from audio database.
-          // fetchtracks.js
-          var paths = welcomeValley(user_position);
-         // test();
-          handleFilesSelect(paths);
-        }*/
       }
       else {
           stopAudio();

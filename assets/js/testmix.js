@@ -11,10 +11,20 @@ function stopAudio() {
   gains = {};
   if (!$$('#play-btn').hasClass('pause')) {
     $$('#play-btn').addClass('pause');
-               $$('#play-btn').attr('style', 'background-image: url("/images/icons8-play-32.png")');
-         
+    $$('#play-btn').attr('style', 'background-image: url("/images/icons8-play-32.png")');
   }
+}
 
+function birdSongs() {
+  var e = 0.01;
+  var r = Math.random();
+  if (r < e) {
+    console.log("play bird song");
+    birdsong = document.querySelector('.invisible');
+    var t0 = birdsTrack();
+    birdsong.setAttribute('src', t0);
+    birdsong.play();
+  }
 }
 
 async function decodeAudioDataAsync(data) {
@@ -147,7 +157,7 @@ function playTracks(buffers) {
          $$('#play-btn').addClass('pause');
                $$('#play-btn').attr('style', 'background-image: url("/images/icons8-play-32.png")');
       }
-    } 
+    }
   }
 }
 
