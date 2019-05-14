@@ -2,19 +2,19 @@
 var numValleys = 6;
 var coords = [
   [
-   {lat: 30.020048, lng: 31.497416},
-   {lat: 30.020572, lng: 31.498844},
-   {lat: 30.019027, lng: 31.500264},
-   {lat: 30.018405, lng: 31.498258},
-   {lat: 30.020048, lng: 31.497416},
+   {lat: 53.527218, lng: -113.523288},
+   {lat: 53.527212, lng: -113.522352},
+   {lat: 53.526306, lng: -113.522341},
+   {lat: 53.526324, lng: -113.523212},
+   {lat: 53.527218, lng: -113.523288},
   ],
   [
-   {lat: 30.019867, lng: 31.499512},
-   {lat: 30.020431, lng: 31.500290},
-   {lat: 30.020048, lng: 31.500875},
-   {lat: 30.019288, lng: 31.500114},
-   {lat: 30.019867, lng: 31.499512},
- ],
+   {lat: 53.527239, lng: -113.522346},
+   {lat: 53.527249, lng: -113.520967},
+   {lat: 53.526281, lng: -113.520979},
+   {lat: 53.526293, lng: -113.522342},
+   {lat: 53.527239, lng: -113.522346},
+  ],
  [
    {lat: 53.519072, lng: -113.522007},
    {lat: 53.518962, lng: -113.517668},
@@ -161,13 +161,17 @@ function initMap() {
   const map = createMap(initialPosition);
   var icon = {
     url: "/images/direction.png", // url
-    scaledSize: new google.maps.Size(30, 30), // scaled size
-    origin: new google.maps.Point(0,0), // origin
+    scaledSize: new google.maps.Size(20, 20), // scaled size
+//    origin: new google.maps.Point(0,0), // origin
     anchor: new google.maps.Point(0, 0) // anchor
   };
   marker = new google.maps.Marker({
         clickable : false,
-        icon: icon,
+        icon: {
+          path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+          scale: 2.5,
+          strokeColor: '#0000EE',
+        },
         shadow : null,
         zIndex : 999,
         map : map
