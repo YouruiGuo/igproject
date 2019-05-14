@@ -20,12 +20,12 @@ async function allInfo () {
 async function birdsTrack() {
   var data = {valleypos: 'birds'};
   var r = Math.floor(Math.random()*10);
-  const d = await fetch('/audio', {
+  const d = await fetch('/intro', {
     method: 'post',
     headers: {
       "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
     },
-    body: 'valleypos='+valley_pos+r.toString()
+    body: 'valleypos=birds'+r.toString()
   })
   .then(res => res.json())
   .catch(function (error) {

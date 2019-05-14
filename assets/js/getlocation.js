@@ -193,7 +193,7 @@ function initMap() {
       user_position = findValley(pos);
       //console.log(user_position);
       if (user_position != -1) {
-        birdSongs();
+         birdSongs();
         if (prev != user_position){
           stopAudio();
           //console.log(audio);

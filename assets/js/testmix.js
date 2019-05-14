@@ -15,15 +15,19 @@ function stopAudio() {
   }
 }
 
-function birdSongs() {
-  var e = 0.01;
+async function birdSongs() {
+  var e = 0.1;
   var r = Math.random();
+  var loop = false;
+  console.log(r);
   if (r < e) {
     console.log("play bird song");
-    birdsong = document.querySelector('.invisible');
     var t0 = birdsTrack();
-    birdsong.setAttribute('src', t0);
-    birdsong.play();
+    var t1 = [];
+    await t0.then(function(value) {t1 = value;})
+    loadFilesList([t1[0]['filePath']]).then((track) => {
+      playTracks(track, loop);
+    })
   }
 }
 
@@ -110,7 +114,7 @@ async function decodeAudioDataAsync(data) {
  }
 
 
-function playTracks(buffers) {
+function playTracks(buffers, loop) {
   var channel = 2;
   console.log(buffers);
   for(var key in buffers) {
@@ -139,7 +143,7 @@ function playTracks(buffers) {
     }*/
     // set the buffer in the AudioBufferSourceNode
     source.buffer = output;
-    source.loop = true;
+    source.loop = loop;
     mute[key] = 0; // un-muted
     console.log(gains[key]);
     source.connect(gains[key]);
@@ -178,7 +182,7 @@ async function firstHandleFilesSelectIntro(fP) {
 
   var icon = $$('.playintro');
   icon.on('click', function() {
-     playTracks(track);
+     playTracks(track, true);
      icon.toggleClass('active');
      return false;
   });
@@ -190,7 +194,7 @@ async function firstHandleFilesSelectIntro(fP) {
   });
 }
 
-
+/*
 async function firstHandleFilesSelect(fP) {
   let filePaths = [];
   await fP.then(function (value) { filePaths = value;});
@@ -198,17 +202,17 @@ async function firstHandleFilesSelect(fP) {
 
    var controller = document.getElementById("play-btn");
     controller.addEventListener('click', function() {
-      playTracks(track);
+      playTracks(track, true);
     }, {once: true});
   });
 }
-
+*/
 async function handleFilesSelect(fP) {
   let filePaths = [];
   await fP.then(function (value) { filePaths = value;});
   console.log("handlefileselct");
   loadFiles(fP).then((track) => {
-    playTracks(track);
+    playTracks(track, true);
   });
 }
 
