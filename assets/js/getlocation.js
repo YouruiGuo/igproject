@@ -133,9 +133,9 @@ async function setMarkers(map) {
   var temp = allInfo();
   var info = [];
   await temp.then(function (value) {info = value;});
-  console.log(temp);
   for (var i = 0; i < info.length; i++) {
-    var marker = new google.maps.Marker({
+   if (info[i].generalDesc !== ''){
+     var newmarker = new google.maps.Marker({
       position: {lat:info[i].latitude, lng:info[i].longitude},
       map: map,
       icon: {
@@ -145,9 +145,23 @@ async function setMarkers(map) {
       },
       zIndex : 999,
     });
+    contentString = '<div id="content"><div id="siteNotice"></div>'+
+                    '<div><h3>'+ info[i].TrackName  +'</h3></div>';
+                   // '<div><p>Description: </p><div id="marker'+ i.toString() +'"></div></div></div>';
+    attachSecretMessage(newmarker, contentString);
+   }
   }
 }
 
+function attachSecretMessage(marker, secretMessage) {
+  var infowindow = new google.maps.InfoWindow({
+    content: secretMessage
+  });
+
+  marker.addListener('click', function() {
+    infowindow.open(marker.get('map'), marker);
+  });
+}
 
 // Note: This example requires that you consent to location sharing when
 // prompted by your browser. If you see the error "The Geolocation service
@@ -193,12 +207,12 @@ function initMap() {
       user_position = findValley(pos);
       //console.log(user_position);
       if (user_position != -1) {
-         birdSongs();
         if (prev != user_position){
           stopAudio();
           //console.log(audio);
           introPage(user_position, true);}
         else if (prev == -1){ introPage(user_position, false);}
+        else {birdSongs();}
       }
       else {
           stopAudio();

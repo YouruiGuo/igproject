@@ -173,7 +173,7 @@ function playAndPause() {
       audio.suspend();
     }
 }
-
+/*
 async function firstHandleFilesSelectIntro(fP) {
   let filePaths = fP;
 //  await fP.then(function (value) { filePaths = value;});
@@ -186,14 +186,13 @@ async function firstHandleFilesSelectIntro(fP) {
      icon.toggleClass('active');
      return false;
   });
-/*
     var controller = document.getElementById("introplay");
     controller.addEventListener('click', function() {
       playTracks(track);
-    }, {once: true});*/
+    }, {once: true});
   });
 }
-
+*/
 /*
 async function firstHandleFilesSelect(fP) {
   let filePaths = [];

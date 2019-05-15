@@ -1,5 +1,5 @@
 var visited = [];
-
+var introOn = false;
 async function introPage(numvalley, prev) {
   //console.log(visited);
  // if(prev) {stopAudio();}
@@ -39,7 +39,8 @@ async function introPage(numvalley, prev) {
       pg.appendChild(introaudio);
       introaudio.setAttribute('id', "introaudio"+b);
       introaudio.setAttribute('src', trackp[b]);
-    }
+      introaudio.setAttribute('class', 'audios'); 
+   }
    var playbutton = document.createElement("button");
    playbutton.innerHTML = "PLAY";
    playbutton.setAttribute("class","button");
@@ -49,15 +50,6 @@ async function introPage(numvalley, prev) {
    pg.appendChild(closebutton);
    closebutton.setAttribute("class","button");
    closebutton.innerHTML = "CLOSE";
-   closebutton.addEventListener("click", function () {
-       $$(".intro").hide();
-       for(var x=0; x<trackp.length; x++){
-         p = document.getElementById("introaudio"+x);
-         p.pause();
-       }
-       paths = welcomeValley(numvalley);
-       handleFilesSelect(paths);
-   });
    function playintrotracks() {
    for (var b = 0; b < trackp.length; b++) {
       var play = document.getElementById('introaudio'+b);
@@ -70,7 +62,8 @@ async function introPage(numvalley, prev) {
       }
    }}
    $$(".intro").show();
-   setTimeout(function() {
+   introOn = true;
+   var timeout = setTimeout(function() {
      $$(".intro").hide();
      for(var x=0; x<trackp.length; x++){
        p = document.getElementById("introaudio"+x);
@@ -78,10 +71,30 @@ async function introPage(numvalley, prev) {
      }
      paths = welcomeValley(numvalley);
      handleFilesSelect(paths);
+     introOn = false;
      }, 100000);
+   closebutton.addEventListener("click", function () {
+       $$(".intro").hide();
+       for(var x=0; x<trackp.length; x++){
+         p = document.getElementById("introaudio"+x);
+         p.pause();
+       }
+       paths = welcomeValley(numvalley);
+       handleFilesSelect(paths);
+       clearTimeout(timeout);
+       introOn = false;
+   });
   }
   else {
     //if(prev) {stopAudio();}
+    if (introOn) {
+      $$(".intro").hide();
+      var allAudios = document.querySelectorAll(".audios");
+      for (var i = 0; i<allAudios.length; i++){
+        allAudios[i].pause();
+      }
+      introOn = false;
+    }
     paths = welcomeValley(numvalley);
     console.log(paths);
     handleFilesSelect(paths);
