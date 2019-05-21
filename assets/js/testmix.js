@@ -112,8 +112,11 @@ async function decodeAudioDataAsync(data) {
  }
 
  function muteBirds() {
-   for (var i = 0; i < birdsgains.length; i++) {
-     birdsgains[i].gain.setValueAtTime(0, audio.currentTime);
+   console.log(birdsgains);
+   for (bird in birdsgains) {
+     birdgain = birdsgains[bird];
+     console.log(bird);
+     birdgain.gain.setValueAtTime(0, audio.currentTime);
    }
  }
 
