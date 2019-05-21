@@ -230,8 +230,11 @@ async function welcomeValley (user_position) {
       temp.append(n0);
       var n1 = document.createElement('div');
       n1.setAttribute("class", "card-content card-content-padding");
-      n1.setAttribute("id", "lyrictranslit"+i.toString());
+      var n2 = document.createElement('span');
+      n2.setAttribute("lang", "tr");
+      n2.setAttribute("id", "lyrictranslit"+i.toString());
       temp.append(n1);
+      n1.append(n2);
       $$('#'+i.toString()).append(temp);
       readfile(lyrictranslit, "lyrictranslit"+i.toString());
     }

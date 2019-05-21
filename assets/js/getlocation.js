@@ -128,7 +128,6 @@ var trackLocation = ({ onSuccess, onError = () => { } }) => {
   return navigator.geolocation.watchPosition(onSuccess, onError);
 };
 
-
 async function setMarkers(map) {
   var temp = allInfo();
   var info = [];
@@ -162,6 +161,7 @@ function attachSecretMessage(marker, secretMessage) {
     infowindow.open(marker.get('map'), marker);
   });
 }
+
 
 // Note: This example requires that you consent to location sharing when
 // prompted by your browser. If you see the error "The Geolocation service
