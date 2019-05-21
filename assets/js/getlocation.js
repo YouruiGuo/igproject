@@ -163,6 +163,12 @@ function attachSecretMessage(marker, secretMessage) {
   });
 }
 
+function validateLocation(prevpos, pos) {
+
+
+
+  return true;
+}
 
 // Note: This example requires that you consent to location sharing when
 // prompted by your browser. If you see the error "The Geolocation service
@@ -171,7 +177,7 @@ function attachSecretMessage(marker, secretMessage) {
 
 function initMap() {
 //  var map, infoWindow;
-  var pos;
+  var pos, prevpos = -1;
   var initialPosition = {lat: 53.527213,lng: -113.524544};
   const map = createMap(initialPosition);
   var icon = {
@@ -190,13 +196,13 @@ function initMap() {
         shadow : null,
         zIndex : 999,
         map : map
-    });
+  });
 
   var prev = -1;
   setMarkers(map);
   //if ('ondeviceorientationabsolute' in window) {
     // Chrome 50+ specific
-    window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+  window.addEventListener('deviceorientationabsolute', handleOrientation, true);
   //} else if ('ondeviceorientation' in window) {
     //window.addEventListener('deviceorientation', handleOrientation);
   //}
@@ -208,11 +214,14 @@ function initMap() {
       user_position = findValley(pos);
       //console.log(user_position);
       if (user_position != -1) {
-        setPanner(pos);
+        if(validateLocation(prevpos, pos)){
+          setPanner(pos);
+        }
         if (prev != user_position){
           stopAudio();
           //console.log(audio);
-          introPage(pos, user_position, true);}
+          introPage(pos, user_position, true);
+        }
         else if (prev == -1){ introPage(user_position, false);}
         else {birdSongs();}
       }
@@ -221,6 +230,7 @@ function initMap() {
           console.log("user position -1");
       }
       prev = user_position;
+      prevpos = pos;
       marker.setPosition({ lat, lng });
       map.panTo({ lat, lng });
     },

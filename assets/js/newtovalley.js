@@ -17,6 +17,7 @@ async function readfile(file, id){
 function soloTrack(index, allPaths){
 //  console.log(allPaths[index]);
   unMute(allPaths[index]);
+  muteBirds();
   mute_cls = $$('#mute'+index);
   solo_cls = $$('#solo'+index);
   console.log(solo_cls);
@@ -53,16 +54,6 @@ function muteTrack(index, path) {
 //  console.log(path);
   mute_cls = $$('#mute'+index);
   solo_cls = $$('#solo'+index);
-  //console.log(mute_cls);
-  //console.log(mute_cls.prop('checked'));
-  /*if (mute_cls.prop('checked')) {
-	  //console.log(mute_cls.prop('checked'));
-	  mute_cls.prop('checked', true);
-  }
-  else {
-    //console.log("checked");
-    mute_cls.prop('checked', false);
-  }*/
   if (solo_cls.prop('checked')) {
 	  solo_cls.prop('checked', false);
   }
