@@ -1,6 +1,6 @@
 var visited = [];
 var introOn = false;
-async function introPage(numvalley, prev) {
+async function introPage(pos, numvalley, prev) {
   //console.log(visited);
  // if(prev) {stopAudio();}
   var paths = [];
@@ -39,7 +39,7 @@ async function introPage(numvalley, prev) {
       pg.appendChild(introaudio);
       introaudio.setAttribute('id', "introaudio"+b);
       introaudio.setAttribute('src', trackp[b]);
-      introaudio.setAttribute('class', 'audios'); 
+      introaudio.setAttribute('class', 'audios');
    }
    var playbutton = document.createElement("button");
    playbutton.innerHTML = "PLAY";
@@ -70,7 +70,7 @@ async function introPage(numvalley, prev) {
        p.pause();
      }
      paths = welcomeValley(numvalley);
-     handleFilesSelect(paths);
+     handleFilesSelect(pos, paths);
      introOn = false;
      }, 100000);
    closebutton.addEventListener("click", function () {
@@ -80,7 +80,7 @@ async function introPage(numvalley, prev) {
          p.pause();
        }
        paths = welcomeValley(numvalley);
-       handleFilesSelect(paths);
+       handleFilesSelect(pos, paths);
        clearTimeout(timeout);
        introOn = false;
    });
@@ -97,6 +97,6 @@ async function introPage(numvalley, prev) {
     }
     paths = welcomeValley(numvalley);
     console.log(paths);
-    handleFilesSelect(paths);
+    handleFilesSelect(pos, paths);
   }
 }

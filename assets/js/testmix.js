@@ -1,24 +1,17 @@
 var AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
 var audio = new AudioContext();
-var panner = audio.createPanner();
-panner.panningModel = 'HRTF';
-panner.distanceModel = 'inverse';
-panner.rolloffFactor = 1;
-panner.refDistance = 1;
-panner.maxDistance = 50;
-panner.coneInnerAngle = 360;
-panner.coneOuterAngle = 0;
-panner.coneOuterGain = 0;
-//panner.setPosition(0,10,0);
-console.log(panner);
+
+var playing = [];
 var buffers = {};
 var allsources = {};
 var gains = {};
 var mute = {};
+var panners = {};
 
 function stopAudio() {
   audio.close().then(function () {audio = new AudioContext();});
   gains = {};
+  panners = {};
   if (!$$('#play-btn').hasClass('pause')) {
     $$('#play-btn').addClass('pause');
     $$('#play-btn').attr('style', 'background-image: url("/images/icons8-play-32.png")');
@@ -41,20 +34,40 @@ async function birdSongs() {
   }
 }
 
-function calculateDistance(pos) {
-    
-    lat2 = pos.lat;
-    lon2 = pos.lng;
+function setPanner(pos) {
+  if (playing != []) {
+    for (var i = 0; i < playing.length; i++) {
+      for (var info in allinfo) {
+        if (info.filePath === playing[i]) {
+          calculateDistance(playing[i],info.latitude,
+                  info.longitude, pos.lat, pos.lng);
+          break;
+        }
+      }
+    }
+  }
+}
+
+function createNewPanner() {
+  var panner = audio.createPanner();
+  panner.panningModel = 'HRTF';
+  panner.distanceModel = 'inverse';
+  panner.rolloffFactor = 1;
+  panner.refDistance = 1;
+  panner.maxDistance = 50;
+  panner.coneInnerAngle = 360;
+  panner.coneOuterAngle = 0;
+  panner.coneOuterGain = 0;
+  panner.setPosition(0,0,0);
+  return panner;
+}
+
+function calculateDistance(key, lat1, lon1, lat2, lon2) {
     console.log(lat1, lon1, lat2, lon2);
     var R = 6378.137; // Radius of earth in KM
-    var dLat = lat2 * Math.PI / 180 - lat1 * Math.PI / 180;
-    var dLon = lon2 * Math.PI / 180 - lon1 * Math.PI / 180;
-    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-    Math.sin(dLon/2) * Math.sin(dLon/2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    var d = R * c;
-    return d * 1000; // meters
+    var delta_Y = R*(lat2-lat1)*Math.PI/180;
+    var delta_X = R*(lon2-lon1)*Math.cos(lat1)*Math.PI/180;
+    panners[key].setPosition(delta_X, delta_Y, 0);
 }
 
 async function decodeAudioDataAsync(data) {
@@ -140,10 +153,12 @@ async function decodeAudioDataAsync(data) {
  }
 
 
-function playTracks(buffers, loop) {
+function playTracks(pos, buffers, loop) {
   var channel = 2;
   console.log(buffers);
+  playing = [];
   for(var key in buffers) {
+    playing.push(key);
     var frameCount = audio.sampleRate*buffers[key].duration;
     var buffer = buffers[key];
     let output = audio.createBuffer(channel, frameCount, audio.sampleRate);
@@ -160,15 +175,15 @@ function playTracks(buffers, loop) {
     g = audio.createGain();
     g.gain.value = 1;
     gains[key] = g;
+    var pan = createNewPanner();
+    panners[key] = pan;
 
     // set the buffer in the AudioBufferSourceNode
     source.buffer = output;
     source.loop = loop;
     mute[key] = 0; // un-muted
     console.log(gains[key]);
-    source.connect(gains[key]).connect(panner).connect(audio.destination);
-    //panner.connect(gains[key]);
-    //gains[key].connect(audio.destination);
+    source.connect(gains[key]).connect(panners[key]).connect(audio.destination);
 
     // start the source playing
     source.start(0);
@@ -185,6 +200,7 @@ function playTracks(buffers, loop) {
       }
     }
   }
+  setPanner(pos);
 }
 
 function playAndPause() {
@@ -196,12 +212,12 @@ function playAndPause() {
     }
 }
 
-async function handleFilesSelect(fP) {
+async function handleFilesSelect(pos, fP) {
   let filePaths = [];
   await fP.then(function (value) { filePaths = value;});
   console.log("handlefileselct");
   loadFiles(fP).then((track) => {
-    playTracks(track, true);
+    playTracks(pos, track, true);
   });
 }
 

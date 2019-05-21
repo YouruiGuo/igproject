@@ -1,3 +1,5 @@
+var allinfo = [];
+
 async function allInfo () {
   const d = await fetch('/info', {
     method: 'post',
@@ -9,6 +11,7 @@ async function allInfo () {
   //console.log(d);
   var paths = [];
   for (var i = 0; i < d.length; i++) {
+    allinfo.push(d[i]);
     paths.push(d[i]);
   }
   //console.log(paths);
