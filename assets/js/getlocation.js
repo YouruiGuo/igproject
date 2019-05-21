@@ -1,4 +1,4 @@
-
+var allinfo = [];
 var numValleys = 6;
 var coords = [
   [
@@ -131,7 +131,8 @@ var trackLocation = ({ onSuccess, onError = () => { } }) => {
 async function setMarkers(map) {
   var temp = allInfo();
   var info = [];
-  await temp.then(function (value) {info = value;});
+  await temp.then(function (value) {allinfo = value;});
+  info = allinfo;
   for (var i = 0; i < info.length; i++) {
    if (info[i].generalDesc !== ''){
      var newmarker = new google.maps.Marker({

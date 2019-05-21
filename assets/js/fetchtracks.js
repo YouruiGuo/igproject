@@ -1,4 +1,3 @@
-var allinfo = [];
 
 async function allInfo () {
   const d = await fetch('/info', {
