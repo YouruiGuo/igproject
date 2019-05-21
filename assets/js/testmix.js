@@ -212,7 +212,14 @@ function playTracks(pos, buffers, loop) {
     gains[key] = g;
     var pan = createNewPanner();
     panners[key] = pan;
-
+    for (var j = 0; j < allinfo.length; j++) {
+      info = allinfo[j];
+      if (info["filePath"] === key) {
+        calculateDistance(key,info.latitude,
+                info.longitude, pos.lat, pos.lng);
+        break;
+      }
+    }
     // set the buffer in the AudioBufferSourceNode
     source.buffer = output;
     source.loop = loop;
