@@ -20,10 +20,10 @@ function stopAudio() {
 }
 
 async function birdSongs() {
-  var e = 0.1;
+  var e = 0.01;
   var r = Math.random();
   var loop = false;
-  console.log(r);
+//  console.log(r);
   if (r < e) {
     console.log("play bird song");
     var t0 = birdsTrack();
@@ -66,12 +66,13 @@ function createNewPanner() {
 }
 
 function calculateDistance(key, lat1, lon1, lat2, lon2) {
-    console.log(lat1, lon1, lat2, lon2);
+   // console.log(lat1, lon1, lat2, lon2);
     var R = 6378.137; // Radius of earth in KM
     var delta_Y = 1000*R*(lat2-lat1)*Math.PI/180;
     var delta_X = 1000*R*(lon2-lon1)*Math.cos(lat1)*Math.PI/180;
-    console.log(delta_X);
-    panners[key].setPosition(delta_X, delta_Y, 0);
+  //  console.log(delta_X);
+    if (panners[key])
+      panners[key].setPosition(delta_X, delta_Y, 0);
 }
 
 async function decodeAudioDataAsync(data) {
@@ -112,7 +113,7 @@ async function decodeAudioDataAsync(data) {
  }
 
  function muteBirds() {
-   console.log(birdsgains);
+  // console.log(birdsgains);
    for (bird in birdsgains) {
      birdgain = birdsgains[bird];
      console.log(bird);
@@ -190,7 +191,7 @@ function playBirdSongs(buffers) {
 
 function playTracks(pos, buffers, loop) {
   var channel = 2;
-  console.log(buffers);
+ // console.log(buffers);
   playing = [];
   for(var key in buffers) {
     playing.push(key);
@@ -224,7 +225,7 @@ function playTracks(pos, buffers, loop) {
     source.buffer = output;
     source.loop = loop;
     mute[key] = 0; // un-muted
-    console.log(gains[key]);
+   // console.log(gains[key]);
     source.connect(gains[key]).connect(panners[key]).connect(audio.destination);
 
     // start the source playing
@@ -242,9 +243,9 @@ function playTracks(pos, buffers, loop) {
       }
     }
   }
-  console.log("setpanners");
+ // console.log("setpanners");
   setPanner(pos);
-  console.log(panners);
+ // console.log(panners);
 }
 
 function playAndPause() {
@@ -259,7 +260,7 @@ function playAndPause() {
 async function handleFilesSelect(pos, fP) {
   let filePaths = [];
   await fP.then(function (value) { filePaths = value;});
-  console.log("handlefileselct");
+ // console.log("handlefileselct");
   loadFiles(fP).then((track) => {
     playTracks(pos, track, true);
   });

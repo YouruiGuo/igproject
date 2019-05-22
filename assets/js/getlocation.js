@@ -47,7 +47,7 @@ var coords = [
  ],
 ];
 var user_position; // which valley the user is at.
-
+var user_marker;
 
 // get polygons according to coords.
 function drawPolygons() {
@@ -170,23 +170,26 @@ function validateLocation(prevpos, pos) {
   return true;
 }
 
-function autoUpdate(marker) {
-  var pos, prevpos = -1;
-  var prev = -1;
+var marker = user_marker;
+var pos, prevpos = -1;
+var prev = -1;
+var maps;
+function autoUpdate() {
   navigator.geolocation.getCurrentPosition(
               ({ coords: { latitude: lat, longitude: lng } }) => {
     //var newPoint = new google.maps.LatLng(position.coords.latitude,
     //                                      position.coords.longitude);
     pos = {lat, lng};
-    user_position = findValley(pos);
-    //console.log(user_position);
+   // console.log(marker);
+    user_position = findValley(pos); 
+   // console.log(user_position);
     if (user_position != -1) {
       if(validateLocation(prevpos, pos)){
         setPanner(pos);
       }
       if (prev != user_position){
         stopAudio();
-        //console.log(audio);
+        console.log([prev, user_position]);
         introPage(pos, user_position, true);
       }
       else if (prev == -1){ introPage(user_position, false);}
@@ -199,10 +202,10 @@ function autoUpdate(marker) {
     prev = user_position;
     prevpos = pos;
     marker.setPosition({ lat, lng });
-    map.panTo({ lat, lng });
-    map.setCenter({lat, lng});
+    maps.panTo(new google.maps.LatLng(lat, lng));
+    maps.setCenter(new google.maps.LatLng(lat, lng));
   });
-  setTimeout(autoUpdate, 5000);
+  setTimeout(autoUpdate, 500);
 }
 
 // Note: This example requires that you consent to location sharing when
@@ -215,6 +218,7 @@ function initMap() {
   //var pos, prevpos = -1;
   var initialPosition = {lat: 53.527213,lng: -113.524544};
   const map = createMap(initialPosition);
+  maps = map;
   var icon = {
     url: "/images/direction.png", // url
     scaledSize: new google.maps.Size(20, 20), // scaled size
@@ -232,13 +236,13 @@ function initMap() {
         zIndex : 999,
         map : map
   });
-
+  user_marker = marker;
   //var prev = -1;
   setMarkers(map);
   //if ('ondeviceorientationabsolute' in window) {
     // Chrome 50+ specific
   window.addEventListener('deviceorientationabsolute', handleOrientation, true);
-  autoUpdate(marker);
+  autoUpdate();
   // Use the new trackLocation function.
   /*let watchId = trackLocation({
     onSuccess: ({ coords: { latitude: lat, longitude: lng } }) => {
