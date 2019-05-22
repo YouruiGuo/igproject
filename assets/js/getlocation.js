@@ -151,13 +151,13 @@ function attachSecretMessage(marker, secretMessage) {
   });
 }
 
-function validateLocation(prevpos, pos) {
+function validateLocation(prevloc, pos) {
 
   lat1 = prevloc.lat;
   lon1 = prevloc.lng;
   lat2 = pos.lat;
   lon2 = pos.lng;
-  console.log(lat1, lon1, lat2, lon2);
+//  console.log(lat1, lon1, lat2, lon2);
   var R = 6378.137; // Radius of earth in KM
   var delta_Y = 1000*R*(lat2-lat1)*Math.PI/180;
   var delta_X = 1000*R*(lon2-lon1)*Math.cos(lat1)*Math.PI/180;
@@ -167,7 +167,7 @@ function validateLocation(prevpos, pos) {
   return true;
 }
 
-
+var numnonvalid = 0;
 function autoUpdate() {
   navigator.geolocation.getCurrentPosition(
               ({ coords: { latitude: lat, longitude: lng } }) => {
@@ -177,24 +177,31 @@ function autoUpdate() {
    // console.log(marker);
     user_position = findValley(pos);
    // console.log(user_position);
+   var valid = validateLocation(prevpos, pos);
     if (user_position != -1) {
-      if(validateLocation(prevpos, pos)){
+      if(valid){
+        numnonvalid = 0;
+    //    console.log("set panner");
         setPanner(pos);
       }
+      else {numnonvalid += 1;}
       if (prev != user_position){
         stopAudio();
-        console.log([prev, user_position]);
+  //      console.log([prev, user_position]);
         introPage(pos, user_position, true);
       }
-      else if (prev == -1){ introPage(user_position, false);}
+      else if (prev == -1){ console.log("here");introPage(user_position, false);}
       else {birdSongs();}
     }
     else {
         stopAudio();
         console.log("user position -1");
     }
+    if (valid || (numnonvalid > 5)) {
+      numnonvalid = 0;
+      prevpos = pos;
+    }
     prev = user_position;
-    prevpos = pos;
     marker.setPosition({ lat, lng });
     maps.panTo(new google.maps.LatLng(lat, lng));
     maps.setCenter(new google.maps.LatLng(lat, lng));

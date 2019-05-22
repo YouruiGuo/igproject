@@ -1,7 +1,7 @@
 var visited = [];
 var introOn = false;
 async function introPage(pos, numvalley, prev) {
-  //console.log(visited);
+  console.log(prev);
  // if(prev) {stopAudio();}
   var paths = [];
   if (!visited[numvalley]) {
