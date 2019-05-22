@@ -170,6 +170,41 @@ function validateLocation(prevpos, pos) {
   return true;
 }
 
+function autoUpdate(marker) {
+  var pos, prevpos = -1;
+  var prev = -1;
+  navigator.geolocation.getCurrentPosition(
+              ({ coords: { latitude: lat, longitude: lng } }) => {
+    //var newPoint = new google.maps.LatLng(position.coords.latitude,
+    //                                      position.coords.longitude);
+    pos = {lat, lng};
+    user_position = findValley(pos);
+    //console.log(user_position);
+    if (user_position != -1) {
+      if(validateLocation(prevpos, pos)){
+        setPanner(pos);
+      }
+      if (prev != user_position){
+        stopAudio();
+        //console.log(audio);
+        introPage(pos, user_position, true);
+      }
+      else if (prev == -1){ introPage(user_position, false);}
+      else {birdSongs();}
+    }
+    else {
+        stopAudio();
+        console.log("user position -1");
+    }
+    prev = user_position;
+    prevpos = pos;
+    marker.setPosition({ lat, lng });
+    map.panTo({ lat, lng });
+    map.setCenter({lat, lng});
+  });
+  setTimeout(autoUpdate, 5000);
+}
+
 // Note: This example requires that you consent to location sharing when
 // prompted by your browser. If you see the error "The Geolocation service
 // failed.", it means you probably did not give permission for the browser to
@@ -177,7 +212,7 @@ function validateLocation(prevpos, pos) {
 
 function initMap() {
 //  var map, infoWindow;
-  var pos, prevpos = -1;
+  //var pos, prevpos = -1;
   var initialPosition = {lat: 53.527213,lng: -113.524544};
   const map = createMap(initialPosition);
   var icon = {
@@ -198,16 +233,14 @@ function initMap() {
         map : map
   });
 
-  var prev = -1;
+  //var prev = -1;
   setMarkers(map);
   //if ('ondeviceorientationabsolute' in window) {
     // Chrome 50+ specific
   window.addEventListener('deviceorientationabsolute', handleOrientation, true);
-  //} else if ('ondeviceorientation' in window) {
-    //window.addEventListener('deviceorientation', handleOrientation);
-  //}
+  autoUpdate(marker);
   // Use the new trackLocation function.
-  let watchId = trackLocation({
+  /*let watchId = trackLocation({
     onSuccess: ({ coords: { latitude: lat, longitude: lng } }) => {
       pos = {lat, lng};
       // Find out which valley user is at.
@@ -236,7 +269,7 @@ function initMap() {
     },
     onError: err =>
       alert(`Error: ${getPositionErrorMessage(err.code) || err.message}`)
-  });
+  });*/
 
   //infoWindow = new google.maps.InfoWindow;
 
