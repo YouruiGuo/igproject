@@ -1,5 +1,3 @@
-var allinfo = [];
-var numValleys = 6;
 var coords = [
   [
    {lat: 53.527218, lng: -113.523288},
@@ -46,8 +44,14 @@ var coords = [
    {lat: 53.490038, lng: -113.544320},
  ],
 ];
+var allinfo = [];
+var numValleys = 6;
 var user_position; // which valley the user is at.
 var user_marker;
+var marker = user_marker;
+var pos, prevpos = -1;
+var prev = -1;
+var maps;
 
 // get polygons according to coords.
 function drawPolygons() {
@@ -112,22 +116,6 @@ var createMarker = ({ map, position }) => {
   return new google.maps.Marker({ map, position });
 };
 
-var getCurrentPosition = ({ onSuccess, onError = () => { } }) => {
-  if ('geolocation' in navigator === false) {
-    return onError(new Error('Geolocation is not supported by your browser.'));
-  }
-  return navigator.geolocation.getCurrentPosition(onSuccess, onError);
-};
-
-// New function to track user's location.
-var trackLocation = ({ onSuccess, onError = () => { } }) => {
-  if ('geolocation' in navigator === false) {
-    return onError(new Error('Geolocation is not supported by your browser.'));
-  }
-  // Use watchPosition instead.
-  return navigator.geolocation.watchPosition(onSuccess, onError);
-};
-
 async function setMarkers(map) {
   var temp = allInfo();
   var info = [];
@@ -165,15 +153,21 @@ function attachSecretMessage(marker, secretMessage) {
 
 function validateLocation(prevpos, pos) {
 
-
+  lat1 = prevloc.lat;
+  lon1 = prevloc.lng;
+  lat2 = pos.lat;
+  lon2 = pos.lng;
+  console.log(lat1, lon1, lat2, lon2);
+  var R = 6378.137; // Radius of earth in KM
+  var delta_Y = 1000*R*(lat2-lat1)*Math.PI/180;
+  var delta_X = 1000*R*(lon2-lon1)*Math.cos(lat1)*Math.PI/180;
+  var distance = Math.sqrt(delta_X*delta_X + delta_Y*delta_Y);
+  if (distance > 5) return false;
 
   return true;
 }
 
-var marker = user_marker;
-var pos, prevpos = -1;
-var prev = -1;
-var maps;
+
 function autoUpdate() {
   navigator.geolocation.getCurrentPosition(
               ({ coords: { latitude: lat, longitude: lng } }) => {
@@ -181,7 +175,7 @@ function autoUpdate() {
     //                                      position.coords.longitude);
     pos = {lat, lng};
    // console.log(marker);
-    user_position = findValley(pos); 
+    user_position = findValley(pos);
    // console.log(user_position);
     if (user_position != -1) {
       if(validateLocation(prevpos, pos)){
@@ -244,38 +238,6 @@ function initMap() {
   window.addEventListener('deviceorientationabsolute', handleOrientation, true);
   autoUpdate();
   // Use the new trackLocation function.
-  /*let watchId = trackLocation({
-    onSuccess: ({ coords: { latitude: lat, longitude: lng } }) => {
-      pos = {lat, lng};
-      // Find out which valley user is at.
-      user_position = findValley(pos);
-      //console.log(user_position);
-      if (user_position != -1) {
-        if(validateLocation(prevpos, pos)){
-          setPanner(pos);
-        }
-        if (prev != user_position){
-          stopAudio();
-          //console.log(audio);
-          introPage(pos, user_position, true);
-        }
-        else if (prev == -1){ introPage(user_position, false);}
-        else {birdSongs();}
-      }
-      else {
-          stopAudio();
-          console.log("user position -1");
-      }
-      prev = user_position;
-      prevpos = pos;
-      marker.setPosition({ lat, lng });
-      map.panTo({ lat, lng });
-    },
-    onError: err =>
-      alert(`Error: ${getPositionErrorMessage(err.code) || err.message}`)
-  });*/
-
-  //infoWindow = new google.maps.InfoWindow;
 
   // draw polygons.
   var v = drawPolygons()
