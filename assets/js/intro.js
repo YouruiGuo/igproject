@@ -8,7 +8,7 @@ async function introPage(pos, numvalley, prev) {
     visited[numvalley] = true;
     var pg = document.querySelector('.intro');
     pg.innerHTML = "";
-    var i = fetchTrackIntro(numvalley);
+    var i = fetchTrackIntro(numvalley%fixed_num);
     var info = [];
     await i.then(function (value) {info = value;});
     var imgs = [];

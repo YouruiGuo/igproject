@@ -57,7 +57,7 @@ function createNewPanner() {
   panner.distanceModel = 'inverse';
   panner.rolloffFactor = 1;
   panner.refDistance = 1;
-  panner.maxDistance = 500;
+  panner.maxDistance = 200;
   panner.coneInnerAngle = 360;
   panner.coneOuterAngle = 0;
   panner.coneOuterGain = 0;

@@ -43,9 +43,59 @@ var coords = [
    {lat: 53.488146, lng: -113.544097},
    {lat: 53.490038, lng: -113.544320},
  ],
+  [
+   {lat: 53.407494, lng: -113.759882},
+   {lat: 53.407562, lng: -113.759288},
+   {lat: 53.40691, lng:  -113.75825},
+   {lat: 53.406641, lng: -113.758845},
+   {lat: 53.407494, lng: -113.759882},
+  ],
+  [
+   {lat: 53.407192, lng: -113.758528},
+   {lat: 53.407331, lng: -113.758090},
+   {lat: 53.407024, lng: -113.757338},
+   {lat: 53.40671, lng: -113.75791},
+   {lat: 53.407192, lng: -113.758528},
+  ],
+  [
+   {lat: 53.40717, lng: -113.75768},
+   {lat: 53.407024, lng: -113.757240},
+   {lat: 53.40739, lng: -113.7568},
+   {lat: 53.4075, lng: -113.75714},
+   {lat: 53.40717, lng: -113.75768},
+  ],
+  [
+   {lat: 53.407414, lng: -113.756310},
+   {lat: 53.407638, lng: -113.756407},
+   {lat: 53.408102, lng: -113.755513},
+   {lat: 53.408022, lng: -113.755197},
+   {lat: 53.407414, lng: -113.756310},
+  ],
+  [
+   {lat: 53.408842, lng: -113.756437},
+   {lat: 53.408164, lng: -113.755121},
+   {lat: 53.408997, lng: -113.754455},
+   {lat: 53.409227, lng: -113.756060},
+   {lat: 53.408842, lng: -113.756437},
+  ],
+  [
+   {lat: 53.407820, lng: -113.756911},
+   {lat: 53.408114, lng: -113.757427},
+   {lat: 53.408773, lng: -113.756584},
+   {lat: 53.408482, lng: -113.755925},
+   {lat: 53.407820, lng: -113.756911},
+  ],
+  [
+   {lat: 53.40719, lng: -113.75774},
+   {lat: 53.40741, lng: -113.75801},
+   {lat: 53.40779, lng: -113.75726},
+   {lat: 53.40759, lng: -113.75698},
+   {lat: 53.40719, lng: -113.75774},
+  ],
 ];
 var allinfo = [];
-var numValleys = 6;
+var fixed_num = 7;
+var numValleys = 13;
 var user_position; // which valley the user is at.
 var user_marker;
 var marker = user_marker;
@@ -100,6 +150,7 @@ function findValley (pos) {
       break;
     }
   }
+  val = val % fixed_num;
   return val;
 }
 
@@ -203,10 +254,10 @@ function autoUpdate() {
     }
     prev = user_position;
     marker.setPosition({ lat, lng });
-    maps.panTo(new google.maps.LatLng(lat, lng));
-    maps.setCenter(new google.maps.LatLng(lat, lng));
+    //maps.panTo(new google.maps.LatLng(lat, lng));
+   // maps.setCenter(new google.maps.LatLng(lat, lng));
   });
-  setTimeout(autoUpdate, 500);
+  setTimeout(autoUpdate, 1000);
 }
 
 // Note: This example requires that you consent to location sharing when
