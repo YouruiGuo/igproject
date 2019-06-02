@@ -121,6 +121,10 @@ async function decodeAudioDataAsync(data) {
    }
  }
 
+function maxVolume(fp) {
+    panners[fp].setPosition(0,0,0);
+}
+
  function Mute(fp) {
    if (gains[fp]) {
       mute[fp] = 1;

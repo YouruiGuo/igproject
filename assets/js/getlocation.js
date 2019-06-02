@@ -94,7 +94,6 @@ var coords = [
   ],
 ];
 var allinfo = [];
-var fixed_num = 7;
 var numValleys = 13;
 var user_position; // which valley the user is at.
 var user_marker;
@@ -150,7 +149,6 @@ function findValley (pos) {
       break;
     }
   }
-  val = val % fixed_num;
   return val;
 }
 
@@ -233,7 +231,9 @@ function autoUpdate() {
       if(valid){
         numnonvalid = 0;
     //    console.log("set panner");
-        setPanner(pos);
+        if (!soloon) {
+          setPanner(pos);
+        }
       }
       else {numnonvalid += 1;}
       if (prev != user_position){

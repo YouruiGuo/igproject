@@ -1,4 +1,5 @@
 var $$ = Dom7;
+var soloon=false;
 
 async function readfile(file, id){
   var xmlhttp = new XMLHttpRequest();
@@ -22,6 +23,8 @@ function soloTrack(index, allPaths){
   solo_cls = $$('#solo'+index);
   console.log(solo_cls);
   if (solo_cls.prop('checked')) {
+    soloon = true;
+    maxVolume(allPaths[index]);
     if (mute_cls.prop('checked')) {
       mute_cls.prop('checked', false);
     }
@@ -40,6 +43,7 @@ function soloTrack(index, allPaths){
     }
   }
   else {
+    soloon = false;
     for (var i = 0; i < allPaths.length; i++){
         mute_cls = $$('#mute'+i);
         if (mute_cls.prop('checked')) {
@@ -50,13 +54,20 @@ function soloTrack(index, allPaths){
   }
 }
 
-function muteTrack(index, path) {
+function muteTrack(index, paths, path) {
 //  console.log(path);
-  mute_cls = $$('#mute'+index);
+  /*mute_cls = $$('#mute'+index);
   solo_cls = $$('#solo'+index);
   if (solo_cls.prop('checked')) {
 	  solo_cls.prop('checked', false);
+  }*/
+  for (var i = 0; i < allPaths.length; i++){
+    solo_cls = $$('#solo'+i);
+    if (solo_cls.prop('checked')) {
+      solo_cls.prop('checked', false);
+    }
   }
+
   muteAndUnmute(path);
 }
 
@@ -240,7 +251,7 @@ async function welcomeValley (user_position) {
   $$('.mute').on('click change', function(){
 //console.log(paths[this.id[this.id.length-1]]);
 	//console.log(this.id, $$(this.id).prop('checked'));
-             muteTrack(this.id[this.id.length-1].toString(), paths[this.id[this.id.length-1]]);
+             muteTrack(this.id[this.id.length-1].toString(), paths, paths[this.id[this.id.length-1]]);
    });
     $$('.solo').on('click change', function(){
 //console.log(paths[this.id[this.id.length-1]]);
