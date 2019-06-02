@@ -21,7 +21,7 @@ function soloTrack(index, allPaths){
   muteBirds();
   mute_cls = $$('#mute'+index);
   solo_cls = $$('#solo'+index);
-  console.log(solo_cls);
+//  console.log(solo_cls);
   if (solo_cls.prop('checked')) {
     soloon = true;
     maxVolume(allPaths[index]);
@@ -54,9 +54,9 @@ function soloTrack(index, allPaths){
   }
 }
 
-function muteTrack(index, paths, path) {
+function muteTrack(index, allPaths, path) {
 //  console.log(path);
-  /*mute_cls = $$('#mute'+index);
+ /* mute_cls = $$('#mute'+index);
   solo_cls = $$('#solo'+index);
   if (solo_cls.prop('checked')) {
 	  solo_cls.prop('checked', false);
@@ -67,7 +67,7 @@ function muteTrack(index, paths, path) {
       solo_cls.prop('checked', false);
     }
   }
-
+  soloon = false;
   muteAndUnmute(path);
 }
 
@@ -76,7 +76,7 @@ async function welcomeValley (user_position) {
   var i = track(user_position);
   var info = [];
   await i.then(function (value) {info = value;});
-  console.log(info);
+//  console.log(info);
   var paths = [];
   for (var i = 0; i < info.length; i++) {
     paths.push(info[i].filePath);

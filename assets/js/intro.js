@@ -1,16 +1,18 @@
 var visited = [];
 var introOn = false;
 async function introPage(pos, numvalley, prev) {
-  console.log(prev);
+ // numvalley = numvalley % 7;
+//  console.log(numvalley);
  // if(prev) {stopAudio();}
   var paths = [];
   if (!visited[numvalley]) {
     visited[numvalley] = true;
     var pg = document.querySelector('.intro');
     pg.innerHTML = "";
-    var i = fetchTrackIntro(numvalley);
+    var i = fetchTrackIntro(numvalley%7);
     var info = [];
     await i.then(function (value) {info = value;});
+  //  console.log(info);
     var imgs = [];
     var trackp = [];
     //imgs.push(info[0].imagePath);
@@ -96,7 +98,7 @@ async function introPage(pos, numvalley, prev) {
       introOn = false;
     }
     paths = welcomeValley(numvalley);
-    console.log(paths);
+//    console.log(paths);
     handleFilesSelect(pos, paths);
   }
 }

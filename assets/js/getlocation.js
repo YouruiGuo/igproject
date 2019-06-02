@@ -43,6 +43,13 @@ var coords = [
    {lat: 53.488146, lng: -113.544097},
    {lat: 53.490038, lng: -113.544320},
  ],
+ [
+   {lat: 53.519072, lng: -113.522007},
+   {lat: 53.518962, lng: -113.517668},
+   {lat: 53.517355, lng: -113.517522},
+   {lat: 53.517063, lng: -113.523125},
+   {lat: 53.519072, lng: -113.522007},
+ ],
   [
    {lat: 53.407494, lng: -113.759882},
    {lat: 53.407562, lng: -113.759288},
@@ -94,7 +101,7 @@ var coords = [
   ],
 ];
 var allinfo = [];
-var numValleys = 13;
+var numValleys = 14;
 var user_position; // which valley the user is at.
 var user_marker;
 var marker = user_marker;
@@ -212,7 +219,7 @@ function validateLocation(prevloc, pos) {
   var delta_X = 1000*R*(lon2-lon1)*Math.cos(lat1)*Math.PI/180;
   var distance = Math.sqrt(delta_X*delta_X + delta_Y*delta_Y);
   if (distance > 5) return false;
-
+  if (prevloc == -1) return true;
   return true;
 }
 
@@ -227,12 +234,14 @@ function autoUpdate() {
     user_position = findValley(pos);
    // console.log(user_position);
    var valid = validateLocation(prevpos, pos);
+   
     if (user_position != -1) {
       if(valid){
         numnonvalid = 0;
-    //    console.log("set panner");
+//        console.log("set panner");
+//        console.log(soloon);
         if (!soloon) {
-          setPanner(pos);
+          setPanner(pos, user_position);
         }
       }
       else {numnonvalid += 1;}
@@ -255,7 +264,7 @@ function autoUpdate() {
     prev = user_position;
     marker.setPosition({ lat, lng });
     //maps.panTo(new google.maps.LatLng(lat, lng));
-   // maps.setCenter(new google.maps.LatLng(lat, lng));
+    maps.setCenter(new google.maps.LatLng(lat, lng));
   });
   setTimeout(autoUpdate, 1000);
 }

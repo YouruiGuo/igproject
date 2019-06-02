@@ -36,15 +36,15 @@ async function birdSongs() {
   }
 }
 
-function setPanner(pos) {
+function setPanner(pos, valley) {
   if (playing.length != 0) {
     for (var i = 0; i < playing.length; i++) {
       for (var j = 0; j < allinfo.length; j++) {
         info = allinfo[j];
-        if (info["filePath"] === playing[i]) {
+        if (info["filePath"] === playing[i] && info["valley"] == valley+1) {
           calculateDistance(playing[i],info.latitude,
                   info.longitude, pos.lat, pos.lng);
-          break;
+         break;
         }
       }
     }
@@ -57,7 +57,7 @@ function createNewPanner() {
   panner.distanceModel = 'inverse';
   panner.rolloffFactor = 1;
   panner.refDistance = 1;
-  panner.maxDistance = 200;
+  panner.maxDistance = 50;
   panner.coneInnerAngle = 360;
   panner.coneOuterAngle = 0;
   panner.coneOuterGain = 0;
@@ -66,7 +66,7 @@ function createNewPanner() {
 }
 
 function calculateDistance(key, lat1, lon1, lat2, lon2) {
-   // console.log(lat1, lon1, lat2, lon2);
+    console.log(lat1, lon1, lat2, lon2);
     var R = 6378.137; // Radius of earth in KM
     var delta_Y = 1000*R*(lat2-lat1)*Math.PI/180;
     var delta_X = 1000*R*(lon2-lon1)*Math.cos(lat1)*Math.PI/180;
@@ -122,6 +122,7 @@ async function decodeAudioDataAsync(data) {
  }
 
 function maxVolume(fp) {
+////////////////// console.log(fp);
     panners[fp].setPosition(0,0,0);
 }
 
@@ -217,9 +218,10 @@ function playTracks(pos, buffers, loop) {
     gains[key] = g;
     var pan = createNewPanner();
     panners[key] = pan;
+    var v = findValley(pos);
     for (var j = 0; j < allinfo.length; j++) {
       info = allinfo[j];
-      if (info["filePath"] === key) {
+      if (info["filePath"] === key && info["valley"]==v+1) {
         calculateDistance(key,info.latitude,
                 info.longitude, pos.lat, pos.lng);
         break;
