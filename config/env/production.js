@@ -148,9 +148,9 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     cors: {
-      // allowOrigins: [
-      //   'https://example.com',
-      // ]
+       allowOrigins: [
+         'https://islamicgarden.ualberta.ca/',
+       ]
     },
 
   },
@@ -250,10 +250,10 @@ module.exports = {
     * > Be sure to use the right protocol!  ("http://" vs. "https://")         *
     *                                                                          *
     ***************************************************************************/
-    // onlyAllowOrigins: [
-    //   'https://example.com',
+     onlyAllowOrigins: [
+       'https://islamicgarden.ualberta.ca/',
     //   'https://staging.example.com',
-    // ],
+     ],
 
 
     /***************************************************************************

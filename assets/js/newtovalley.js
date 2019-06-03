@@ -49,7 +49,8 @@ function soloTrack(index, allPaths){
         if (mute_cls.prop('checked')) {
           mute_cls.prop('checked', false);
         }
-        unMute(allPaths[i]);
+        if (allPaths[i].includes("Ambient")){ unMute(allPaths[i], 0.3);}
+        else { unMute(allPaths[i]);}
     }
   }
 }
@@ -62,6 +63,7 @@ function muteTrack(index, allPaths, path) {
 	  solo_cls.prop('checked', false);
   }*/
   for (var i = 0; i < allPaths.length; i++){
+    if (allPaths[i].includes("Ambient")){ unMute(allPaths[i], 0.3);}
     solo_cls = $$('#solo'+i);
     if (solo_cls.prop('checked')) {
       solo_cls.prop('checked', false);

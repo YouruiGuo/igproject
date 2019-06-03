@@ -1,10 +1,12 @@
 var visited = [];
 var introOn = false;
+var ambientTrack;
 async function introPage(pos, numvalley, prev) {
  // numvalley = numvalley % 7;
 //  console.log(numvalley);
  // if(prev) {stopAudio();}
   var paths = [];
+  var trackp = []; 
   if (!visited[numvalley]) {
     visited[numvalley] = true;
     var pg = document.querySelector('.intro');
@@ -14,20 +16,24 @@ async function introPage(pos, numvalley, prev) {
     await i.then(function (value) {info = value;});
   //  console.log(info);
     var imgs = [];
-    var trackp = [];
     //imgs.push(info[0].imagePath);
     for (var a = 0; a < info.length; a++) {
        if (info[a].imagePath != "")
 	       imgs.push(info[a].imagePath);
 	       trackp.push(info[a].filePath);
     }
+    ambientTrack = trackp[1];
     var newdiv = document.createElement('div');
 
     var words = document.createElement('div');
     words.setAttribute('height', '40px');
     words.setAttribute('width', '80px');
-    var str = info[0].TrackName.split('-')[0];
-    words.innerHTML = '<h1>Welcome to valley '+ str +'</h1>';
+    var str = info[0].TrackName.split('-');
+    var dstr = str[0];
+    for (var q=1; q<str.length-1; q++) {
+      dstr = dstr.concat(' '+str[q]);
+    }
+    words.innerHTML = '<h1>Welcome to valley '+ dstr +'</h1>';
     newdiv.appendChild(words);
 
     var imghtml = document.createElement('div');
@@ -55,7 +61,7 @@ async function introPage(pos, numvalley, prev) {
    function playintrotracks() {
    for (var b = 0; b < trackp.length; b++) {
       var play = document.getElementById('introaudio'+b);
-      console.log(play);
+//      console.log(play);
       var playpromise = play.play();
       if (playpromise !== undefined) {
       	playpromise.then(_ => {}).catch(error => {
@@ -98,7 +104,7 @@ async function introPage(pos, numvalley, prev) {
       introOn = false;
     }
     paths = welcomeValley(numvalley);
-//    console.log(paths);
+    console.log(paths);
     handleFilesSelect(pos, paths);
   }
 }

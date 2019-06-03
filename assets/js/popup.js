@@ -11,7 +11,7 @@ $$('.popup-about').on('popup:opened', function (e, popup) {
 });
 
 function initPlayers() {
-	console.log("initplayers");
+//	console.log("initplayers");
 	$$('#play-btn').addClass('pause');
 $$('#play-btn').attr('style', 'background-image:url("/images/icons8-play-32.png")');
 }

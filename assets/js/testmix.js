@@ -25,7 +25,7 @@ async function birdSongs() {
   var loop = false;
 //  console.log(r);
   if (r < e) {
-    console.log("play bird song");
+//    console.log("play bird song");
     var t0 = birdsTrack();
     var t1 = [];
     await t0.then(function(value) {t1 = value;});
@@ -66,7 +66,7 @@ function createNewPanner() {
 }
 
 function calculateDistance(key, lat1, lon1, lat2, lon2) {
-    console.log(lat1, lon1, lat2, lon2);
+//    console.log(lat1, lon1, lat2, lon2);
     var R = 6378.137; // Radius of earth in KM
     var delta_Y = 1000*R*(lat2-lat1)*Math.PI/180;
     var delta_X = 1000*R*(lon2-lon1)*Math.cos(lat1)*Math.PI/180;
@@ -115,6 +115,7 @@ async function decodeAudioDataAsync(data) {
  function muteBirds() {
   // console.log(birdsgains);
    for (bird in birdsgains) {
+   // delete birdsgains[bird];
      birdgain = birdsgains[bird];
      console.log(bird);
      birdgain.gain.setValueAtTime(0, audio.currentTime);
@@ -139,15 +140,16 @@ function maxVolume(fp) {
    }
  }
 
- function unMute(fp) {
+ function unMute(fp, vol) {
+   if (vol === undefined ) vol = 1;
    if (gains[fp]) {
       mute[fp] = 0;
-      gains[fp].gain.setValueAtTime(1, audio.currentTime);
+      gains[fp].gain.setValueAtTime(vol, audio.currentTime);
    }
    else{
      mute[fp] = 0;
      var g = audio.createGain();
-     g.gain.setValueAtTime(1, audio.currentTime);
+     g.gain.setValueAtTime(vol, audio.currentTime);
      gains[fp] = g;
    }
  }
@@ -214,7 +216,9 @@ function playTracks(pos, buffers, loop) {
     var source = audio.createBufferSource();
     var g;
     g = audio.createGain();
-    g.gain.value = 1;
+   // console.log(key);
+    if (key.includes("Ambient")) {g.gain.value = 0.3;}
+    else {g.gain.value = 1;}
     gains[key] = g;
     var pan = createNewPanner();
     panners[key] = pan;
@@ -267,7 +271,8 @@ async function handleFilesSelect(pos, fP) {
   let filePaths = [];
   await fP.then(function (value) { filePaths = value;});
  // console.log("handlefileselct");
-  loadFiles(fP).then((track) => {
+  filePaths.push(ambientTrack);
+  loadFilesList(filePaths).then((track) => {
     playTracks(pos, track, true);
   });
 }
