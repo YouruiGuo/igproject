@@ -8,6 +8,7 @@ var gains = {};
 var birdsgains = {};
 var mute = {};
 var panners = {};
+var responses = {};
 
 function stopAudio() {
   audio.close().then(function () {audio = new AudioContext();});
@@ -55,9 +56,9 @@ function createNewPanner() {
   var panner = audio.createPanner();
   panner.panningModel = 'HRTF';
   panner.distanceModel = 'inverse';
-  panner.rolloffFactor = 1;
-  panner.refDistance = 1;
-  panner.maxDistance = 50;
+  panner.rolloffFactor = 0.5;
+  panner.refDistance = 5;
+  panner.maxDistance = 100;
   panner.coneInnerAngle = 360;
   panner.coneOuterAngle = 0;
   panner.coneOuterGain = 0;
@@ -104,7 +105,25 @@ async function decodeAudioDataAsync(data) {
    //await fP.then(function (value) { filePaths = value;});
    let buffers = [];
    for (let f of filePaths) {
-     let response = await fetch(f);
+     var response;
+     var e = false;
+//     console.log(responses[f]);
+    // if (!responses[f]) {
+        response = await fetch(f).then(function (res) {
+	  if (!res.ok) {
+            throw Error(res.statusText);
+           }
+           return res;
+        }).catch(function(error) {
+           console.log(error);
+           e = true;
+        });
+      //  responses[f] = response;
+    // }
+     //else {
+     //   response = responses[f];
+     //}
+     if (e == true){ continue;}
      let arrayBuffer = await response.arrayBuffer();
      let audioBuffer = await decodeAudioDataAsync(arrayBuffer);
      buffers[f] = audioBuffer;
@@ -117,14 +136,16 @@ async function decodeAudioDataAsync(data) {
    for (bird in birdsgains) {
    // delete birdsgains[bird];
      birdgain = birdsgains[bird];
-     console.log(bird);
+//     console.log(bird);
      birdgain.gain.setValueAtTime(0, audio.currentTime);
    }
  }
 
 function maxVolume(fp) {
 ////////////////// console.log(fp);
-    panners[fp].setPosition(0,0,0);
+    if (panners[fp]) {
+      panners[fp].setPosition(0,0,0);
+    }
 }
 
  function Mute(fp) {
@@ -142,6 +163,7 @@ function maxVolume(fp) {
 
  function unMute(fp, vol) {
    if (vol === undefined ) vol = 1;
+//   console.log(vol,fp);
    if (gains[fp]) {
       mute[fp] = 0;
       gains[fp].gain.setValueAtTime(vol, audio.currentTime);
@@ -182,7 +204,9 @@ function playBirdSongs(buffers) {
     for (var c = 0; c < channel; c++) {
       nowBuffering = output.getChannelData(c);
       for(var i = 0; i < frameCount; i++){
-         nowBuffering[i] += buffer.getChannelData(c)[i];
+         if (buffer.getChannelData(c)[i]) {
+           nowBuffering[i] += buffer.getChannelData(c)[i];
+         }
       }
     }
     var source = audio.createBufferSource();

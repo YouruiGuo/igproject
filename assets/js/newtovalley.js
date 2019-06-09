@@ -155,17 +155,18 @@ async function welcomeValley (user_position) {
       temp.append(n0);
       $$('#'+i.toString()).append(temp);
       var div = document.createElement('div');
-      div.setAttribute('class', 'swiper-container swiper-init demo-swiper');
-      div.innerHTML = '<div class="swiper-pagination"></div>';
+//      div.setAttribute('class', 'swiper-container swiper-init demo-swiper');
+ //     div.innerHTML = '<div class="swiper-pagination"></div>';
       temp.append(div);
       var newdiv = document.createElement('div');
-      newdiv.setAttribute('class', 'swiper-wrapper');
+  //    newdiv.setAttribute('class', 'swiper-wrapper');
       div.append(newdiv);
       for (var j = 0; j < images.length; j++) {
         var imgs = document.createElement('div');
         imgs.setAttribute('class','swiper-slide');
         imgs.innerHTML = '<img src='+ images[j] +'>';
         newdiv.appendChild(imgs);
+        break;
       }
     }
 

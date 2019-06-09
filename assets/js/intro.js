@@ -80,7 +80,7 @@ async function introPage(pos, numvalley, prev) {
      paths = welcomeValley(numvalley);
      handleFilesSelect(pos, paths);
      introOn = false;
-     }, 100000);
+     }, 360000);
    closebutton.addEventListener("click", function () {
        $$(".intro").hide();
        for(var x=0; x<trackp.length; x++){
@@ -104,7 +104,7 @@ async function introPage(pos, numvalley, prev) {
       introOn = false;
     }
     paths = welcomeValley(numvalley);
-    console.log(paths);
+//    console.log(paths);
     handleFilesSelect(pos, paths);
   }
 }

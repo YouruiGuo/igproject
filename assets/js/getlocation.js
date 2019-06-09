@@ -230,7 +230,7 @@ function autoUpdate() {
     //var newPoint = new google.maps.LatLng(position.coords.latitude,
     //                                      position.coords.longitude);
     pos = {lat, lng};
-   // console.log(marker);
+    console.log(pos);
     user_position = findValley(pos);
    // console.log(user_position);
    var valid = validateLocation(prevpos, pos);
@@ -255,7 +255,7 @@ function autoUpdate() {
     }
     else {
         stopAudio();
-        console.log("user position -1");
+//`        console.log("user position -1");
     }
     if (valid || (numnonvalid > 5)) {
       numnonvalid = 0;
@@ -263,8 +263,8 @@ function autoUpdate() {
     }
     prev = user_position;
     marker.setPosition({ lat, lng });
-    //maps.panTo(new google.maps.LatLng(lat, lng));
-    maps.setCenter(new google.maps.LatLng(lat, lng));
+    maps.panTo(new google.maps.LatLng(lat, lng));
+//    maps.setCenter(new google.maps.LatLng(lat, lng));
   });
   setTimeout(autoUpdate, 1000);
 }
