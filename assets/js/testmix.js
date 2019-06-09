@@ -105,26 +105,26 @@ async function decodeAudioDataAsync(data) {
    //await fP.then(function (value) { filePaths = value;});
    let buffers = [];
    for (let f of filePaths) {
-     var response;
+     var arrayBuffer;
      var e = false;
 //     console.log(responses[f]);
-    // if (!responses[f]) {
+     if (!responses[f]) {
         response = await fetch(f).then(function (res) {
-	  if (!res.ok) {
-            throw Error(res.statusText);
+	         if (!res.ok) {
+             throw Error(res.statusText);
            }
-           return res;
+           let arrayBuffer = await response.arrayBuffer();
         }).catch(function(error) {
            console.log(error);
            e = true;
         });
-      //  responses[f] = response;
-    // }
-     //else {
-     //   response = responses[f];
-     //}
+        responses[f] = arrayBuffer;
+     }
+     else {
+        response = responses[f];
+     }
      if (e == true){ continue;}
-     let arrayBuffer = await response.arrayBuffer();
+     //let arrayBuffer = await response.arrayBuffer();
      let audioBuffer = await decodeAudioDataAsync(arrayBuffer);
      buffers[f] = audioBuffer;
    }

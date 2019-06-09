@@ -177,6 +177,11 @@ async function setMarkers(map) {
   var info = [];
   await temp.then(function (value) {allinfo = value;});
   info = allinfo;
+  var allpaths = [];
+  for (var i = 0; i < info.length; i++) {
+    allpaths.push(info[i].filePath);
+  }
+  loadAllFiles(allpaths);
   for (var i = 0; i < info.length; i++) {
    if (info[i].generalDesc !== ''){
      var newmarker = new google.maps.Marker({
@@ -234,7 +239,7 @@ function autoUpdate() {
     user_position = findValley(pos);
    // console.log(user_position);
    var valid = validateLocation(prevpos, pos);
-   
+
     if (user_position != -1) {
       if(valid){
         numnonvalid = 0;
