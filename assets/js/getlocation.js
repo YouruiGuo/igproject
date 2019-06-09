@@ -171,6 +171,41 @@ var createMap = ({ lat, lng }) => {
 var createMarker = ({ map, position }) => {
   return new google.maps.Marker({ map, position });
 };
+var responses = {};
+ async function loadAllFiles(fP) {
+   let filePaths = fP;
+   for (let f of filePaths) {
+     var arrayBuffer;
+     var e = false;
+     var audioBuffer;
+//     console.log(responses[f]);
+     if (!responses[f]) {
+        console.log(f);
+        let response = await fetch(f);
+        let arrayBuffer = await response.arrayBuffer();
+        let audioBuffer = await decodeAudioDataAsync(arrayBuffer);
+/*        response = await fetch(f).then(function (res) {
+          if (res.ok) {
+            // throw Error(res.statusText);
+             arrayBuffer =  res.arrayBuffer().then(function (ab) {
+                audioBuffer = decodeAudioDataAsync(ab);
+             });
+           }
+           //arrayBuffer =  res.arrayBuffer().then(function (ab) {
+ 	//	audioBuffer = decodeAudioDataAsync(ab);
+          // });
+          // audioBuffer = await decodeAudioDataAsync(arrayBuffer);
+        }).catch(function(error) {
+           filePaths.push(f);
+           console.log(error);
+           e = true;
+        });*/
+        responses[f] = audioBuffer;
+     }
+ }
+ console.log(responses);
+}
+
 
 async function setMarkers(map) {
   var temp = allInfo();
@@ -235,7 +270,7 @@ function autoUpdate() {
     //var newPoint = new google.maps.LatLng(position.coords.latitude,
     //                                      position.coords.longitude);
     pos = {lat, lng};
-    console.log(pos);
+//    console.log(pos);
     user_position = findValley(pos);
    // console.log(user_position);
    var valid = validateLocation(prevpos, pos);

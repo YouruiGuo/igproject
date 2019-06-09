@@ -8,7 +8,7 @@ var gains = {};
 var birdsgains = {};
 var mute = {};
 var panners = {};
-var responses = {};
+//var responses = {};
 
 function stopAudio() {
   audio.close().then(function () {audio = new AudioContext();});
@@ -99,7 +99,7 @@ async function decodeAudioDataAsync(data) {
    }
    return buffers;
  }
-
+/*
  async function loadAllFiles(fP) {
    let filePaths = fP;
    for (let f of filePaths) {
@@ -119,7 +119,7 @@ async function decodeAudioDataAsync(data) {
         responses[f] = arrayBuffer;
      }
  }
-
+}*/
  async function loadFilesList(fP) {
    let filePaths = fP;
    //await fP.then(function (value) { filePaths = value;});
@@ -141,18 +141,20 @@ async function decodeAudioDataAsync(data) {
         responses[f] = arrayBuffer;
      }
      else {*/
-     if (!response[f]) {
+     var arrayBuffer;
+     if (!responses[f]) {
        e = true;
      }
      else {
-       response = responses[f];
+       arrayBuffer = responses[f];
      }
      //}
      if (e == true){ continue;}
      //let arrayBuffer = await response.arrayBuffer();
-     let audioBuffer = await decodeAudioDataAsync(arrayBuffer);
-     buffers[f] = audioBuffer;
-   }
+//     let audioBuffer = await decodeAudioDataAsync(arrayBuffer);
+ //    buffers[f] = audioBuffer;
+     buffers[f] = arrayBuffer; 
+  }
    return buffers;
  }
 
@@ -252,7 +254,11 @@ function playTracks(pos, buffers, loop) {
   for(var key in buffers) {
     playing.push(key);
     var frameCount = audio.sampleRate*buffers[key].duration;
-    var buffer = buffers[key];
+    var buffer = responses[key];
+//    console.log(buffer);
+    channel = buffers[key].numberOfChannels;
+  //  console.log(buffers[key].duration);
+    //await buffer.then(function (val) {channel = val.numberOfChannels;});
     let output = audio.createBuffer(channel, frameCount, audio.sampleRate);
     for (var c = 0; c < channel; c++) {
       nowBuffering = output.getChannelData(c);
