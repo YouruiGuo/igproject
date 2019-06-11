@@ -71,7 +71,7 @@ var coords = [
    {lat: 53.40779, lng:  -113.75747},
    {lat: 53.40744, lng: -113.75807},
    {lat: 53.407024, lng: -113.757240},
-  ],  
+  ],
   [
    {lat: 53.407414, lng: -113.756310},
    {lat: 53.407638, lng: -113.756407},
@@ -173,8 +173,12 @@ var createMarker = ({ map, position }) => {
   return new google.maps.Marker({ map, position });
 };
 var responses = {};
- async function loadAllFiles(fP) {
+
+async function loadAllFiles(fP) {
+   var loadingnums = 0;
+   $$('download').show();
    let filePaths = fP;
+   var totalnum = filePaths.length;
    for (let f of filePaths) {
      var arrayBuffer;
      var e = false;
@@ -185,28 +189,28 @@ var responses = {};
         let response = await fetch(f);
         let arrayBuffer = await response.arrayBuffer();
         let audioBuffer = await decodeAudioDataAsync(arrayBuffer);
-/*        response = await fetch(f).then(function (res) {
-          if (res.ok) {
-            // throw Error(res.statusText);
-             arrayBuffer =  res.arrayBuffer().then(function (ab) {
-                audioBuffer = decodeAudioDataAsync(ab);
-             });
-           }
-           //arrayBuffer =  res.arrayBuffer().then(function (ab) {
- 	//	audioBuffer = decodeAudioDataAsync(ab);
-          // });
-          // audioBuffer = await decodeAudioDataAsync(arrayBuffer);
-        }).catch(function(error) {
-           filePaths.push(f);
-           console.log(error);
-           e = true;
-        });*/
         responses[f] = audioBuffer;
      }
+     loadingnums+=1;
+     simulateLoading(1.0*loadingnums/totalnum);
  }
+ $$('download').hide();
  console.log(responses);
 }
 
+var progress = 0;
+app.progressbar.set('#demo-inline-progressbar', progress);
+function simulateLoading(nums) {
+    //setTimeout(function () {
+      var progressBefore = progress;
+      progress += nums * 100;
+      app.progressbar.set(progressBarEl, progress);
+      if (progressBefore >= 100) {
+        //determinateLoading = false;
+        app.progressbar.hide(progressBarEl); //hide
+      }
+    //}, Math.random() * 200 + 200);
+  }
 
 async function setMarkers(map) {
   var temp = allInfo();
