@@ -1,3 +1,12 @@
+var app = new Framework7({
+  // App id
+  //id: 'com.myapp.test',
+  // Enable swipe panel
+  //panel: {
+  //  swipe: 'left',
+  //},
+  // ... other parameters
+});
 var coords = [
   [
    {lat: 53.527218, lng: -113.523288},
@@ -176,7 +185,7 @@ var responses = {};
 
 async function loadAllFiles(fP) {
    var loadingnums = 0;
-   $$('download').show();
+   $$('.download').show();
    let filePaths = fP;
    var totalnum = filePaths.length;
    for (let f of filePaths) {
@@ -194,16 +203,17 @@ async function loadAllFiles(fP) {
      loadingnums+=1;
      simulateLoading(1.0*loadingnums/totalnum);
  }
- $$('download').hide();
+ $$('.download').hide();
  console.log(responses);
 }
 
 var progress = 0;
+var progressBarEl = app.progressbar.show('#demo-determinate-container', 0);
 app.progressbar.set('#demo-inline-progressbar', progress);
 function simulateLoading(nums) {
     //setTimeout(function () {
       var progressBefore = progress;
-      progress += nums * 100;
+      progress += nums * 10;
       app.progressbar.set(progressBarEl, progress);
       if (progressBefore >= 100) {
         //determinateLoading = false;
@@ -221,7 +231,7 @@ async function setMarkers(map) {
   for (var i = 0; i < info.length; i++) {
     allpaths.push(info[i].filePath);
   }
-  loadAllFiles(allpaths);
+  loadAllFiles(allpaths);  
   for (var i = 0; i < info.length; i++) {
    if (info[i].generalDesc !== ''){
      var newmarker = new google.maps.Marker({
@@ -350,7 +360,6 @@ function initMap() {
   window.addEventListener('deviceorientationabsolute', handleOrientation, true);
   autoUpdate();
   // Use the new trackLocation function.
-
   // draw polygons.
   var v = drawPolygons()
   for (var i = 0; i < numValleys; i++) {
