@@ -210,10 +210,20 @@ async function loadAllFiles(fP) {
 //     console.log(responses[f]);
      if (!responses[f]) {
         console.log(f);
-        let response = await fetch(f);
+        /*let response = axios.get(f);//await fetch(f);
         let arrayBuffer = await response.arrayBuffer();
         let audioBuffer = await decodeAudioDataAsync(arrayBuffer);
         responses[f] = audioBuffer;
+        */
+        axios.get(f)
+        .then(function (response) {
+          let arrayBuffer = await response.arrayBuffer();
+          let audioBuffer = await decodeAudioDataAsync(arrayBuffer);
+          responses[f] = audioBuffer;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
      }
      loadingnums+=1;
      simulateLoading(1.0*loadingnums/totalnum);
@@ -246,7 +256,7 @@ async function setMarkers(map) {
   for (var i = 0; i < info.length; i++) {
     allpaths.push(info[i].filePath);
   }
-  loadAllFiles(allpaths);  
+  loadAllFiles(allpaths);
   for (var i = 0; i < info.length; i++) {
    if (info[i].generalDesc !== ''){
      var newmarker = new google.maps.Marker({

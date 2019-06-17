@@ -92,7 +92,7 @@ async function decodeAudioDataAsync(data) {
    let buffers = [];
    var max=0;
    for (let f of filePaths) {
-     let response = await fetch(f);
+     let response = await axios.get(f);//fetch(f);
      let arrayBuffer = await response.arrayBuffer();
      let audioBuffer = await decodeAudioDataAsync(arrayBuffer);
      buffers[f] = audioBuffer;
@@ -153,7 +153,7 @@ async function decodeAudioDataAsync(data) {
      //let arrayBuffer = await response.arrayBuffer();
 //     let audioBuffer = await decodeAudioDataAsync(arrayBuffer);
  //    buffers[f] = audioBuffer;
-     buffers[f] = arrayBuffer; 
+     buffers[f] = arrayBuffer;
   }
    return buffers;
  }

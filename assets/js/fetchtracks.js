@@ -1,8 +1,6 @@
-
+const axios = require('axios');
 async function allInfo () {
-  const d = await fetch('/info', {
-    method: 'post',
-  })
+  const d = await axios.post('/info')
   .then(res => res.json())
   .catch(function (error) {
     console.log(' Request failed', error);
@@ -22,12 +20,12 @@ async function allInfo () {
 async function birdsTrack() {
   var data = {valleypos: 'birds'};
   var r = Math.floor(Math.random()*10);
-  const d = await fetch('/intro', {
-    method: 'post',
-    headers: {
-      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-    },
-    body: 'valleypos=birds'+r.toString()
+  const d = await axios.post('/intro', {
+    //headers: {
+    //  "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+    //},
+    //body: 'valleypos=birds'+r.toString()
+    valleypos: 'birds'+r.toString()
   })
   .then(res => res.json())
   .catch(function (error) {
@@ -42,12 +40,12 @@ async function track(valley_pos) {
   //console.log(valley_pos);
   var data = {valleypos: valley_pos};
   var fileinputs;
-  const d = await fetch('/audio', {
-    method: 'post',
-    headers: {
-      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-    },
-    body: 'valleypos='+valley_pos.toString()
+  const d = await axios.post('/intro', {
+    //headers: {
+    //  "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+    //},
+    //body: 'valleypos=birds'+r.toString()
+    valleypos: 'intro'+valley_pos.toString()
   })
   .then(res => res.json())
   .catch(function (error) {
@@ -73,12 +71,12 @@ async function track(valley_pos) {
 // fetch the audio for welcome
 async function fetchTrackIntro(valley_pos) {
   valley_pos += 1;
-  const d = await fetch('/intro', {
-    method: 'post',
-    headers: {
-      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-    },
-    body: 'valleypos=intro'+valley_pos.toString()
+  const d = await axios.post('/intro', {
+    //headers: {
+    //  "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+    //},
+    //body: 'valleypos=birds'+r.toString()
+    valleypos: 'intro'+valley_pos.toString()
   })
   .then(res => res.json())
   .catch(function (error) {
