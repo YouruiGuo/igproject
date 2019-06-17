@@ -198,75 +198,16 @@ var trackLocation = ({ onSuccess, onError = () => { } }) => {
   return navigator.geolocation.watchPosition(onSuccess, onError, options);
 };
 
-async function loadAllFiles(fP) {
-   var loadingnums = 0;
-   //$$('.download').show();
-   let filePaths = fP;
-   var totalnum = filePaths.length;
-   for (let f of filePaths) {
-     var arrayBuffer;
-     var e = false;
-     var audioBuffer;
-//     console.log(responses[f]);
-     if (!responses[f]) {
-        console.log(f);
-        responses[f] = true;
-        /*let response = axios.get(f);//await fetch(f);
-        let arrayBuffer = await response.arrayBuffer();
-        let audioBuffer = await decodeAudioDataAsync(arrayBuffer);
-        responses[f] = audioBuffer;
-        */
-        axios({
-          method: 'get',
-          url: f,
-          responseType: 'arraybuffer'
-        })
-        .then(function (response) {
-           console.log(response);
-           //var arrayBuffer = new ArrayBuffer(response.data);
-           //console.log(arrayBuffer);
-           //response.arrayBuffer().then(function (arrayBuffer) {
-		audio.decodeAudioData(response.data, function (audioBuffer){console.log(audioBuffer);responses[f] = audioBuffer;}, function(e){ console.log("Error with decoding audio data" + e.err); });
-           //});
-          //let audioBuffer decodeAudioDataAsync(arrayBuffer);
-          //responses[f] = audioBuffer;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-     }
-     loadingnums+=1;
-     simulateLoading(1.0*loadingnums/totalnum);
- }
- $$('.download').hide();
- console.log(responses);
-}
-
-var progress = 0;
-var progressBarEl = app.progressbar.show('#demo-determinate-container', 0);
-app.progressbar.set('#demo-inline-progressbar', progress);
-function simulateLoading(nums) {
-    //setTimeout(function () {
-      var progressBefore = progress;
-      progress += nums * 10;
-      app.progressbar.set(progressBarEl, progress);
-      if (progressBefore >= 100) {
-        //determinateLoading = false;
-        app.progressbar.hide(progressBarEl); //hide
-      }
-    //}, Math.random() * 200 + 200);
-  }
-
 async function setMarkers(map) {
   var temp = allInfo();
   var info = [];
   await temp.then(function (value) {allinfo = value;});
   info = allinfo;
-  var allpaths = [];
+  /*var allpaths = [];
   for (var i = 0; i < info.length; i++) {
     allpaths.push(info[i].filePath);
   }
-  loadAllFiles(allpaths);
+  loadAllFiles(allpaths);*/
   for (var i = 0; i < info.length; i++) {
    if (info[i].generalDesc !== ''){
      var newmarker = new google.maps.Marker({
@@ -432,7 +373,7 @@ function initMap() {
         map : map
   });
   user_marker = marker;
-  $$('.download').show();
+  //$$('.download').show();
     //var prev = -1;
   setMarkers(map);
   //if ('ondeviceorientationabsolute' in window) {

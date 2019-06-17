@@ -1,20 +1,83 @@
 var visited = [];
 var introOn = false;
 var ambientTrack;
+
+async function loadAllFiles(fP) {
+   var loadingnums = 0;
+   $$('.download').show();
+   let filePaths = fP;
+   var totalnum = filePaths.length;
+   for (let f of filePaths) {
+     var arrayBuffer;
+     var e = false;
+     var audioBuffer;
+//     console.log(responses[f]);
+     if (!responses[f]) {
+        console.log(f);
+        responses[f] = true;
+
+        axios({
+          method: 'get',
+          url: f,
+          responseType: 'arraybuffer'
+        })
+        .then(function (response) {
+           console.log(response);
+		       audio.decodeAudioData(response.data, function (audioBuffer){
+             console.log(audioBuffer);
+             responses[f] = audioBuffer;},
+             function(e){
+               console.log("Error with decoding audio data" + e.err);
+             });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+     }
+     loadingnums+=1;
+     simulateLoading(1.0*loadingnums/totalnum);
+ }
+ $$('.download').hide();
+ console.log(responses);
+}
+
+var progress = 0;
+var progressBarEl = app.progressbar.show('#demo-determinate-container', 0);
+app.progressbar.set('#demo-inline-progressbar', progress);
+function simulateLoading(nums) {
+    //setTimeout(function () {
+      var progressBefore = progress;
+      progress += nums * 10;
+      app.progressbar.set(progressBarEl, progress);
+      if (progressBefore >= 100) {
+        //determinateLoading = false;
+        app.progressbar.hide(progressBarEl); //hide
+      }
+    //}, Math.random() * 200 + 200);
+  }
+
 async function introPage(pos, numvalley, prev) {
  // numvalley = numvalley % 7;
 //  console.log(numvalley);
  // if(prev) {stopAudio();}
   var paths = [];
-  var trackp = []; 
+  var trackp = [];
   if (!visited[numvalley]) {
     visited[numvalley] = true;
     var pg = document.querySelector('.intro');
     pg.innerHTML = "";
     var i = fetchTrackIntro(numvalley%7);
+    var x = track(numvalley%7);
     var info = [];
+    var alltracks = [];
+    var allpaths = [];
     await i.then(function (value) {info = value;});
-  //  console.log(info);
+    await x.then(function (value) {alltracks = info; alltracks.push(value);});
+    //  console.log(info);
+    for (var a = 0; a < info.length; a++) {
+      allpaths.push(alltracks[i].filePath);
+    }
+    loadAllFiles(allpaths);
     var imgs = [];
     //imgs.push(info[0].imagePath);
     for (var a = 0; a < info.length; a++) {
