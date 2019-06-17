@@ -210,16 +210,26 @@ async function loadAllFiles(fP) {
 //     console.log(responses[f]);
      if (!responses[f]) {
         console.log(f);
+        responses[f] = true;
         /*let response = axios.get(f);//await fetch(f);
         let arrayBuffer = await response.arrayBuffer();
         let audioBuffer = await decodeAudioDataAsync(arrayBuffer);
         responses[f] = audioBuffer;
         */
-        axios.get(f)
+        axios({
+          method: 'get',
+          url: f,
+          responseType: 'arraybuffer'
+        })
         .then(function (response) {
-          let arrayBuffer = await response.arrayBuffer();
-          let audioBuffer = await decodeAudioDataAsync(arrayBuffer);
-          responses[f] = audioBuffer;
+           console.log(response);
+           //var arrayBuffer = new ArrayBuffer(response.data);
+           //console.log(arrayBuffer);
+           //response.arrayBuffer().then(function (arrayBuffer) {
+		audio.decodeAudioData(response.data, function (audioBuffer){console.log(audioBuffer);responses[f] = audioBuffer;}, function(e){ console.log("Error with decoding audio data" + e.err); });
+           //});
+          //let audioBuffer decodeAudioDataAsync(arrayBuffer);
+          //responses[f] = audioBuffer;
         })
         .catch(function (error) {
           console.log(error);

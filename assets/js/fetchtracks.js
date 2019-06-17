@@ -1,11 +1,12 @@
-const axios = require('axios');
 async function allInfo () {
-  const d = await axios.post('/info')
-  .then(res => res.json())
+  var data;
+  await axios.post('/info')
+  .then(function(res){data = res.data;})
   .catch(function (error) {
     console.log(' Request failed', error);
   });
-  //console.log(d);
+  var d = data;
+  console.log(d);
   var paths = [];
   for (var i = 0; i < d.length; i++) {
     allinfo.push(d[i]);
@@ -18,39 +19,42 @@ async function allInfo () {
 }
 
 async function birdsTrack() {
-  var data = {valleypos: 'birds'};
+  var data;
   var r = Math.floor(Math.random()*10);
-  const d = await axios.post('/intro', {
+  await axios.post('/intro', {
     //headers: {
     //  "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
     //},
     //body: 'valleypos=birds'+r.toString()
     valleypos: 'birds'+r.toString()
   })
-  .then(res => res.json())
+  .then(function(res) { data = res.data;})
   .catch(function (error) {
     console.log(' Request failed', error);
   });
-  if (d.length != 0) {
-    return d;
+  if (data.length != 0) {
+    return data;
   }
 }
 
 async function track(valley_pos) {
   //console.log(valley_pos);
-  var data = {valleypos: valley_pos};
+  var data;
   var fileinputs;
-  const d = await axios.post('/intro', {
+   await axios({
+    method: "post",
+    url: "/audio",
     //headers: {
     //  "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
     //},
     //body: 'valleypos=birds'+r.toString()
-    valleypos: 'intro'+valley_pos.toString()
+    data: {valleypos: valley_pos.toString()}
   })
-  .then(res => res.json())
+  .then(function(res) {data = res.data;})
   .catch(function (error) {
     console.log(' Request failed', error);
   });
+  var d = data;
   var paths = [];
   //p.then(d => {
     if (valley_pos != -1) {
@@ -71,17 +75,21 @@ async function track(valley_pos) {
 // fetch the audio for welcome
 async function fetchTrackIntro(valley_pos) {
   valley_pos += 1;
-  const d = await axios.post('/intro', {
+  var data;
+  await axios({
+    method: "post",
+    url: "/intro",
     //headers: {
     //  "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
     //},
     //body: 'valleypos=birds'+r.toString()
-    valleypos: 'intro'+valley_pos.toString()
+    data: {valleypos: 'intro'+valley_pos.toString()}
   })
-  .then(res => res.json())
+  .then(function(res) {data = res.data;})
   .catch(function (error) {
     console.log(' Request failed', error);
   });
+  var d = data;
   var paths = [];
   if (valley_pos != -1) {
     for (var i = 0; i < d.length; i++) {
