@@ -183,9 +183,24 @@ var createMarker = ({ map, position }) => {
 };
 var responses = {};
 
+// New function to track user's location.
+var trackLocation = ({ onSuccess, onError = () => { } }) => {
+  options = {
+    enableHighAccuracy: true,
+    timeout: 1000,
+    maximumAge: 1000
+  };
+
+  if ('geolocation' in navigator === false) {
+    return onError(new Error('Geolocation is not supported by your browser.'));
+  }
+  // Use watchPosition instead.
+  return navigator.geolocation.watchPosition(onSuccess, onError, options);
+};
+
 async function loadAllFiles(fP) {
    var loadingnums = 0;
-   $$('.download').show();
+   //$$('.download').show();
    let filePaths = fP;
    var totalnum = filePaths.length;
    for (let f of filePaths) {
@@ -279,6 +294,7 @@ function validateLocation(prevloc, pos) {
 }
 
 var numnonvalid = 0;
+/*
 function autoUpdate() {
   navigator.geolocation.getCurrentPosition(
               ({ coords: { latitude: lat, longitude: lng } }) => {
@@ -323,7 +339,50 @@ function autoUpdate() {
   });
   setTimeout(autoUpdate, 1000);
 }
+*/
+function autoUpdate() {
 
+let watchId = trackLocation({
+    onSuccess: ({ coords: { latitude: lat, longitude: lng } }) => {
+      pos = {lat, lng};
+      // Find out which valley user is at.
+      user_position = findValley(pos);
+      //console.log(user_position);
+
+      var valid = validateLocation(prevpos, pos);
+      valid = true;
+      if (user_position != -1) {
+      if(valid){
+        numnonvalid = 0;
+        if (!soloon) {
+          setPanner(pos, user_position);
+        }
+      }
+      else {numnonvalid += 1;}
+      if (prev != user_position){
+        stopAudio();
+        introPage(pos, user_position, true);
+      }
+      else if (prev == -1){ console.log("here");introPage(user_position, false);}
+      else {birdSongs();}
+    }
+    else {
+        stopAudio();
+    }
+    if (valid || (numnonvalid > 5)) {
+      numnonvalid = 0;
+      prevpos = pos;
+    }
+    prev = user_position;
+    marker.setPosition({ lat, lng });
+    maps.panTo(new google.maps.LatLng(lat, lng));
+    //maps.setCenter(new google.maps.LatLng(lat, lng));
+    },
+    onError: err =>
+      alert(`Error: ${getPositionErrorMessage(err.code) || err.message}`)
+  });
+
+}
 // Note: This example requires that you consent to location sharing when
 // prompted by your browser. If you see the error "The Geolocation service
 // failed.", it means you probably did not give permission for the browser to
@@ -353,7 +412,8 @@ function initMap() {
         map : map
   });
   user_marker = marker;
-  //var prev = -1;
+  $$('.download').show();
+    //var prev = -1;
   setMarkers(map);
   //if ('ondeviceorientationabsolute' in window) {
     // Chrome 50+ specific
