@@ -133,7 +133,8 @@ async function introPage(pos, numvalley, prev) {
    closebutton.innerHTML = "CLOSE";
    closebutton.addEventListener("click", closeIntro);
    function closeIntro() {
-     setTimeout(function() {$$(".intro").hide();},0);
+    // setTimeout(function() {$$(".intro").hide();},0);
+     document.querySelector('.intro').style.display = 'none';
      for(var x=0; x<trackp.length; x++){
        p = document.getElementById("introaudio"+x);
        p.pause();
@@ -156,7 +157,8 @@ async function introPage(pos, numvalley, prev) {
    $$(".intro").show();
    introOn = true;
    var timeout = setTimeout(function() {
-     setTimeout(function() {$$(".intro").hide();},0);
+     document.querySelector('.intro').style.display = 'none';
+     //setTimeout(function() {$$(".intro").hide();},0);
      for(var x=0; x<trackp.length; x++){
        p = document.getElementById("introaudio"+x);
        p.pause();
@@ -168,7 +170,8 @@ async function introPage(pos, numvalley, prev) {
   else {
     //if(prev) {stopAudio();}
     if (introOn) {
-      setTimeout(function() {$$(".intro").hide();},0);
+     // setTimeout(function() {$$(".intro").hide();},0);
+      document.querySelector('.intro').style.display = 'none';
       var allAudios = document.querySelectorAll(".audios");
       for (var i = 0; i<allAudios.length; i++){
         allAudios[i].pause();

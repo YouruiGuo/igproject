@@ -304,8 +304,9 @@ function autoUpdate() {
 */
 function autoUpdate() {
 
-let watchId = trackLocation({
-    onSuccess: ({ coords: { latitude: lat, longitude: lng } }) => {
+//let watchId = trackLocation({
+navigator.geolocation.watchPosition(
+    function ({ coords: { latitude: lat, longitude: lng } }) {
       pos = {lat, lng};
       // Find out which valley user is at.
       user_position = findValley(pos);
@@ -340,9 +341,14 @@ let watchId = trackLocation({
     maps.panTo(new google.maps.LatLng(lat, lng));
     //maps.setCenter(new google.maps.LatLng(lat, lng));
     },
-    onError: err =>
-      alert(`Error: ${getPositionErrorMessage(err.code) || err.message}`)
-  });
+    function (err){
+      alert(`Error: ${getPositionErrorMessage(err.code) || err.message}`);},
+    function() {options= {
+      enableHighAccuracy: true,
+      timeout: 1000,
+      maximumAge: 1000
+    };}
+  );
 
 }
 // Note: This example requires that you consent to location sharing when
