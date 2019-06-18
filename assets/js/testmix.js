@@ -72,8 +72,15 @@ function calculateDistance(key, lat1, lon1, lat2, lon2) {
     var delta_Y = 1000*R*(lat2-lat1)*Math.PI/180;
     var delta_X = 1000*R*(lon2-lon1)*Math.cos(lat1)*Math.PI/180;
   //  console.log(delta_X);
-    if (panners[key])
-      panners[key].setPosition(delta_X, delta_Y, 0);
+    if (panners[key]) {
+      if(panners[key].positionX) {
+        panners[key].positionX.setValueAtTime(delta_X, audio.currentTime);
+        panners[key].positionY.setValueAtTime(delta_Y, audio.currentTime);
+        panners[key].positionZ.setValueAtTime(0, audio.currentTime);
+      } else {
+        panners[key].setPosition(delta_X,delta_Y,0);
+      }
+    }
 }
 
 async function decodeAudioDataAsync(data) {
@@ -171,8 +178,18 @@ async function decodeAudioDataAsync(data) {
 function maxVolume(fp) {
 ////////////////// console.log(fp);
     if (panners[fp]) {
-      panners[fp].setPosition(0,0,0);
+     if(panners[fp].positionX) {
+        panners[fp].positionX.setValueAtTime(0, audio.currentTime);
+        panners[fp].positionY.setValueAtTime(0, audio.currentTime);
+        panners[fp].positionZ.setValueAtTime(0, audio.currentTime);
+      } else {
+        panners[fp].setPosition(0,0,0);
+      }
     }
+}
+
+function restorePanner() {
+    setPanner(cur_pos, user_position);    
 }
 
  function Mute(fp) {
@@ -190,7 +207,6 @@ function maxVolume(fp) {
 
  function unMute(fp, vol) {
    if (vol === undefined ) vol = 1;
-   console.log(panners[fp]);
    if (gains[fp]) {
       mute[fp] = 0;
       gains[fp].gain.setValueAtTime(vol, audio.currentTime);
@@ -201,6 +217,7 @@ function maxVolume(fp) {
      g.gain.setValueAtTime(vol, audio.currentTime);
      gains[fp] = g;
    }
+   restorePanner();
  }
 
  function muteAndUnmute(fp) {
@@ -312,7 +329,6 @@ async function playTracks(pos, buffers, loop) {
     //playAndPause();
   }
   playAndPause();
-  console.log("setpanners");
   setPanner(pos);
  // console.log(panners);
 }

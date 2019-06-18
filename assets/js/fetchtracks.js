@@ -6,7 +6,6 @@ async function allInfo () {
     console.log(' Request failed', error);
   });
   var d = data;
-  console.log(d);
   var paths = [];
   for (var i = 0; i < d.length; i++) {
     allinfo.push(d[i]);

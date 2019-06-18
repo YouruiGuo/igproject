@@ -23,14 +23,12 @@ async function loadAllFiles(fP) {
    $$('.download').show();
    let filePaths = fP;
    var totalnum = fP.length;
-   console.log(totalnum);
    for (let f of filePaths) {
      var arrayBuffer;
      var e = false;
      var audioBuffer;
 //     console.log(responses[f]);
      if (!responses[f]) {
-        console.log(f);
         responses[f] = true;
 
         axios({
@@ -39,9 +37,7 @@ async function loadAllFiles(fP) {
           responseType: 'arraybuffer'
         })
         .then(function (response) {
-           console.log(response);
 	   audio.decodeAudioData(response.data, function (audioBuffer){
-             console.log(audioBuffer);
              responses[f] = audioBuffer;
              loadingnums+=1;
              simulateLoading(1.0*loadingnums/totalnum);
@@ -59,9 +55,7 @@ async function loadAllFiles(fP) {
        loadingnums+=1;
        simulateLoading(1.0*loadingnums/totalnum);
      }
- }
- //$$('.download').hide();
- console.log(responses);
+  }
 }
 
 async function introPage(pos, numvalley, prev) {
@@ -83,7 +77,6 @@ async function introPage(pos, numvalley, prev) {
     var allpaths = [];
     await i.then(function (value) {info = value;});
     await x.then(function (value) {alltracks.push.apply(alltracks, info); alltracks.push.apply(alltracks, value);});
-    console.log(alltracks);
     for (var a = 0; a < alltracks.length; a++) {
       allpaths.push(alltracks[a].filePath);
     }
@@ -141,7 +134,7 @@ async function introPage(pos, numvalley, prev) {
      }
      clearTimeout(timeout);
      introOn = false;
-     setTimeout(function() {handleFilesSelect(pos, paths);console.log("mdzz")}, 0);
+     setTimeout(function() {handleFilesSelect(pos, paths);}, 0);
    }
    function playintrotracks() {
    for (var b = 0; b < trackp.length; b++) {

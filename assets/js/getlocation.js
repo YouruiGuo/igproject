@@ -118,7 +118,7 @@ var marker = user_marker;
 var pos, prevpos = -1;
 var prev = -1;
 var maps;
-
+var cur_pos;
 // get polygons according to coords.
 function drawPolygons() {
   // Construct the polygon.
@@ -303,18 +303,25 @@ function autoUpdate() {
 }
 */
 function autoUpdate() {
-
-//let watchId = trackLocation({
-navigator.geolocation.watchPosition(
-    function ({ coords: { latitude: lat, longitude: lng } }) {
-      pos = {lat, lng};
-      // Find out which valley user is at.
-      user_position = findValley(pos);
-      //console.log(user_position);
-
-      var valid = validateLocation(prevpos, pos);
-      valid = true;
-      if (user_position != -1) {
+  options = {
+      enableHighAccuracy: true,
+      timeout: 1,
+      maximumAge: 1
+  };
+  function error(err) {
+    console.warn('ERROR(' + err.code + '): ' + err.message);
+  }
+  function success(poss) {
+    var lat = poss.coords.latitude;
+    var lng = poss.coords.longitude;
+    var pos = {lat, lng};
+    cur_pos = pos;
+    // Find out which valley user is at.
+    user_position = findValley(pos);
+    //console.log(user_position);
+    var valid = validateLocation(prevpos, pos);
+    valid = true;
+    if (user_position != -1) {
       if(valid){
         numnonvalid = 0;
         if (!soloon) {
@@ -340,16 +347,8 @@ navigator.geolocation.watchPosition(
     marker.setPosition({ lat, lng });
     maps.panTo(new google.maps.LatLng(lat, lng));
     //maps.setCenter(new google.maps.LatLng(lat, lng));
-    },
-    function (err){
-      alert(`Error: ${getPositionErrorMessage(err.code) || err.message}`);},
-    function() {options= {
-      enableHighAccuracy: true,
-      timeout: 1000,
-      maximumAge: 1000
-    };}
-  );
-
+  }
+  d = navigator.geolocation.watchPosition(success, error, options);
 }
 // Note: This example requires that you consent to location sharing when
 // prompted by your browser. If you see the error "The Geolocation service
