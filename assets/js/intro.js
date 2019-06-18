@@ -133,7 +133,7 @@ async function introPage(pos, numvalley, prev) {
    closebutton.innerHTML = "CLOSE";
    closebutton.addEventListener("click", closeIntro);
    function closeIntro() {
-     $$(".intro").hide();
+     setTimeout(function() {$$(".intro").hide();},0);
      for(var x=0; x<trackp.length; x++){
        p = document.getElementById("introaudio"+x);
        p.pause();
@@ -168,7 +168,7 @@ async function introPage(pos, numvalley, prev) {
   else {
     //if(prev) {stopAudio();}
     if (introOn) {
-      $$(".intro").hide();
+      setTimeout(function() {$$(".intro").hide();},0);
       var allAudios = document.querySelectorAll(".audios");
       for (var i = 0; i<allAudios.length; i++){
         allAudios[i].pause();

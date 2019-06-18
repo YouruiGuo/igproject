@@ -194,6 +194,7 @@ var trackLocation = ({ onSuccess, onError = () => { } }) => {
   if ('geolocation' in navigator === false) {
     return onError(new Error('Geolocation is not supported by your browser.'));
   }
+  console.log("tracklocation");
   // Use watchPosition instead.
   return navigator.geolocation.watchPosition(onSuccess, onError, options);
 };
@@ -324,7 +325,7 @@ let watchId = trackLocation({
         stopAudio();
         introPage(pos, user_position, true);
       }
-      else if (prev == -1){ console.log("here");introPage(user_position, false);}
+      else if (prev == -1){ introPage(user_position, false);}
       else {birdSongs();}
     }
     else {
