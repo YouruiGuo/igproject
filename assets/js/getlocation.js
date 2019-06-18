@@ -334,7 +334,6 @@ function autoUpdate() {
         introPage(pos, user_position, true);
       }
       else if (prev == -1){ introPage(user_position, false);}
-      else {birdSongs();}
     }
     else {
         stopAudio();
@@ -386,6 +385,7 @@ function initMap() {
     // Chrome 50+ specific
   window.addEventListener('deviceorientationabsolute', handleOrientation, true);
   autoUpdate();
+  birdSongs();
   // Use the new trackLocation function.
   // draw polygons.
   var v = drawPolygons()

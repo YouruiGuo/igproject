@@ -21,23 +21,25 @@ function stopAudio() {
 }
 
 async function birdSongs() {
-  var e = 0.01;
+  var e = 0.2;
   var r = Math.random();
   var loop = false;
-//  console.log(r);
+  console.log(r);
   if (r < e) {
-//    console.log("play bird song");
     var t0 = birdsTrack();
     var t1 = [];
     await t0.then(function(value) {t1 = value;});
     t2 = t1[0]['filePath'];
-    loadFilesList([t2]).then((track) => {
+    console.log(t2);
+    loadBirdsFiles([t2]).then((track) => {
       playBirdSongs(track);
     })
   }
+  setTimeout(birdSongs, 5000);
 }
 
 async function setPanner(pos, valley) {
+  valley = user_position;
   if (playing.length != 0) {
     for (var i = 0; i < playing.length; i++) {
       for (var j = 0; j < allinfo.length; j++) {
@@ -93,13 +95,12 @@ async function decodeAudioDataAsync(data) {
    })
  }
 
- async function loadFiles(fP) {
+ async function loadBirdsFiles(fP) {
    let filePaths = [];
-   await fP.then(function (value) { filePaths = value;});
    let buffers = [];
    var max=0;
-   for (let f of filePaths) {
-     let response = await axios.get(f);//fetch(f);
+   for (let f of fP) {
+     let response = await fetch(f);
      let arrayBuffer = await response.arrayBuffer();
      let audioBuffer = await decodeAudioDataAsync(arrayBuffer);
      buffers[f] = audioBuffer;
@@ -108,7 +109,7 @@ async function decodeAudioDataAsync(data) {
  }
 /*
  async function loadAllFiles(fP) {
-   let filePaths = fP;
+   let filePaths = fP;`
    for (let f of filePaths) {
      var arrayBuffer;
      var e = false;
@@ -240,25 +241,13 @@ function restorePanner() {
  }
 
 function playBirdSongs(buffers) {
-  var channel = 2;
   for(var key in buffers) {
-    var frameCount = audio.sampleRate*buffers[key].duration;
     var buffer = buffers[key];
-    let output = audio.createBuffer(channel, frameCount, audio.sampleRate);
-    for (var c = 0; c < channel; c++) {
-      nowBuffering = output.getChannelData(c);
-      bufferChannelData = buffer.getChannelData(c);
-      for(var i = 0; i < frameCount; i++){
-         if (buffer.getChannelData(c)[i]) {
-           nowBuffering[i] += bufferChannelData[i];
-         }
-      }
-    }
     var source = audio.createBufferSource();
     var g = audio.createGain();
     g.gain.value = 0.5;
     birdsgains[key] = g;
-    source.buffer = output;
+    source.buffer = buffer;
     source.connect(g).connect(audio.destination);
     source.start(0);
   }
@@ -266,25 +255,10 @@ function playBirdSongs(buffers) {
 
 
 async function playTracks(pos, buffers, loop) {
-  var channel = 2;
- // console.log(buffers);
   playing = [];
   for(var key in buffers) {
     playing.push(key);
-    var frameCount = audio.sampleRate*buffers[key].duration;
     var buffer = responses[key];
-    //console.log(key);
-    channel = buffers[key].numberOfChannels;
-  //  console.log(buffers[key].duration);
-    //await buffer.then(function (val) {channel = val.numberOfChannels;});
-    let output = audio.createBuffer(channel, frameCount, audio.sampleRate);
-    for (var c = 0; c < channel; c++) {
-      nowBuffering = output.getChannelData(c);
-      bufferChannelData = buffer.getChannelData(c);
-      for(var i = 0; i < frameCount; i++){
-         nowBuffering[i] += bufferChannelData[i];
-      }
-    }
     // Get an AudioBufferSourceNode.
     // This is the AudioNode to use when we want to play an AudioBuffer
     var source = audio.createBufferSource();
@@ -306,7 +280,7 @@ async function playTracks(pos, buffers, loop) {
       }
     }
     // set the buffer in the AudioBufferSourceNode
-    source.buffer = output;
+    source.buffer = buffer;
     source.loop = loop;
     mute[key] = 0; // un-muted
     //console.log("here");
@@ -326,9 +300,9 @@ async function playTracks(pos, buffers, loop) {
                $$('#play-btn').attr('style', 'background-image: url("/images/icons8-play-32.png")');
       }
     }*/
-    //playAndPause();
+    playAndPause();
   }
-  playAndPause();
+  //playAndPause();
   setPanner(pos);
  // console.log(panners);
 }
