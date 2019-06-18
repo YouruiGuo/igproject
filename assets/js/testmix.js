@@ -37,7 +37,7 @@ async function birdSongs() {
   }
 }
 
-function setPanner(pos, valley) {
+async function setPanner(pos, valley) {
   if (playing.length != 0) {
     for (var i = 0; i < playing.length; i++) {
       for (var j = 0; j < allinfo.length; j++) {
@@ -190,7 +190,7 @@ function maxVolume(fp) {
 
  function unMute(fp, vol) {
    if (vol === undefined ) vol = 1;
-//   console.log(vol,fp);
+   console.log(panners[fp]);
    if (gains[fp]) {
       mute[fp] = 0;
       gains[fp].gain.setValueAtTime(vol, audio.currentTime);
@@ -230,9 +230,10 @@ function playBirdSongs(buffers) {
     let output = audio.createBuffer(channel, frameCount, audio.sampleRate);
     for (var c = 0; c < channel; c++) {
       nowBuffering = output.getChannelData(c);
+      bufferChannelData = buffer.getChannelData(c);
       for(var i = 0; i < frameCount; i++){
          if (buffer.getChannelData(c)[i]) {
-           nowBuffering[i] += buffer.getChannelData(c)[i];
+           nowBuffering[i] += bufferChannelData[i];
          }
       }
     }
@@ -247,7 +248,7 @@ function playBirdSongs(buffers) {
 }
 
 
-function playTracks(pos, buffers, loop) {
+async function playTracks(pos, buffers, loop) {
   var channel = 2;
  // console.log(buffers);
   playing = [];
@@ -255,15 +256,16 @@ function playTracks(pos, buffers, loop) {
     playing.push(key);
     var frameCount = audio.sampleRate*buffers[key].duration;
     var buffer = responses[key];
-//    console.log(buffer);
+    //console.log(key);
     channel = buffers[key].numberOfChannels;
   //  console.log(buffers[key].duration);
     //await buffer.then(function (val) {channel = val.numberOfChannels;});
     let output = audio.createBuffer(channel, frameCount, audio.sampleRate);
     for (var c = 0; c < channel; c++) {
       nowBuffering = output.getChannelData(c);
+      bufferChannelData = buffer.getChannelData(c);
       for(var i = 0; i < frameCount; i++){
-         nowBuffering[i] += buffer.getChannelData(c)[i];
+         nowBuffering[i] += bufferChannelData[i];
       }
     }
     // Get an AudioBufferSourceNode.
@@ -271,7 +273,7 @@ function playTracks(pos, buffers, loop) {
     var source = audio.createBufferSource();
     var g;
     g = audio.createGain();
-   // console.log(key);
+    // console.log(key);
     if (key.includes("Ambient")) {g.gain.value = 0.3;}
     else {g.gain.value = 1;}
     gains[key] = g;
@@ -290,12 +292,33 @@ function playTracks(pos, buffers, loop) {
     source.buffer = output;
     source.loop = loop;
     mute[key] = 0; // un-muted
-   // console.log(gains[key]);
+    //console.log("here");
     source.connect(gains[key]).connect(panners[key]).connect(audio.destination);
 
     // start the source playing
     source.start(0);
-    if (audio.state === "running") {
+    /*if (audio.state === "running") {
+      if ($$('#play-btn').hasClass('pause')) {
+        $$('#play-btn').removeClass('pause');
+        $$('#play-btn').attr('style', 'background-image:url("/images/icons8-pause-32.png")');
+      }
+    }
+    else if (audio.state === "suspended") {
+      if (!$$('#play-btn').hasClass('pause')) {
+         $$('#play-btn').addClass('pause');
+               $$('#play-btn').attr('style', 'background-image: url("/images/icons8-play-32.png")');
+      }
+    }*/
+    //playAndPause();
+  }
+  playAndPause();
+  console.log("setpanners");
+  setPanner(pos);
+ // console.log(panners);
+}
+
+async function playAndPause() {
+ if (audio.state === "running") {
       if ($$('#play-btn').hasClass('pause')) {
         $$('#play-btn').removeClass('pause');
         $$('#play-btn').attr('style', 'background-image:url("/images/icons8-pause-32.png")');
@@ -307,24 +330,11 @@ function playTracks(pos, buffers, loop) {
                $$('#play-btn').attr('style', 'background-image: url("/images/icons8-play-32.png")');
       }
     }
-  }
- // console.log("setpanners");
-  setPanner(pos);
- // console.log(panners);
-}
-
-function playAndPause() {
-    if (audio.state === "suspended") {
-      audio.resume();
-    }
-    else if (audio.state === "running") {
-      audio.suspend();
-    }
 }
 
 async function handleFilesSelect(pos, fP) {
-  let filePaths = [];
-  await fP.then(function (value) { filePaths = value;});
+  let filePaths = fP;
+//  await fP.then(function (value) { filePaths = value;});
  // console.log("handlefileselct");
   filePaths.push(ambientTrack);
   loadFilesList(filePaths).then((track) => {

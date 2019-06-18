@@ -45,6 +45,7 @@ function soloTrack(index, allPaths){
   else {
     soloon = false;
     for (var i = 0; i < allPaths.length; i++){
+       console.log("un solo");
         mute_cls = $$('#mute'+i);
         if (mute_cls.prop('checked')) {
           mute_cls.prop('checked', false);

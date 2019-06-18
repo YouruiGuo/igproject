@@ -2,11 +2,28 @@ var visited = [];
 var introOn = false;
 var ambientTrack;
 
+var progress = 0;
+var progressBarEl = app.progressbar.show('#demo-determinate-container', 0);
+app.progressbar.set('#demo-inline-progressbar', progress);
+function simulateLoading(nums) {
+    //setTimeout(function () {
+      var progressBefore = progress;
+      progress = nums * 100;
+      app.progressbar.set(progressBarEl, progress);
+      if (progressBefore >= 100) {
+        //determinateLoading = false;
+        app.progressbar.hide(progressBarEl); //hide
+      }
+    //}, Math.random() * 200 + 200);
+  }
 async function loadAllFiles(fP) {
    var loadingnums = 0;
+   progress = 0;
+   app.progressbar.set('#demo-inline-progressbar', progress);
    $$('.download').show();
    let filePaths = fP;
-   var totalnum = filePaths.length;
+   var totalnum = fP.length;
+   console.log(totalnum);
    for (let f of filePaths) {
      var arrayBuffer;
      var e = false;
@@ -23,38 +40,29 @@ async function loadAllFiles(fP) {
         })
         .then(function (response) {
            console.log(response);
-		       audio.decodeAudioData(response.data, function (audioBuffer){
+	   audio.decodeAudioData(response.data, function (audioBuffer){
              console.log(audioBuffer);
-             responses[f] = audioBuffer;},
-             function(e){
-               console.log("Error with decoding audio data" + e.err);
-             });
+             responses[f] = audioBuffer;
+             loadingnums+=1;
+             simulateLoading(1.0*loadingnums/totalnum);
+             if (loadingnums == totalnum) {$$('.download').hide();}
+           },
+           function(e){
+             console.log("Error with decoding audio data" + e.err);
+           });
         })
         .catch(function (error) {
           console.log(error);
         });
      }
-     loadingnums+=1;
-     simulateLoading(1.0*loadingnums/totalnum);
+     else {
+       loadingnums+=1;
+       simulateLoading(1.0*loadingnums/totalnum);
+     }
  }
- $$('.download').hide();
+ //$$('.download').hide();
  console.log(responses);
 }
-
-var progress = 0;
-var progressBarEl = app.progressbar.show('#demo-determinate-container', 0);
-app.progressbar.set('#demo-inline-progressbar', progress);
-function simulateLoading(nums) {
-    //setTimeout(function () {
-      var progressBefore = progress;
-      progress += nums * 10;
-      app.progressbar.set(progressBarEl, progress);
-      if (progressBefore >= 100) {
-        //determinateLoading = false;
-        app.progressbar.hide(progressBarEl); //hide
-      }
-    //}, Math.random() * 200 + 200);
-  }
 
 async function introPage(pos, numvalley, prev) {
  // numvalley = numvalley % 7;
@@ -62,22 +70,24 @@ async function introPage(pos, numvalley, prev) {
  // if(prev) {stopAudio();}
   var paths = [];
   var trackp = [];
+  ps = welcomeValley(numvalley);
+  await ps.then(function(value) {paths = value;});
   if (!visited[numvalley]) {
     visited[numvalley] = true;
     var pg = document.querySelector('.intro');
     pg.innerHTML = "";
     var i = fetchTrackIntro(numvalley%7);
-    var x = track(numvalley%7);
+    var x = track(numvalley);
     var info = [];
     var alltracks = [];
     var allpaths = [];
     await i.then(function (value) {info = value;});
-    await x.then(function (value) {alltracks = info; alltracks.push(value);});
-    //  console.log(info);
-    for (var a = 0; a < info.length; a++) {
-      allpaths.push(alltracks[i].filePath);
+    await x.then(function (value) {alltracks.push.apply(alltracks, info); alltracks.push.apply(alltracks, value);});
+    console.log(alltracks);
+    for (var a = 0; a < alltracks.length; a++) {
+      allpaths.push(alltracks[a].filePath);
     }
-    loadAllFiles(allpaths);
+    await loadAllFiles(allpaths);
     var imgs = [];
     //imgs.push(info[0].imagePath);
     for (var a = 0; a < info.length; a++) {
@@ -102,7 +112,7 @@ async function introPage(pos, numvalley, prev) {
     var imghtml = document.createElement('div');
     imghtml.setAttribute('height', '40px');
     imghtml.setAttribute('width', '80px');
-    imghtml.innerHTML = '<img class="img" src='+ imgs +'>';
+    imghtml.innerHTML = '<img class="img" src='+ imgs[0] +'>';
     newdiv.appendChild(imghtml);
     pg.appendChild(newdiv);
     for (var b = 0; b < trackp.length; b++) {
@@ -121,6 +131,17 @@ async function introPage(pos, numvalley, prev) {
    pg.appendChild(closebutton);
    closebutton.setAttribute("class","button");
    closebutton.innerHTML = "CLOSE";
+   closebutton.addEventListener("click", closeIntro);
+   function closeIntro() {
+     $$(".intro").hide();
+     for(var x=0; x<trackp.length; x++){
+       p = document.getElementById("introaudio"+x);
+       p.pause();
+     }
+     clearTimeout(timeout);
+     introOn = false;
+     setTimeout(function() {handleFilesSelect(pos, paths);console.log("mdzz")}, 0);
+   }
    function playintrotracks() {
    for (var b = 0; b < trackp.length; b++) {
       var play = document.getElementById('introaudio'+b);
@@ -135,26 +156,14 @@ async function introPage(pos, numvalley, prev) {
    $$(".intro").show();
    introOn = true;
    var timeout = setTimeout(function() {
-     $$(".intro").hide();
+     setTimeout(function() {$$(".intro").hide();},0);
      for(var x=0; x<trackp.length; x++){
        p = document.getElementById("introaudio"+x);
        p.pause();
      }
-     paths = welcomeValley(numvalley);
-     handleFilesSelect(pos, paths);
+     setTimeout(function() {handleFilesSelect(pos, paths);}, 0);
      introOn = false;
      }, 360000);
-   closebutton.addEventListener("click", function () {
-       $$(".intro").hide();
-       for(var x=0; x<trackp.length; x++){
-         p = document.getElementById("introaudio"+x);
-         p.pause();
-       }
-       paths = welcomeValley(numvalley);
-       handleFilesSelect(pos, paths);
-       clearTimeout(timeout);
-       introOn = false;
-   });
   }
   else {
     //if(prev) {stopAudio();}
@@ -166,8 +175,7 @@ async function introPage(pos, numvalley, prev) {
       }
       introOn = false;
     }
-    paths = welcomeValley(numvalley);
 //    console.log(paths);
-    handleFilesSelect(pos, paths);
+    setTimeout(function() {handleFilesSelect(pos, paths);}, 0);
   }
 }
