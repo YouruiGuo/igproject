@@ -119,6 +119,16 @@ var pos, prevpos = -1;
 var prev = -1;
 var maps;
 var cur_pos;
+var num_marker_pos = [
+  {lat: 53.407241, lng: -113.7596},
+  {lat: 53.407101, lng: -113.7580},
+  {lat: 53.407501, lng: -113.7574},
+  {lat: 53.407801, lng: -113.7559},
+  {lat: 53.408801, lng: -113.7555},
+  {lat: 53.408401, lng: -113.7567},
+  {lat: 53.407701, lng: -113.7587}
+];
+
 // get polygons according to coords.
 function drawPolygons() {
   // Construct the polygon.
@@ -392,8 +402,27 @@ function initMap() {
   for (var i = 0; i < numValleys; i++) {
     v[i].setMap(map);
   }
-}
+  for (var i = 0; i < numValleys; i++) {
+    var imge = {
+      url: '/images/s-number-'+(i%7+1)+'.png',
+      // This marker is 20 pixels wide by 32 pixels high.
+      //size: new google.maps.Size(20, 32),
+      // The origin for this image is (0, 0).
+      //origin: new google.maps.Point(0, 0),
+      // The anchor for this image is the base of the flagpole at (0, 32).
+      //anchor: new google.maps.Point(0, 32)
+    };
+    var mark = new google.maps.Marker({
+      icon: imge,
+      position: num_marker_pos[i],
+    });
 
+    // To add the marker to the map, call setMap();
+    mark.setMap(map);
+
+  }
+
+}
 function handleOrientation (event) {
   var alpha = null;
   //Check for iOS property

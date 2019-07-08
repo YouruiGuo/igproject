@@ -24,13 +24,11 @@ async function birdSongs() {
   var e = 0.2;
   var r = Math.random();
   var loop = false;
-  console.log(r);
   if (r < e) {
     var t0 = birdsTrack();
     var t1 = [];
     await t0.then(function(value) {t1 = value;});
     t2 = t1[0]['filePath'];
-    console.log(t2);
     loadBirdsFiles([t2]).then((track) => {
       playBirdSongs(track);
     })
@@ -327,6 +325,7 @@ async function handleFilesSelect(pos, fP) {
 //  await fP.then(function (value) { filePaths = value;});
  // console.log("handlefileselct");
   filePaths.push(ambientTrack);
+  console.log(filePaths);
   loadFilesList(filePaths).then((track) => {
     playTracks(pos, track, true);
   });

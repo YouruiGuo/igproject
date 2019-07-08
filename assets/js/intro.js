@@ -99,7 +99,7 @@ async function introPage(pos, numvalley, prev) {
     for (var q=1; q<str.length-1; q++) {
       dstr = dstr.concat(' '+str[q]);
     }
-    words.innerHTML = '<h1>Welcome to valley '+ dstr +'</h1>';
+    words.innerHTML = '<h1>'+ (numvalley%7+1) +' valley '+ dstr +'</h1>';
     newdiv.appendChild(words);
 
     var imghtml = document.createElement('div');
