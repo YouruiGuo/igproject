@@ -1,5 +1,6 @@
 var $$ = Dom7;
 var soloon=false;
+var introtrack = [];
 
 async function readfile(file, id){
   var xmlhttp = new XMLHttpRequest();
@@ -50,6 +51,7 @@ function soloTrack(index, allPaths){
           mute_cls.prop('checked', false);
         }
         if (allPaths[i].includes("Ambient")){ unMute(allPaths[i], 0.3);}
+        else if (allPaths[i].includes("Intro")) { unMute(allPaths[i], 0);}
         else { unMute(allPaths[i]);}
     }
   }
@@ -63,7 +65,11 @@ function muteTrack(index, allPaths, path) {
 	  solo_cls.prop('checked', false);
   }*/
   for (var i = 0; i < allPaths.length; i++){
-    if (allPaths[i].includes("Ambient")){ unMute(allPaths[i], 0.3);}
+    mute_cls = $$('#mute'+i);
+    //if(path.localeCompare(allPaths[i]) && mute_cls.prop('checked')){
+    //  if(allPaths[i].includes("Ambient")){ unMute(allPaths[i], 0.3);}
+   // }
+    if (allPaths[i].includes("Intro")) { unMute(allPaths[i], 0);}
     solo_cls = $$('#solo'+i);
     if (solo_cls.prop('checked')) {
       solo_cls.prop('checked', false);
@@ -79,6 +85,8 @@ async function welcomeValley (user_position) {
   var info = [];
   await i.then(function (value) {info = value;});
 //  console.log(info);
+  var x = fetchTrackIntro(user_position%7);
+  await x.then(function (value) {introtrack = value;});
   var paths = [];
   for (var i = 0; i < info.length; i++) {
     paths.push(info[i].filePath);
@@ -98,6 +106,9 @@ async function welcomeValley (user_position) {
   pop = document.querySelector('.popinfo');
   pop.innerHTML = "";
   //console.log(pop.innelHTML);
+  console.log(introtrack);
+  info.push.apply(info, introtrack);
+
   for (var i = 0; i < info.length; i++) {
     var newitem = document.createElement('li');
     var trackPath = info[i].filePath;

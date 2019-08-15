@@ -1,6 +1,7 @@
 var visited = [];
 var introOn = false;
-var ambientTrack;
+var ambientTrack, introTrack;
+//var introtrack = [];
 
 var progress = 0;
 var progressBarEl = app.progressbar.show('#demo-determinate-container', 0);
@@ -88,6 +89,7 @@ async function introPage(pos, numvalley, prev) {
 	       imgs.push(info[a].imagePath);
 	       trackp.push(info[a].filePath);
     }
+    introTrack = trackp[0];
     ambientTrack = trackp[1];
     var newdiv = document.createElement('div');
 
@@ -99,7 +101,7 @@ async function introPage(pos, numvalley, prev) {
     for (var q=1; q<str.length-1; q++) {
       dstr = dstr.concat(' '+str[q]);
     }
-    words.innerHTML = '<h1>'+ (numvalley%7+1) +' valley '+ dstr +'</h1>';
+    words.innerHTML = '<h1>'+ (numvalley%7+1) +'. '+ dstr +'</h1>';
     newdiv.appendChild(words);
 
     var imghtml = document.createElement('div');
@@ -108,18 +110,30 @@ async function introPage(pos, numvalley, prev) {
     imghtml.innerHTML = '<img class="img" src='+ imgs[0] +'>';
     newdiv.appendChild(imghtml);
     pg.appendChild(newdiv);
+    introaudio = document.createElement('audio');
+    pg.appendChild(introaudio);
+    introaudio.setAttribute('id', "introaudio");
+    introaudio.setAttribute('class', 'audios');
+    introaudio.autoplay = true;
+    introaudio.setAttribute('src', trackp[0]);
+    introaudio.onended = function() {
+      introaudio.setAttribute('src', trackp[1]);
+      introaudio.play();
+    } 
+    /*
     for (var b = 0; b < trackp.length; b++) {
       introaudio = document.createElement('audio');
       pg.appendChild(introaudio);
       introaudio.setAttribute('id', "introaudio"+b);
       introaudio.setAttribute('src', trackp[b]);
       introaudio.setAttribute('class', 'audios');
-   }
-   var playbutton = document.createElement("button");
-   playbutton.innerHTML = "PLAY";
-   playbutton.setAttribute("class","button");
-   pg.appendChild(playbutton);
-   playbutton.addEventListener("click", playintrotracks);
+      introaudio.autoplay = true;
+   }*/
+//   var playbutton = document.createElement("button");
+ //  playbutton.innerHTML = "PLAY";
+ //  playbutton.setAttribute("class","button");
+ //  pg.appendChild(playbutton);
+ //  playbutton.addEventListener("click", playintrotracks);
    var closebutton = document.createElement("button");
    pg.appendChild(closebutton);
    closebutton.setAttribute("class","button");
@@ -128,14 +142,14 @@ async function introPage(pos, numvalley, prev) {
    function closeIntro() {
     // setTimeout(function() {$$(".intro").hide();},0);
      document.querySelector('.intro').style.display = 'none';
-     for(var x=0; x<trackp.length; x++){
-       p = document.getElementById("introaudio"+x);
+     //for(var x=0; x<trackp.length; x++){
+       p = document.getElementById("introaudio");
        p.pause();
-     }
+     //}
      clearTimeout(timeout);
      introOn = false;
      setTimeout(function() {handleFilesSelect(pos, paths);}, 0);
-   }
+   }/*
    function playintrotracks() {
    for (var b = 0; b < trackp.length; b++) {
       var play = document.getElementById('introaudio'+b);
@@ -146,7 +160,7 @@ async function introPage(pos, numvalley, prev) {
       	  play.play();
       	});
       }
-   }}
+   }}*/
    $$(".intro").show();
    introOn = true;
    var timeout = setTimeout(function() {

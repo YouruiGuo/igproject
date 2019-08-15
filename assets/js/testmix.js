@@ -264,6 +264,7 @@ async function playTracks(pos, buffers, loop) {
     g = audio.createGain();
     // console.log(key);
     if (key.includes("Ambient")) {g.gain.value = 0.3;}
+    if (key.includes("Intro")) {g.gain.value = 0;}
     else {g.gain.value = 1;}
     gains[key] = g;
     var pan = createNewPanner();
@@ -325,6 +326,7 @@ async function handleFilesSelect(pos, fP) {
 //  await fP.then(function (value) { filePaths = value;});
  // console.log("handlefileselct");
   filePaths.push(ambientTrack);
+  filePaths.push(introTrack);
   console.log(filePaths);
   loadFilesList(filePaths).then((track) => {
     playTracks(pos, track, true);

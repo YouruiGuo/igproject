@@ -8,7 +8,7 @@ var app = new Framework7({
   // ... other parameters
 });
 var coords = [
-  [
+/*  [
    {lat: 53.527218, lng: -113.523288},
    {lat: 53.527212, lng: -113.522352},
    {lat: 53.526306, lng: -113.522341},
@@ -21,7 +21,23 @@ var coords = [
    {lat: 53.526281, lng: -113.520979},
    {lat: 53.526293, lng: -113.522342},
    {lat: 53.527239, lng: -113.522346},
-  ],
+  ],*/
+
+
+ [
+   {lat: 30.018170, lng: 31.226939},
+   {lat: 30.018043, lng: 31.227252},
+   {lat: 30.017656, lng: 31.227135},
+   {lat: 30.017845, lng: 31.226751},
+   {lat: 30.018170, lng: 31.226939},
+ ],
+ [
+   {lat: 30.017768, lng: 31.226669},
+   {lat: 30.017635, lng: 31.227082},
+   {lat: 30.017403, lng: 31.227061},
+   {lat: 30.017514, lng: 31.226358},
+   {lat: 30.017768, lng: 31.226669},
+ ],
  [
    {lat: 53.519072, lng: -113.522007},
    {lat: 53.518962, lng: -113.517668},
@@ -119,7 +135,10 @@ var pos, prevpos = -1;
 var prev = -1;
 var maps;
 var cur_pos;
+var is_init_pos = false;
 var num_marker_pos = [
+//  {lat: 30.017865, lng: 31.226962},
+//  {lat: 30.017600, lng: 31.226734},
   {lat: 53.407241, lng: -113.7596},
   {lat: 53.407101, lng: -113.7580},
   {lat: 53.407501, lng: -113.7574},
@@ -132,15 +151,16 @@ var num_marker_pos = [
 // get polygons according to coords.
 function drawPolygons() {
   // Construct the polygon.
+  var colos = ['#80ccff', '#ffff80', '#ff8080', '#ffffff', '#80ff80', '#000000', '#bfbfbf'];
   var v = [];
   for (var i = 0; i < numValleys; i++) {
     v[i] = new google.maps.Polygon({
       paths: coords[i],
-      strokeColor: '#008000',
-      strokeOpacity: 0.8,
+      strokeColor: colos[i%7],
+      strokeOpacity: 0.6,
       strokeWeight: 3,
-      fillColor: '#008000',
-      fillOpacity: 0.35
+      fillColor: colos[i%7],
+      fillOpacity: 0.5
     });
   }
   return v;
@@ -197,8 +217,8 @@ var responses = {};
 var trackLocation = ({ onSuccess, onError = () => { } }) => {
   options = {
     enableHighAccuracy: true,
-    timeout: 1000,
-    maximumAge: 1000
+    timeout: 10000,
+    //maximumAge: 1000
   };
 
   if ('geolocation' in navigator === false) {
@@ -249,8 +269,23 @@ function attachSecretMessage(marker, secretMessage) {
   });
 }
 
-function validateLocation(prevloc, pos) {
-
+function validateLocation(poss) {
+  var ac = poss.coords.accuracy;
+  //alert(ac);
+  console.log(ac);
+  if (!is_init_pos) {
+     //alert(ac);
+     if (ac < 50) {
+        is_init_pos = true;
+        return true;
+     }
+     else return false;
+  }
+  else {
+    if (ac < 10) return true;
+    else return false;
+  }
+/* 
   lat1 = prevloc.lat;
   lon1 = prevloc.lng;
   lat2 = pos.lat;
@@ -263,9 +298,9 @@ function validateLocation(prevloc, pos) {
   if (distance > 5) return false;
   if (prevloc == -1) return true;
   return true;
+*/
 }
 
-var numnonvalid = 0;
 /*
 function autoUpdate() {
   navigator.geolocation.getCurrentPosition(
@@ -315,30 +350,38 @@ function autoUpdate() {
 function autoUpdate() {
   options = {
       enableHighAccuracy: true,
-      timeout: 1,
-      maximumAge: 1
+      timeout: Infinity,
+      maximumAge: 0
   };
   function error(err) {
     console.warn('ERROR(' + err.code + '): ' + err.message);
   }
   function success(poss) {
+    //console.log(poss.coords.accuracy);
     var lat = poss.coords.latitude;
     var lng = poss.coords.longitude;
+    var ac = poss.coords.accuracy;
+   // alert(ac);
+ //   console.log(heading);
     var pos = {lat, lng};
     cur_pos = pos;
     // Find out which valley user is at.
+    //console.log("here")
     user_position = findValley(pos);
     //console.log(user_position);
-    var valid = validateLocation(prevpos, pos);
-    valid = true;
+    var valid = validateLocation(poss);
+
+    //if (!valid) alert(valid);
+    //alert(valid);
+    //valid = true;
     if (user_position != -1) {
       if(valid){
-        numnonvalid = 0;
+        //numnonvalid = 0;
         if (!soloon) {
           setPanner(pos, user_position);
         }
       }
-      else {numnonvalid += 1;}
+      //else {alert("oops")}
       if (prev != user_position){
         stopAudio();
         introPage(pos, user_position, true);
@@ -348,13 +391,13 @@ function autoUpdate() {
     else {
         stopAudio();
     }
-    if (valid || (numnonvalid > 5)) {
-      numnonvalid = 0;
+    if (valid) {
       prevpos = pos;
     }
     prev = user_position;
-    marker.setPosition({ lat, lng });
-    maps.panTo(new google.maps.LatLng(lat, lng));
+    if (valid){  marker.setPosition({ lat, lng });
+                 maps.panTo(new google.maps.LatLng(lat, lng));
+    }
     //maps.setCenter(new google.maps.LatLng(lat, lng));
   }
   d = navigator.geolocation.watchPosition(success, error, options);
@@ -416,7 +459,6 @@ function initMap() {
       icon: imge,
       position: num_marker_pos[i],
     });
-
     // To add the marker to the map, call setMap();
     mark.setMap(map);
 
