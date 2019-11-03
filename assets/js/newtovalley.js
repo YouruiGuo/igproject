@@ -84,7 +84,7 @@ async function welcomeValley (user_position) {
   var i = track(user_position);
   var info = [];
   await i.then(function (value) {info = value;});
-//  console.log(info);
+  console.log(user_position);
   var x = fetchTrackIntro(user_position%7);
   await x.then(function (value) {introtrack = value;});
   var paths = [];
@@ -99,8 +99,8 @@ async function welcomeValley (user_position) {
   }
   // TODO: Bug here
 //  document.getElementById('description').innerHTML = des;
+  console.log(imgs);
   var a = imgs[0].split(",");
-  //console.log(a[0]);
   $$('.album-art').css('background-image', 'url('+a[0]+')');
 
   pop = document.querySelector('.popinfo');

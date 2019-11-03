@@ -19,12 +19,32 @@ function stopAudio() {
     $$('#play-btn').attr('style', 'background-image: url("/images/icons8-play-32.png")');
   }
 }
+//https://gist.github.com/ferreiro/2b5caac126b58bebce82
+var exponential = 2.718281828;
+function poisson(k, lambda) {
+    exponentialPower = Math.pow(exponential, -lambda); // negative power k
+    landaPowerK = Math.pow(lambda, k); // Landa elevated k
+    numerator = exponentialPower * landaPowerK;
+    denominator = fact(k); // factorial of k.
 
+    return (numerator / denominator);
+}
+
+function fact(x) {
+   if(x==0) {
+      return 1;
+   }
+   return x * fact(x-1);
+}
 async function birdSongs() {
-  var e = 0.2;
-  var r = Math.random();
+  var e = 0.15;
+  var k = Math.floor(Math.random() * 30) + 1 
+  var r = poisson(k,5);
   var loop = false;
-  if (r < e) {
+  console.log(e);
+  console.log(r);
+  if (e < r) {
+    console.log("play bird song");
     var t0 = birdsTrack();
     var t1 = [];
     await t0.then(function(value) {t1 = value;});
@@ -56,9 +76,9 @@ function createNewPanner() {
   var panner = audio.createPanner();
   panner.panningModel = 'HRTF';
   panner.distanceModel = 'inverse';
-  panner.rolloffFactor = 0.5;
+  panner.rolloffFactor = 1;
   panner.refDistance = 5;
-  panner.maxDistance = 100;
+  panner.maxDistance = 5;
   panner.coneInnerAngle = 360;
   panner.coneOuterAngle = 0;
   panner.coneOuterGain = 0;

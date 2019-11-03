@@ -16,9 +16,29 @@ async function allInfo () {
     return paths;
   }
 }
+/*
+//https://gist.github.com/ferreiro/2b5caac126b58bebce82
+var exponential = 2.718281828;
+function poisson(lambda) {
+    exponentialPower = Math.pow(exponential, -lambda); // negative power k
+    landaPowerK = Math.pow(lambda, k); // Landa elevated k
+    numerator = exponentialPower * landaPowerK;
+    denominator = fact(k); // factorial of k.
+    
+    return (numerator / denominator);
+}
 
+function fact(x) {
+   if(x==0) {
+      return 1;
+   }
+   return x * fact(x-1);
+}
+*/
 async function birdsTrack() {
   var data;
+  //var prob = poisson(5);
+
   var r = Math.floor(Math.random()*10);
   await axios.post('/intro', {
     //headers: {

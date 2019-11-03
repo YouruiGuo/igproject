@@ -22,7 +22,7 @@ var coords = [
    {lat: 53.526293, lng: -113.522342},
    {lat: 53.527239, lng: -113.522346},
   ],*/
-
+/*
 
  [
    {lat: 30.018170, lng: 31.226939},
@@ -44,7 +44,53 @@ var coords = [
    {lat: 53.517355, lng: -113.517522},
    {lat: 53.517063, lng: -113.523125},
    {lat: 53.519072, lng: -113.522007},
- ],
+ ],*/
+/*
+  // arts quads
+  [
+   {lat: 53.527252, lng: -113.522350},
+   {lat: 53.527254, lng: -113.520954},
+   {lat: 53.526738, lng: -113.520953},
+   {lat: 53.526734, lng: -113.522352},
+   {lat: 53.527252, lng: -113.522350},
+  ],
+  [
+   {lat: 53.526679, lng: -113.522352},
+   {lat: 53.526683, lng: -113.520945},
+   {lat: 53.526292, lng: -113.520962},
+   {lat: 53.526319, lng: -113.522353},
+   {lat: 53.526679, lng: -113.522352},
+  ],
+  [
+   {lat: 53.526324, lng: -113.522918},
+   {lat: 53.526275, lng: -113.522208},
+   {lat: 53.525811, lng: -113.522183},
+   {lat: 53.525824, lng: -113.522923},
+   {lat: 53.526324, lng: -113.522918},
+  ],
+*/
+ //London Lewis Cubitt Park  
+  [
+   {lat: 51.538072, lng: -0.125561},
+   {lat: 51.537972, lng: -0.124949},
+   {lat: 51.537509, lng: -0.125141},
+   {lat: 51.537649, lng: -0.125791},
+   {lat: 51.538072, lng: -0.125561},
+  ],
+  [
+   {lat: 51.538567, lng: -0.125344},
+   {lat: 51.538482, lng: -0.124712},
+   {lat: 51.538016, lng: -0.124937},
+   {lat: 51.538135, lng: -0.125553},
+   {lat: 51.538567, lng: -0.125344},
+  ],
+  [
+   {lat: 51.539017, lng: -0.125161},
+   {lat: 51.538892, lng: -0.124535},
+   {lat: 51.538486, lng: -0.124718},
+   {lat: 51.538583, lng: -0.125341},
+   {lat: 51.539017, lng: -0.125161},
+  ],
   [
    {lat: 53.490038, lng: -113.544320},
    {lat: 53.489572, lng: -113.544310},
@@ -104,6 +150,7 @@ var coords = [
    {lat: 53.408022, lng: -113.755197},
    {lat: 53.407414, lng: -113.756310},
   ],
+
   [
    {lat: 53.408842, lng: -113.756437},
    {lat: 53.408164, lng: -113.755121},
@@ -131,14 +178,22 @@ var numValleys = 14;
 var user_position; // which valley the user is at.
 var user_marker;
 var marker = user_marker;
-var pos, prevpos = -1;
+var pos, prevpos = -1, prevposs = -1;
 var prev = -1;
+var switch_history = [];
 var maps;
 var cur_pos;
 var is_init_pos = false;
 var num_marker_pos = [
 //  {lat: 30.017865, lng: 31.226962},
 //  {lat: 30.017600, lng: 31.226734},
+  {lat: 53.526981, lng: -113.521511},
+{lat: 53.526512, lng: -113.521937},
+{lat: 53.526092, lng: -113.522524},
+{lat: 53.527663, lng: -113.514191},
+{lat: 53.527663, lng: -113.514191},
+{lat: 53.527663, lng: -113.514191},
+{lat: 53.527663, lng: -113.514191},
   {lat: 53.407241, lng: -113.7596},
   {lat: 53.407101, lng: -113.7580},
   {lat: 53.407501, lng: -113.7574},
@@ -271,6 +326,8 @@ function attachSecretMessage(marker, secretMessage) {
 
 function validateLocation(poss) {
   var ac = poss.coords.accuracy;
+  // for testing
+  return true;
   //alert(ac);
   console.log(ac);
   if (!is_init_pos) {
@@ -347,6 +404,8 @@ function autoUpdate() {
   setTimeout(autoUpdate, 1000);
 }
 */
+  var invalid = 0;
+  var update = false;
 function autoUpdate() {
   options = {
       enableHighAccuracy: true,
@@ -356,6 +415,7 @@ function autoUpdate() {
   function error(err) {
     console.warn('ERROR(' + err.code + '): ' + err.message);
   }
+
   function success(poss) {
     //console.log(poss.coords.accuracy);
     var lat = poss.coords.latitude;
@@ -368,18 +428,24 @@ function autoUpdate() {
     // Find out which valley user is at.
     //console.log("here")
     user_position = findValley(pos);
-    //console.log(user_position);
+    switchvalley = switchValley(prevposs, poss);
+   // console.log(user_position);
     var valid = validateLocation(poss);
 
     //if (!valid) alert(valid);
     //alert(valid);
     //valid = true;
-    if (user_position != -1) {
-      if(valid){
-        //numnonvalid = 0;
+    /*if (user_position != -1) {
+      if(valid || invalid > 5){
+        invalid = 0;
+        update = true;
         if (!soloon) {
           setPanner(pos, user_position);
         }
+      }
+      else {
+        update = false;
+        invalid += 1;
       }
       //else {alert("oops")}
       if (prev != user_position){
@@ -391,17 +457,99 @@ function autoUpdate() {
     else {
         stopAudio();
     }
-    if (valid) {
+    if (update) {
       prevpos = pos;
     }
     prev = user_position;
-    if (valid){  marker.setPosition({ lat, lng });
+    if (update){  marker.setPosition({ lat, lng });
                  maps.panTo(new google.maps.LatLng(lat, lng));
+    }*/
+    console.log(user_position);
+    if(valid || invalid > 5){ 
+      invalid = 0;
+      update = true; 
+      if (user_position != -1) {
+       // console.log(user_position);  
+        if (!soloon) {
+          setPanner(pos, user_position);
+        }
+        
+        if (prev != user_position && switchvalley){
+          stopAudio();
+          introPage(pos, user_position, true);
+        }
+        else if (prev == -1){
+          //console.log(audio.state); 
+         //if (switchvalley)          
+            introPage(pos, user_position, false);
+        }
+      }
+      else {
+        if (switchvalley){
+          console.log("stop audio"); stopAudio();
+        }
+      }
+    }
+    else {
+      update = false;
+      invalid += 1;
+    }
+    if (update){
+      prevpos = pos;
+      prevposs = poss;
+      prev = user_position;
+      marker.setPosition({ lat, lng });
+      maps.panTo(new google.maps.LatLng(lat, lng));
+      if ( user_position == -1) {
+	 pop = document.querySelector('.popinfo');
+         pop.innerHTML = "";
+      }
     }
     //maps.setCenter(new google.maps.LatLng(lat, lng));
   }
   d = navigator.geolocation.watchPosition(success, error, options);
 }
+
+function switchValley(prevposs, poss) {
+  console.log(switch_history);
+  if ( prevposs == -1) prevposs = poss;
+  var lat = poss.coords.latitude;
+  var lng = poss.coords.longitude;
+  var cur_ac = poss.coords.accuracy;
+  var cur_pos = {lat, lng};
+  lat = prevposs.coords.latitude;
+  lng = prevposs.coords.longitude;
+  var prev_ac = poss.coords.accuracy;
+  var prev_pos = {lat, lng};
+  var prev_valley = findValley(prev_pos);
+  var cur_valley = findValley(cur_pos);
+
+  if (switch_history.length < 10) {switch_history.push(cur_valley);}
+  else {
+    switch_history.shift();
+    switch_history.push(cur_valley);
+  }
+  diff = 0;
+  for (i=0; i<switch_history.length-1; i++) {
+    if(switch_history[i] != switch_history[i+1]) diff += 1;
+  }
+  if (diff > 2) return false;
+  else return true; 
+  /*
+  if (cur_valley != prev_valley) {
+    if (cur_ac > 10 || prev_ac > 10 || diff > 2){
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+  else {
+    if (diff > 2) return false;
+    else return true;
+  }*/
+}
+
 // Note: This example requires that you consent to location sharing when
 // prompted by your browser. If you see the error "The Geolocation service
 // failed.", it means you probably did not give permission for the browser to
@@ -410,7 +558,7 @@ function autoUpdate() {
 function initMap() {
 //  var map, infoWindow;
   //var pos, prevpos = -1;
-  var initialPosition = {lat: 53.527213,lng: -113.524544};
+  var initialPosition = {lat: 53.40682,lng: -113.758825};
   const map = createMap(initialPosition);
   maps = map;
   var icon = {
@@ -445,7 +593,7 @@ function initMap() {
   for (var i = 0; i < numValleys; i++) {
     v[i].setMap(map);
   }
-  for (var i = 0; i < numValleys; i++) {
+  for (var i = 0; i < numValleys*2; i++) {
     var imge = {
       url: '/images/s-number-'+(i%7+1)+'.png',
       // This marker is 20 pixels wide by 32 pixels high.

@@ -61,10 +61,11 @@ async function loadAllFiles(fP) {
 
 async function introPage(pos, numvalley, prev) {
  // numvalley = numvalley % 7;
-//  console.log(numvalley);
+ // console.log(numvalley);
  // if(prev) {stopAudio();}
   var paths = [];
   var trackp = [];
+  //console.log(numvalley);
   ps = welcomeValley(numvalley);
   await ps.then(function(value) {paths = value;});
   if (!visited[numvalley]) {
@@ -129,11 +130,11 @@ async function introPage(pos, numvalley, prev) {
       introaudio.setAttribute('class', 'audios');
       introaudio.autoplay = true;
    }*/
-//   var playbutton = document.createElement("button");
- //  playbutton.innerHTML = "PLAY";
- //  playbutton.setAttribute("class","button");
- //  pg.appendChild(playbutton);
- //  playbutton.addEventListener("click", playintrotracks);
+   var playbutton = document.createElement("button");
+   playbutton.innerHTML = "PLAY";
+   playbutton.setAttribute("class","button");
+   pg.appendChild(playbutton);
+   playbutton.addEventListener("click", playintrotracks);
    var closebutton = document.createElement("button");
    pg.appendChild(closebutton);
    closebutton.setAttribute("class","button");
@@ -149,18 +150,21 @@ async function introPage(pos, numvalley, prev) {
      clearTimeout(timeout);
      introOn = false;
      setTimeout(function() {handleFilesSelect(pos, paths);}, 0);
-   }/*
+   }
    function playintrotracks() {
-   for (var b = 0; b < trackp.length; b++) {
-      var play = document.getElementById('introaudio'+b);
+   //for (var b = 0; b < trackp.length; b++) {
+      var play = document.getElementById('introaudio');
+      if (play.duration < 0 || play.paused) {
 //      console.log(play);
-      var playpromise = play.play();
-      if (playpromise !== undefined) {
-      	playpromise.then(_ => {}).catch(error => {
-      	  play.play();
-      	});
+        var playpromise = play.play();
+        if (playpromise !== undefined) {
+      	  playpromise.then(_ => {}).catch(error => {
+      	    play.play();
+      	  });
+        }
       }
-   }}*/
+   // }
+  }
    $$(".intro").show();
    introOn = true;
    var timeout = setTimeout(function() {
