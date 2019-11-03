@@ -38,7 +38,7 @@ function fact(x) {
 }
 async function birdSongs() {
   var e = 0.15;
-  var k = Math.floor(Math.random() * 30) + 1 
+  var k = Math.floor(Math.random() * 30) + 1
   var r = poisson(k,5);
   var loop = false;
   console.log(e);
@@ -76,9 +76,9 @@ function createNewPanner() {
   var panner = audio.createPanner();
   panner.panningModel = 'HRTF';
   panner.distanceModel = 'inverse';
-  panner.rolloffFactor = 1;
-  panner.refDistance = 5;
-  panner.maxDistance = 5;
+  panner.rolloffFactor = document.getElementById("rolloffFactor").value;
+  panner.refDistance = document.getElementById("refDistance").value;
+  panner.maxDistance = document.getElementById("maxDistance").value;
   panner.coneInnerAngle = 360;
   panner.coneOuterAngle = 0;
   panner.coneOuterGain = 0;
@@ -208,7 +208,7 @@ function maxVolume(fp) {
 }
 
 function restorePanner() {
-    setPanner(cur_pos, user_position);    
+    setPanner(cur_pos, user_position);
 }
 
  function Mute(fp) {
