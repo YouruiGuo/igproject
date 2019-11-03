@@ -4,6 +4,15 @@ h1 {
 
 .page {position:fixed; z-index: 50;}
 
+.range-slider {
+  position: fixed;
+  height: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: white;
+  display: none;
+}
+
 .download {
   position: fixed;
   height: 100%;
