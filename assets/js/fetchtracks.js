@@ -35,11 +35,13 @@ function fact(x) {
    return x * fact(x-1);
 }
 */
-async function birdsTrack() {
+async function birdsTrack(valley_pos) {
   var data;
-  //var prob = poisson(5);
 
-  var r = Math.floor(Math.random()*10);
+  var r = Math.floor(Math.random()*100);
+  console.log(valley_pos, r);
+  r = r%valley_pos;
+  console.log(r);
   await axios.post('/intro', {
     //headers: {
     //  "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"

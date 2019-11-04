@@ -45,7 +45,7 @@ async function birdSongs() {
   console.log(r);
   if (e < r) {
     console.log("play bird song");
-    var t0 = birdsTrack();
+    var t0 = birdsTrack(user_position);
     var t1 = [];
     await t0.then(function(value) {t1 = value;});
     t2 = t1[0]['filePath'];
@@ -53,7 +53,7 @@ async function birdSongs() {
       playBirdSongs(track);
     })
   }
-  setTimeout(birdSongs, 5000);
+  setTimeout(birdSongs, 3000);
 }
 
 async function setPanner(pos, valley) {
@@ -93,6 +93,10 @@ function calculateDistance(key, lat1, lon1, lat2, lon2) {
     var delta_X = 1000*R*(lon2-lon1)*Math.cos(lat1)*Math.PI/180;
   //  console.log(delta_X);
     if (panners[key]) {
+      panners[key].rolloffFactor = document.getElementById("rolloffFactor").value;
+      panners[key].refDistance = document.getElementById("refDistance").value;
+      panners[key].maxDistance = document.getElementById("maxDistance").value;
+      //console.log(panners[key]);
       if(panners[key].positionX) {
         panners[key].positionX.setValueAtTime(delta_X, audio.currentTime);
         panners[key].positionY.setValueAtTime(delta_Y, audio.currentTime);
@@ -263,7 +267,7 @@ function playBirdSongs(buffers) {
     var buffer = buffers[key];
     var source = audio.createBufferSource();
     var g = audio.createGain();
-    g.gain.value = 0.5;
+    g.gain.value = 0.8;
     birdsgains[key] = g;
     source.buffer = buffer;
     source.connect(g).connect(audio.destination);

@@ -56,3 +56,7 @@ controlPanelObj.classList.add('active') : 		controlPanelObj.classList.remove('ac
 
 const newMusicplayer = new musicPlayer();
 */
+function updateTextInput(val,id) {
+   console.log(val);
+   document.getElementById(id+'-value').textContent=id+': '+val; 
+}
