@@ -1,0 +1,95 @@
+{
+  "_args": [
+    [
+      "framework7-icons@^2.1.1",
+      "/data/igproject"
+    ]
+  ],
+  "_from": "framework7-icons@>=2.1.1 <3.0.0",
+  "_hasShrinkwrap": false,
+  "_id": "framework7-icons@2.3.1",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/framework7-icons",
+  "_nodeVersion": "11.6.0",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/framework7-icons_2.3.1_1555345036493_0.11486621678645692"
+  },
+  "_npmUser": {
+    "email": "nolimits4web@gmail.com",
+    "name": "nolimits4web"
+  },
+  "_npmVersion": "6.5.0-next.0",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "framework7-icons",
+    "raw": "framework7-icons@^2.1.1",
+    "rawSpec": "^2.1.1",
+    "scope": null,
+    "spec": ">=2.1.1 <3.0.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/framework7-icons/-/framework7-icons-2.3.1.tgz",
+  "_shasum": "c42581c859056a7c86b3280b2213f680646ea93f",
+  "_shrinkwrap": null,
+  "_spec": "framework7-icons@^2.1.1",
+  "_where": "/data/igproject",
+  "author": {
+    "name": "Vladimir Kharlampidi"
+  },
+  "bugs": {
+    "url": "https://github.com/nolimits4web/Framework7-Icons/issues"
+  },
+  "dependencies": {},
+  "description": "Free iOS-icons font for Framework7",
+  "devDependencies": {
+    "http-server": "^0.11.1"
+  },
+  "directories": {},
+  "dist": {
+    "fileCount": 12,
+    "integrity": "sha512-qwXpXBF75/HUCS+XVPZLv4gcRI9ccve4d+r0QS19aU7BvlMj/MTM2gR8na+Q03Q4y1z8oyNoloi1+drxlttbzA==",
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJctK6NCRA9TVsSAnZWagAA+bkP/iLRha0GWRiFUu8tPaYC\nr6Txo0SQbnt1yLfZNsLjV0zGPOxorWMrtG+AJz58Gr8lLuPEyR/TNUS0TII6\nHhmKuRZMHlz7tWODBjjVa6C7Wiy/t9bEV8PkBc+8d1jVknLZKySoNcHDHXSP\npwnhOlfIZ94fjkAppLhQcrNEwXpu/xemqe/e+9H8inJUL/K6HNj5yfU/p+1j\nGPiXXpuZ3hD/sydYBvBDlsjWVjumYk3zNK1Mxm86/8ymlcRTariFF7Pkk4K0\nEZtYAR/Vt+snqTj3mPZV5VAwatpVXlYu1Advg/8QTN0NIVl65w37NEXPKBSn\nC5KsJcgOx5L2EktANAXz93mIGcPoJjKtyD5Yj3tadyKxKFHlShu0WTkZ7QSd\nChompWyEGT7APBnJYI8wR4plPHwIPYHxZkmpBGlYDcv0i83D3A/97+EoVCF3\nd2N6nbw27FUccFb2MlJZMwMO/EwjlWpR/SOVUTO3bLLhz24QhTByLDPsd6e5\nBXF8lbXZEoQ6zAlWBEqqrKJvEEyUnPwtE7d+h4SiS4FM0PSgZUx1so223Ht5\ne8c4MPwgHw5FdfHXCEqafM2YIcppnNeMy/myv7ygouzP+UPqHuv5hKF51BWl\ncoRWPLMWYVckBZZyLsWw51LrFXmZbzH1lasEhdBGvajcBX/f7FXtDW97zHCo\nQhWT\r\n=dkJZ\r\n-----END PGP SIGNATURE-----\r\n",
+    "shasum": "c42581c859056a7c86b3280b2213f680646ea93f",
+    "tarball": "https://registry.npmjs.org/framework7-icons/-/framework7-icons-2.3.1.tgz",
+    "unpackedSize": 319426
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "gitHead": "c975593253c5f115f03ed5186ad422be335b9232",
+  "homepage": "http://framework7.io/icons/",
+  "keywords": [
+    "fonts",
+    "framework7",
+    "icon font",
+    "icons",
+    "ios",
+    "ios icons",
+    "web font"
+  ],
+  "license": "MIT",
+  "main": "css/framework7-icons.css",
+  "maintainers": [
+    {
+      "name": "nolimits4web",
+      "email": "nolimits4web@gmail.com"
+    }
+  ],
+  "name": "framework7-icons",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nolimits4web/Framework7-Icons.git"
+  },
+  "scripts": {
+    "build": "python ./build/generate.py",
+    "start": "http-server ./ -o -c 1 -a localhost"
+  },
+  "version": "2.3.1"
+}

@@ -19,8 +19,8 @@ module.exports = {
 
     sails.log(inputs.valleypos);
     var fileinputs;
-    datastore = sails.getDatastore();
-    sql = "select * from audioinfo where valley = $1";
+    var datastore = sails.getDatastore();
+    var sql = "select * from audioinfo where valley = $1";
     var valuesToEscape = [inputs.valleypos];
     var v = await datastore.sendNativeQuery(sql, valuesToEscape);
 //    sails.log(v.rows);
@@ -28,8 +28,10 @@ module.exports = {
       fileinputs = v.rows;
     }
     //fileinputs = ['123'];
-    sails.log(fileinputs);
-    return exits.success(fileinputs);
+	 sails.log("intro-uaudio.js")
+    sails.log(fileinputs.length);
+  return exits.success(fileinputs);
+
   }
 
 };

@@ -1,5 +1,5 @@
 // api/controllers/user-audio.js
-
+import "@babel/polyfill";
 module.exports = {
 
   friendlyName: "play audio for user",
@@ -17,16 +17,17 @@ module.exports = {
 
     //sails.log(inputs.valleypos);
     var results;
-    datastore = sails.getDatastore();
-    sql = "select * from audioinfo";
+    var datastore = sails.getDatastore();
+    var sql = "select * from audioinfo";
     var v = await datastore.sendNativeQuery(sql, '');
-    sails.log(v.rows);
+   // sails.log(v.rows);
     if (v.rows != []) {
       results = v.rows;
     }
     //fileinputs = ['123'];
-    sails.log(results);
-    return exits.success(results);
+	 sails.log("user=audio.js")
+    sails.log(results.length);
+  return exits.success(results);
   }
 
 };

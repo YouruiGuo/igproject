@@ -47,8 +47,9 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     default: {
-      // adapter: 'sails-mysql',
-      // url: 'mysql://user:password@host:port/database',
+      adapter: require('sails-mysql'),
+      url: 'mysql://root:2f26e7ac3d08a305@localhost:3306/ig',
+      //sails_datastores__default__url=mysql://root:Sh&q3wDI@localhost:3306/ig
       //--------------------------------------------------------------------------
       //  /\   To avoid checking it in to version control, you might opt to set
       //  ||   sensitive credentials like `url` using an environment variable.
@@ -149,7 +150,7 @@ module.exports = {
     ***************************************************************************/
     cors: {
        allowOrigins: [
-         'https://islamicgarden.ualberta.ca/',
+         'https://islamicgarden.ualberta.ca',
        ]
     },
 
@@ -221,7 +222,7 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     cookie: {
-      // secure: true,
+      secure: true,
       maxAge: 24 * 60 * 60 * 1000,  // 24 hours
     },
 
@@ -251,7 +252,7 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
      onlyAllowOrigins: [
-       'https://islamicgarden.ualberta.ca/',
+       'https://islamicgarden.ualberta.ca',
     //   'https://staging.example.com',
      ],
 
@@ -322,7 +323,7 @@ module.exports = {
     * (https://sailsjs.com/config/http)                                        *
     *                                                                          *
     ***************************************************************************/
-    // trustProxy: true,
+    trustProxy: true,
 
   },
 
@@ -337,7 +338,7 @@ module.exports = {
   * this, just try deploying without setting it and see if it works.)       *
   *                                                                         *
   ***************************************************************************/
-  // port: 80,
+  port: 1337,
 
 
 

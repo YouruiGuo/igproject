@@ -14,7 +14,7 @@ module.exports = function(grunt) {
   grunt.config.set('babel', {
     dist: {
       options: {
-        presets: [require('sails-hook-grunt/accessible/babel-preset-env')]
+        presets: [require('sails-hook-grunt/accessible/babel-preset-env')],
       },
       files: [
         {
@@ -47,7 +47,7 @@ module.exports = function(grunt) {
   //
   // ```
   // // Load Grunt plugin from the node_modules/ folder.
-  // grunt.loadNpmTasks('grunt-babel');
+ //  grunt.loadNpmTasks('grunt-babel');
   // ```
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

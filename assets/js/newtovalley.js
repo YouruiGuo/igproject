@@ -93,6 +93,7 @@ async function welcomeValley (user_position) {
   }
   var des = [];
   var imgs = [];
+  console.log(info);
   for (var i = 0; i < info.length; i++) {
     des.push(info[i].oneLineDescription);
     imgs.push(info[i].imagePath);
