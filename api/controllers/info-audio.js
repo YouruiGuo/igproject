@@ -27,7 +27,7 @@ module.exports = {
     //fileinputs = ['123'];
 	 sails.log("user=audio.js")
     sails.log(results.length);
-  return {results: results}
+  return exits.success({results});
   }
 
 };

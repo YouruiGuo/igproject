@@ -33,7 +33,7 @@ module.exports = {
     //fileinputs = ['123'];
 sails.log("user-audio.js")
     sails.log(fileinputs.length);
-    return {fileinputs: fileinputs};
+    return exits.success({fileinputs});
   }
 
 };

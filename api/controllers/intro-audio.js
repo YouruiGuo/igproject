@@ -30,7 +30,7 @@ module.exports = {
     //fileinputs = ['123'];
 	 sails.log("intro-uaudio.js")
     sails.log(fileinputs.length);
-  return {fileinputs: fileinputs};
+  return exits.success({fileinputs});
 
   }
 
