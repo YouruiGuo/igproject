@@ -10,7 +10,9 @@ module.exports = {
 
   },
   exits: {
-
+    success: {
+      responseType: "ok"
+    }
   },
 
   fn: async function (inputs, exits) {
@@ -27,7 +29,7 @@ module.exports = {
     //fileinputs = ['123'];
 	 sails.log("user=audio.js")
     sails.log(results.length);
-  return exits.success({results});
+  return exits.success(results);
   }
 
 };
