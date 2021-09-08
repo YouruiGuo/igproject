@@ -31,7 +31,7 @@ module.exports = {
       fileinputs = v.rows;
     }
     //fileinputs = ['123'];
-sails.log("user-audio.js")
+    sails.log("user-audio.js")
     sails.log(fileinputs.length);
     return exits.success({fileinputs});
   }
