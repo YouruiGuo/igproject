@@ -1,7 +1,7 @@
 async function allInfo () {
   var data;
   await axios.post('/info')
-  .then(function(res){data = res.data;})
+  .then(function(res){console.log(res); data = res.data;})
   .catch(function (error) {
     console.log(' Request failed', error);
   });
@@ -24,7 +24,7 @@ function poisson(lambda) {
     landaPowerK = Math.pow(lambda, k); // Landa elevated k
     numerator = exponentialPower * landaPowerK;
     denominator = fact(k); // factorial of k.
-    
+
     return (numerator / denominator);
 }
 
@@ -49,7 +49,7 @@ async function birdsTrack(valley_pos) {
     //body: 'valleypos=birds'+r.toString()
     valleypos: 'birds'+r.toString()
   })
-  .then(function(res) { data = res.data;})
+  .then(function(res) {console.log(res); data = res.data;})
   .catch(function (error) {
     console.log(' Request failed', error);
   });
@@ -71,7 +71,7 @@ async function track(valley_pos) {
     //body: 'valleypos=birds'+r.toString()
     data: {valleypos: valley_pos.toString()}
   })
-  .then(function(res) {data = res.data;})
+  .then(function(res) {console.log(res); data = res.data;})
   .catch(function (error) {
     console.log(' Request failed', error);
   });
@@ -106,7 +106,7 @@ async function fetchTrackIntro(valley_pos) {
     //body: 'valleypos=birds'+r.toString()
     data: {valleypos: 'intro'+valley_pos.toString()}
   })
-  .then(function(res) {data = res.data;})
+  .then(function(res) {console.log(res); data = res.data;})
   .catch(function (error) {
     console.log(' Request failed', error);
   });
