@@ -17,7 +17,7 @@ module.exports.bootstrap = async function(done) {
   // ```
   // // Set up fake development data (or if we already have some, avast)
   // if (await User.count() > 0) {
-  //   return done();
+//     return done();
   // }
   //
   // await User.createEach([

@@ -37,7 +37,7 @@ function fact(x) {
    return x * fact(x-1);
 }
 async function birdSongs() {
-  var e = 0.15;
+  var e = 0.13;
   var k = Math.floor(Math.random() * 30) + 1
   var r = poisson(k,5);
   var loop = false;
@@ -267,7 +267,7 @@ function playBirdSongs(buffers) {
     var buffer = buffers[key];
     var source = audio.createBufferSource();
     var g = audio.createGain();
-    g.gain.value = 0.8;
+    g.gain.value = 1;
     birdsgains[key] = g;
     source.buffer = buffer;
     source.connect(g).connect(audio.destination);
