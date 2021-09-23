@@ -70,7 +70,7 @@ var coords = [
   ],
 
 /*
- //London Lewis Cubitt Park  
+ //London Lewis Cubitt Park
   [
    {lat: 51.538072, lng: -0.125561},
    {lat: 51.537972, lng: -0.124949},
@@ -344,7 +344,7 @@ function validateLocation(poss) {
     if (ac < 10) return true;
     else return false;
   }
-/* 
+/*
   lat1 = prevloc.lat;
   lon1 = prevloc.lng;
   lat2 = pos.lat;
@@ -467,22 +467,22 @@ function autoUpdate() {
                  maps.panTo(new google.maps.LatLng(lat, lng));
     }*/
     console.log(user_position);
-    if(valid || invalid > 5){ 
+    if(valid || invalid > 5){
       invalid = 0;
-      update = true; 
+      update = true;
       if (user_position != -1) {
-       // console.log(user_position);  
+       // console.log(user_position);
         if (!soloon) {
           setPanner(pos, user_position);
         }
-        
+
         if (prev != user_position && switchvalley){
           stopAudio();
           introPage(pos, user_position, true);
         }
         else if (prev == -1){
-          //console.log(audio.state); 
-         //if (switchvalley)          
+          //console.log(audio.state);
+         //if (switchvalley)
             introPage(pos, user_position, false);
         }
       }
@@ -502,6 +502,7 @@ function autoUpdate() {
       prev = user_position;
       marker.setPosition({ lat, lng });
       maps.panTo(new google.maps.LatLng(lat, lng));
+      maps.setZoom(16);
       if ( user_position == -1) {
 	 pop = document.querySelector('.popinfo');
          pop.innerHTML = "";
@@ -536,7 +537,7 @@ function switchValley(prevposs, poss) {
     if(switch_history[i] != switch_history[i+1]) diff += 1;
   }
   if (diff > 2) return false;
-  else return true; 
+  else return true;
   /*
   if (cur_valley != prev_valley) {
     if (cur_ac > 10 || prev_ac > 10 || diff > 2){
