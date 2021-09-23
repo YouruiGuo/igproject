@@ -46,7 +46,29 @@ var coords = [
    {lat: 53.519072, lng: -113.522007},
  ],*/
 
+ [
+  {lat: 53.485628, lng: -113.507457},
+  {lat: 53.485649, lng: -113.506239},
+  {lat: 53.485218, lng: -113.506281},
+  {lat: 53.485258, lng: -113.507282},
+  {lat: 53.485628, lng: -113.507457},
+ ],
+ [
+  {lat: 53.485201, lng: -113.507295},
+  {lat: 53.485186, lng: -113.506349},
+  {lat: 53.484877, lng: -113.506306},
+  {lat: 53.484902, lng: -113.507470},
+  {lat: 53.485201, lng: -113.507295},
+ ],
+ [
+  {lat: 53.485558, lng: -113.508167},
+  {lat: 53.485563, lng: -113.507700},
+  {lat: 53.485028, lng: -113.507660},
+  {lat: 53.485030, lng: -113.508103},
+  {lat: 53.485558, lng: -113.508167},
+ ],
   // arts quads
+  /*
   [
    {lat: 53.527252, lng: -113.522350},
    {lat: 53.527254, lng: -113.520954},
@@ -67,7 +89,7 @@ var coords = [
    {lat: 53.525811, lng: -113.522183},
    {lat: 53.525824, lng: -113.522923},
    {lat: 53.526324, lng: -113.522918},
-  ],
+ ],*/
 
 /*
  //London Lewis Cubitt Park
@@ -502,7 +524,7 @@ function autoUpdate() {
       prev = user_position;
       marker.setPosition({ lat, lng });
       maps.panTo(new google.maps.LatLng(lat, lng));
-      maps.setZoom(16);
+      //maps.setZoom(16);
       if ( user_position == -1) {
 	 pop = document.querySelector('.popinfo');
          pop.innerHTML = "";
