@@ -300,7 +300,8 @@ var trackLocation = ({ onSuccess, onError = () => { } }) => {
     //maximumAge: 1000
   };
 
-  if ('geolocation' in navigator === false) {
+  //if ('geolocation' in navigator === false) {
+  if (!navigator.geolocation) {
     return onError(new Error('Geolocation is not supported by your browser.'));
   }
   console.log("tracklocation");
