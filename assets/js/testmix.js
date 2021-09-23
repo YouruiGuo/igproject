@@ -287,8 +287,9 @@ async function playTracks(pos, buffers, loop) {
     var g;
     g = audio.createGain();
     // console.log(key);
-    if (key.includes("Ambient")) {g.gain.value = 0.1;}
-    if (key.includes("Intro")) {g.gain.value = 0;}
+    if (key.includes("Ambient")) {g.gain.value = 0.3;}
+    else if (key.includes("Intro")) {g.gain.value = 0;
+      console.log(g.gain.value);}
     else {g.gain.value = 1;}
     gains[key] = g;
     var pan = createNewPanner();
