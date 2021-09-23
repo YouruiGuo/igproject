@@ -439,6 +439,7 @@ function autoUpdate() {
   };
   function error(err) {
     console.warn('ERROR(' + err.code + '): ' + err.message);
+  	alert("Please enable location service.")
   }
 
   function success(poss) {
