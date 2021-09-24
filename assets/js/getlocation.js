@@ -208,6 +208,7 @@ var switch_history = [];
 var maps;
 var cur_pos;
 var is_init_pos = false;
+var switch_history_length = document.getElementById("switch_history_length").value;
 var num_marker_pos = [
 //  {lat: 30.017865, lng: 31.226962},
 //  {lat: 30.017600, lng: 31.226734},
@@ -306,7 +307,7 @@ var trackLocation = ({ onSuccess, onError = () => { } }) => {
   }
   console.log("tracklocation");
   // Use watchPosition instead.
-  return navigator.geolocation.watchPosition(onSuccess, onError, options);
+  //TODO: COMMENTED THIS LINE return navigator.geolocation.watchPosition(onSuccess, onError, options);
 };
 
 async function setMarkers(map) {
@@ -352,6 +353,7 @@ function attachSecretMessage(marker, secretMessage) {
 function validateLocation(poss) {
   var ac = poss.coords.accuracy;
   // for testing
+  console.log(ac);
   return true;
   //alert(ac);
   console.log(ac);
@@ -367,70 +369,10 @@ function validateLocation(poss) {
     if (ac < 10) return true;
     else return false;
   }
-/*
-  lat1 = prevloc.lat;
-  lon1 = prevloc.lng;
-  lat2 = pos.lat;
-  lon2 = pos.lng;
-//  console.log(lat1, lon1, lat2, lon2);
-  var R = 6378.137; // Radius of earth in KM
-  var delta_Y = 1000*R*(lat2-lat1)*Math.PI/180;
-  var delta_X = 1000*R*(lon2-lon1)*Math.cos(lat1)*Math.PI/180;
-  var distance = Math.sqrt(delta_X*delta_X + delta_Y*delta_Y);
-  if (distance > 5) return false;
-  if (prevloc == -1) return true;
-  return true;
-*/
 }
 
-/*
-function autoUpdate() {
-  navigator.geolocation.getCurrentPosition(
-              ({ coords: { latitude: lat, longitude: lng } }) => {
-    //var newPoint = new google.maps.LatLng(position.coords.latitude,
-    //                                      position.coords.longitude);
-    pos = {lat, lng};
-//    console.log(pos);
-    user_position = findValley(pos);
-   // console.log(user_position);
-   var valid = validateLocation(prevpos, pos);
-
-    if (user_position != -1) {
-      if(valid){
-        numnonvalid = 0;
-//        console.log("set panner");
-//        console.log(soloon);
-        if (!soloon) {
-          setPanner(pos, user_position);
-        }
-      }
-      else {numnonvalid += 1;}
-      if (prev != user_position){
-        stopAudio();
-  //      console.log([prev, user_position]);
-        introPage(pos, user_position, true);
-      }
-      else if (prev == -1){ console.log("here");introPage(user_position, false);}
-      else {birdSongs();}
-    }
-    else {
-        stopAudio();
-//`        console.log("user position -1");
-    }
-    if (valid || (numnonvalid > 5)) {
-      numnonvalid = 0;
-      prevpos = pos;
-    }
-    prev = user_position;
-    marker.setPosition({ lat, lng });
-    maps.panTo(new google.maps.LatLng(lat, lng));
-//    maps.setCenter(new google.maps.LatLng(lat, lng));
-  });
-  setTimeout(autoUpdate, 1000);
-}
-*/
-  var invalid = 0;
-  var update = false;
+var invalid = 0;
+var update = false;
 function autoUpdate() {
   options = {
       enableHighAccuracy: true,
@@ -456,39 +398,6 @@ function autoUpdate() {
     switchvalley = switchValley(prevposs, poss);
    // console.log(user_position);
     var valid = validateLocation(poss);
-
-    //if (!valid) alert(valid);
-    //alert(valid);
-    //valid = true;
-    /*if (user_position != -1) {
-      if(valid || invalid > 5){
-        invalid = 0;
-        update = true;
-        if (!soloon) {
-          setPanner(pos, user_position);
-        }
-      }
-      else {
-        update = false;
-        invalid += 1;
-      }
-      //else {alert("oops")}
-      if (prev != user_position){
-        stopAudio();
-        introPage(pos, user_position, true);
-      }
-      else if (prev == -1){ introPage(user_position, false);}
-    }
-    else {
-        stopAudio();
-    }
-    if (update) {
-      prevpos = pos;
-    }
-    prev = user_position;
-    if (update){  marker.setPosition({ lat, lng });
-                 maps.panTo(new google.maps.LatLng(lat, lng));
-    }*/
     console.log(user_position);
     if(valid || invalid > 5){
       invalid = 0;
@@ -525,7 +434,7 @@ function autoUpdate() {
       prev = user_position;
       marker.setPosition({ lat, lng });
       maps.panTo(new google.maps.LatLng(lat, lng));
-      //maps.setZoom(16);
+      maps.setZoom(16);
       if ( user_position == -1) {
 	 pop = document.querySelector('.popinfo');
          pop.innerHTML = "";
@@ -549,8 +458,8 @@ function switchValley(prevposs, poss) {
   var prev_pos = {lat, lng};
   var prev_valley = findValley(prev_pos);
   var cur_valley = findValley(cur_pos);
-
-  if (switch_history.length < 10) {switch_history.push(cur_valley);}
+  switch_history_length = document.getElementById("switch_history_length").value;
+  if (switch_history.length < switch_history_length) {switch_history.push(cur_valley);}
   else {
     switch_history.shift();
     switch_history.push(cur_valley);
