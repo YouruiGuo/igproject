@@ -321,13 +321,14 @@ async function playTracks(pos, buffers, loop) {
 }
 
 async function playAndPause() {
- if (audio.state === "running") {
+  console.log(audio.state)
+  if (audio.state === "running") {
       if ($$('#play-btn').hasClass('pause')) {
         $$('#play-btn').removeClass('pause');
         $$('#play-btn').attr('style', 'background-image:url("/images/icons8-pause-32.png")');
       }
     }
-    else if (audio.state === "suspended" || audio.state === "closed") {
+    else if (audio.state === "suspended" || audio.state === "closed" || audio.state === "interrupted") {
       if (!$$('#play-btn').hasClass('pause')) {
          $$('#play-btn').addClass('pause');
                $$('#play-btn').attr('style', 'background-image: url("/images/icons8-play-32.png")');
