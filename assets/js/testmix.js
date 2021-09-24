@@ -312,18 +312,7 @@ async function playTracks(pos, buffers, loop) {
 
     // start the source playing
     source.start(0);
-    /*if (audio.state === "running") {
-      if ($$('#play-btn').hasClass('pause')) {
-        $$('#play-btn').removeClass('pause');
-        $$('#play-btn').attr('style', 'background-image:url("/images/icons8-pause-32.png")');
-      }
-    }
-    else if (audio.state === "suspended") {
-      if (!$$('#play-btn').hasClass('pause')) {
-         $$('#play-btn').addClass('pause');
-               $$('#play-btn').attr('style', 'background-image: url("/images/icons8-play-32.png")');
-      }
-    }*/
+
     playAndPause();
   }
   //playAndPause();
@@ -338,7 +327,7 @@ async function playAndPause() {
         $$('#play-btn').attr('style', 'background-image:url("/images/icons8-pause-32.png")');
       }
     }
-    else if (audio.state === "suspended") {
+    else if (audio.state === "suspended" || audio.state === "closed") {
       if (!$$('#play-btn').hasClass('pause')) {
          $$('#play-btn').addClass('pause');
                $$('#play-btn').attr('style', 'background-image: url("/images/icons8-play-32.png")');
