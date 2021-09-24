@@ -509,7 +509,8 @@ function initMap() {
     // marker.
     window.setTimeout(() => {
       map.panTo(marker.getPosition());
-    }, 3000);
+      map.setZoom(16);
+    }, 5000);
   });
   marker = new google.maps.Marker({
         clickable : false,
