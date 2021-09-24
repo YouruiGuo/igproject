@@ -287,6 +287,13 @@ var createMap = ({ lat, lng }) => {
     zoom: 16
   });
 };
+map.addListener("center_changed", () => {
+  // 3 seconds after the center of the map has changed, pan back to the
+  // marker.
+  window.setTimeout(() => {
+    map.panTo(marker.getPosition());
+  }, 3000);
+});
 
 var createMarker = ({ map, position }) => {
   return new google.maps.Marker({ map, position });
@@ -435,7 +442,7 @@ function autoUpdate() {
       prev = user_position;
       marker.setPosition({ lat, lng });
       maps.panTo(new google.maps.LatLng(lat, lng));
-      maps.setZoom(16);
+      //maps.setZoom(16);
       if ( user_position == -1) {
 	 pop = document.querySelector('.popinfo');
          pop.innerHTML = "";
