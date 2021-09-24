@@ -287,13 +287,7 @@ var createMap = ({ lat, lng }) => {
     zoom: 16
   });
 };
-map.addListener("center_changed", () => {
-  // 3 seconds after the center of the map has changed, pan back to the
-  // marker.
-  window.setTimeout(() => {
-    map.panTo(marker.getPosition());
-  }, 3000);
-});
+
 
 var createMarker = ({ map, position }) => {
   return new google.maps.Marker({ map, position });
@@ -510,6 +504,13 @@ function initMap() {
 //    origin: new google.maps.Point(0,0), // origin
     anchor: new google.maps.Point(0, 0) // anchor
   };
+  map.addListener("center_changed", () => {
+    // 3 seconds after the center of the map has changed, pan back to the
+    // marker.
+    window.setTimeout(() => {
+      map.panTo(marker.getPosition());
+    }, 3000);
+  });
   marker = new google.maps.Marker({
         clickable : false,
         icon: {
