@@ -354,9 +354,9 @@ function validateLocation(poss) {
   var ac = poss.coords.accuracy;
   // for testing
   console.log(ac);
-  return true;
+  //return true;
   //alert(ac);
-  console.log(ac);
+  //console.log(ac);
   if (!is_init_pos) {
      //alert(ac);
      if (ac < 50) {
