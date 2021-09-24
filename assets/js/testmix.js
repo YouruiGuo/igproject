@@ -308,13 +308,13 @@ async function playTracks(pos, buffers, loop) {
     source.loop = loop;
     mute[key] = 0; // un-muted
     //console.log("here");
+
     source.connect(gains[key]).connect(panners[key]).connect(audio.destination);
 
     // start the source playing
     source.start(0);
-
-    playAndPause();
   }
+  playAndPause();
   //playAndPause();
   setPanner(pos);
  // console.log(panners);
