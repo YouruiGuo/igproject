@@ -120,7 +120,7 @@ async function introPage(pos, numvalley, prev) {
     introaudio.onended = function() {
       introaudio.setAttribute('src', trackp[1]);
       introaudio.play();
-    } 
+    }
     /*
     for (var b = 0; b < trackp.length; b++) {
       introaudio = document.createElement('audio');
@@ -145,6 +145,7 @@ async function introPage(pos, numvalley, prev) {
      document.querySelector('.intro').style.display = 'none';
      //for(var x=0; x<trackp.length; x++){
        p = document.getElementById("introaudio");
+       p.play();
        p.pause();
      //}
      clearTimeout(timeout);
