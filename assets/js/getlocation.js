@@ -531,7 +531,7 @@ function initMap() {
     // Chrome 50+ specific
   window.addEventListener('deviceorientationabsolute', handleOrientation, true);
   autoUpdate();
-  birdSongs();
+  birdSongs(1);
   // Use the new trackLocation function.
   // draw polygons.
   var v = drawPolygons()

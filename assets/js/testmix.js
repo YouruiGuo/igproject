@@ -36,7 +36,7 @@ function fact(x) {
    }
    return x * fact(x-1);
 }
-async function birdSongs() {
+async function birdSongs(init_po) {
   var e = 0.13;
   var k = Math.floor(Math.random() * 30) + 1
   var r = poisson(k,5);
@@ -45,7 +45,7 @@ async function birdSongs() {
   console.log(r);
   if (e < r) {
     console.log("play bird song");
-    var t0 = birdsTrack(user_position);
+    var t0 = birdsTrack(init_po);
     var t1 = [];
     await t0.then(function(value) {t1 = value;});
     t2 = t1[0]['filePath'];
@@ -320,7 +320,7 @@ async function playTracks(pos, buffers, loop) {
 }
 
 async function playAndPause() {
-  console.log(audio.state)
+  alert(audio.state)
   if (audio.state === "running") {
       if ($$('#play-btn').hasClass('pause')) {
         $$('#play-btn').removeClass('pause');
