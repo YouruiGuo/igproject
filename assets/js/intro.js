@@ -184,6 +184,9 @@ async function introPage(pos, numvalley, prev) {
     if (introOn) {
      // setTimeout(function() {$$(".intro").hide();},0);
       document.querySelector('.intro').style.display = 'none';
+      p = document.getElementById("introaudio");
+      p.play();
+      p.pause();
       var allAudios = document.querySelectorAll(".audios");
       for (var i = 0; i<allAudios.length; i++){
         allAudios[i].pause();
