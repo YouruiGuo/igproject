@@ -152,7 +152,7 @@ async function welcomeValley (user_position) {
     insert = '<div class="row no-gap"><div class="col-50"><a href="#" class="item-content item-link">'+
              '     <div class="item-inner"><div class="item-title">' + info[i].TrackName  + '</div></div></a> ' +
              '    </div>'+ muteinsert_0 + '</div>' +
-             '  <div class="accordion-item" id="'+i.toString()+'"> </div>';
+             '  <div class="accordion-item-content" id="'+i.toString()+'"> </div>';
     newitem.innerHTML = insert;
     pop.appendChild(newitem);
     num = i;
