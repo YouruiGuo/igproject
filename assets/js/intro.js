@@ -1,3 +1,4 @@
+var app = new Framework7();
 var visited = [];
 var introOn = false;
 var ambientTrack, introTrack;

@@ -308,26 +308,25 @@ async function playTracks(pos, buffers, loop) {
     source.loop = loop;
     mute[key] = 0; // un-muted
     //console.log("here");
-    playAndPause();
     source.connect(gains[key]).connect(panners[key]).connect(audio.destination);
 
     // start the source playing
     source.start(0);
+    playAndPause();
   }
-  //playAndPause();
+  playAndPause();
   setPanner(pos);
  // console.log(panners);
 }
 
 async function playAndPause() {
-  alert(audio.state)
-  if (audio.state === "running") {
+  if (audio.state === "suspended" ||audio.state === "running") {
       if ($$('#play-btn').hasClass('pause')) {
         $$('#play-btn').removeClass('pause');
         $$('#play-btn').attr('style', 'background-image:url("/images/icons8-pause-32.png")');
       }
     }
-    else if (audio.state === "suspended" || audio.state === "closed" || audio.state === "interrupted") {
+    else if (audio.state === "closed" || audio.state === "interrupted") {
       if (!$$('#play-btn').hasClass('pause')) {
          $$('#play-btn').addClass('pause');
                $$('#play-btn').attr('style', 'background-image: url("/images/icons8-play-32.png")');

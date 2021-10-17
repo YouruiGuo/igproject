@@ -60,3 +60,16 @@ function updateTextInput(val,id) {
    console.log(val);
    document.getElementById(id+'-value').textContent=id+': '+val; 
 }
+
+$$('.accordion-item').on('accordion:open', function () {
+ // alert('Accordion item opened');
+});
+
+$$('.accordion-item').on('accordion:close', function (e) {
+ // alert('Accordion item closed');
+});
+
+app.on('accordionOpened', function (el) {
+  console.log('The following element opened:');
+  console.log(el);
+});

@@ -129,5 +129,6 @@ lib-cov
 *.log
 *.out
 *.pid
-
+./assets/images/
+./assets/audio/
 ./config/datastores.js
