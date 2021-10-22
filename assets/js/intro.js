@@ -67,6 +67,7 @@ async function introPage(pos, numvalley, prev) {
   var paths = [];
   var trackp = [];
   //console.log(numvalley);
+  loadDescription(numvalley%7);
   ps = welcomeValley(numvalley);
   await ps.then(function(value) {paths = value;});
   if (!visited[numvalley]) {

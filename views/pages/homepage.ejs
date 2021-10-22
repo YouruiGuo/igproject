@@ -85,11 +85,15 @@ For more information, see:
 <a hred="#"><i class="f7-icons">bars</i><i class="f7-icons">bars</i></a>
   <div class="fab-buttons fab-buttons-top">
      <a href="#" class="fab-label-button">
-     <div class="popup-open" data-popup=".popup-about">
-      <span><i class="f7-icons">info_round</i></span>
-     </div>
-
+       <div class="popup-open" data-popup=".popup-description">
+         <span><i class="f7-icons">info_round</i></span>
+       </div>
     </a>
+    <a href="#" class="fab-label-button">
+      <div class="popup-open" data-popup=".popup-about">
+        <span><i class="f7-icons">music_note_list</i></span>
+      </div>
+   </a>
 </div>
   </div>
 </div>
@@ -142,7 +146,17 @@ For more information, see:
 		<div class="list accordion-list accordion-opposite"><ul class="popinfo"></ul></div>
 	</div>
 </div>
+<div class="popup popup-description">
+	<div class="block">
+		<button type="submit" class="popup-close" style="background-color:transparent; border-color:transparent;">
+		  <span><img src="/images/icons8-delete-24.png"></span>
+		</button>
+	  	<div class="block-title">Valley Description</div>
+		<div class="list"><ul class="popdesc"></ul></div>
+	</div>
+</div>
 <script src="js/intro.js"></script>
+<script src="js/loadValleyDesc.js"></script>
 <script src="js/newtovalley.js"></script>
 
 <script src="js/getlocation.js"></script>
